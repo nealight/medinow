@@ -32,11 +32,18 @@ class MedicationListViewController: UIViewController, UITableViewDelegate, UITab
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigation()
         setupTableView()
         // Do any additional setup after loading the view.
     }
+    
+    func setupNavigation() {
+        self.navigationController?.navigationBar.topItem?.title = "Medications"
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+    }
 
     func setupTableView() {
+        tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
         view.addSubview(tableView)

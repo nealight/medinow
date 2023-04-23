@@ -37,15 +37,14 @@ class MedicationListCell: UITableViewCell {
         
         
         NSLayoutConstraint.activate([
-            cellView.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
+            cellView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
             cellView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
             cellView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10),
-            cellView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            cellView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10)
         ])
         
         NSLayoutConstraint.activate([
-            medicationLabel.heightAnchor.constraint(equalToConstant: 200),
-            medicationLabel.widthAnchor.constraint(equalToConstant: 200),
+            medicationLabel.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: 20),
             medicationLabel.centerYAnchor.constraint(equalTo: cellView.centerYAnchor),
             medicationLabel.centerXAnchor.constraint(equalTo: cellView.centerXAnchor)
         ])
