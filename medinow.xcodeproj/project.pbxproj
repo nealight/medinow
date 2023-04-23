@@ -7,24 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C1C802029F5895400E57D66 /* MedicationListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1C801F29F5895400E57D66 /* MedicationListCell.swift */; };
 		1C245E8A29F33A9900AEF9CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C245E8929F33A9900AEF9CE /* AppDelegate.swift */; };
 		1C245E8C29F33A9900AEF9CE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C245E8B29F33A9900AEF9CE /* SceneDelegate.swift */; };
-		1C245E8E29F33A9900AEF9CE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C245E8D29F33A9900AEF9CE /* ViewController.swift */; };
-		1C245E9129F33A9900AEF9CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C245E8F29F33A9900AEF9CE /* Main.storyboard */; };
+		1C245E8E29F33A9900AEF9CE /* MedicationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C245E8D29F33A9900AEF9CE /* MedicationListViewController.swift */; };
 		1C245E9429F33A9900AEF9CE /* medinow.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1C245E9229F33A9900AEF9CE /* medinow.xcdatamodeld */; };
 		1C245E9629F33A9A00AEF9CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C245E9529F33A9A00AEF9CE /* Assets.xcassets */; };
-		1C245E9929F33A9A00AEF9CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C245E9729F33A9A00AEF9CE /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C1C801F29F5895400E57D66 /* MedicationListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationListCell.swift; sourceTree = "<group>"; };
 		1C245E8629F33A9900AEF9CE /* medinow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = medinow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C245E8929F33A9900AEF9CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1C245E8B29F33A9900AEF9CE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1C245E8D29F33A9900AEF9CE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		1C245E9029F33A9900AEF9CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1C245E8D29F33A9900AEF9CE /* MedicationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationListViewController.swift; sourceTree = "<group>"; };
 		1C245E9329F33A9900AEF9CE /* medinow.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = medinow.xcdatamodel; sourceTree = "<group>"; };
 		1C245E9529F33A9A00AEF9CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		1C245E9829F33A9A00AEF9CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1C245E9A29F33A9A00AEF9CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -60,10 +58,9 @@
 			children = (
 				1C245E8929F33A9900AEF9CE /* AppDelegate.swift */,
 				1C245E8B29F33A9900AEF9CE /* SceneDelegate.swift */,
-				1C245E8D29F33A9900AEF9CE /* ViewController.swift */,
-				1C245E8F29F33A9900AEF9CE /* Main.storyboard */,
+				1C1C801F29F5895400E57D66 /* MedicationListCell.swift */,
+				1C245E8D29F33A9900AEF9CE /* MedicationListViewController.swift */,
 				1C245E9529F33A9A00AEF9CE /* Assets.xcassets */,
-				1C245E9729F33A9A00AEF9CE /* LaunchScreen.storyboard */,
 				1C245E9A29F33A9A00AEF9CE /* Info.plist */,
 				1C245E9229F33A9900AEF9CE /* medinow.xcdatamodeld */,
 			);
@@ -128,9 +125,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C245E9929F33A9A00AEF9CE /* LaunchScreen.storyboard in Resources */,
 				1C245E9629F33A9A00AEF9CE /* Assets.xcassets in Resources */,
-				1C245E9129F33A9900AEF9CE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,33 +136,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C245E8E29F33A9900AEF9CE /* ViewController.swift in Sources */,
+				1C245E8E29F33A9900AEF9CE /* MedicationListViewController.swift in Sources */,
 				1C245E8A29F33A9900AEF9CE /* AppDelegate.swift in Sources */,
 				1C245E8C29F33A9900AEF9CE /* SceneDelegate.swift in Sources */,
 				1C245E9429F33A9900AEF9CE /* medinow.xcdatamodeld in Sources */,
+				1C1C802029F5895400E57D66 /* MedicationListCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		1C245E8F29F33A9900AEF9CE /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1C245E9029F33A9900AEF9CE /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		1C245E9729F33A9A00AEF9CE /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1C245E9829F33A9A00AEF9CE /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		1C245E9B29F33A9A00AEF9CE /* Debug */ = {
@@ -289,16 +266,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DDF2RRVJ39;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = medinow/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -306,9 +282,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dashu.medinow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -317,16 +296,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DDF2RRVJ39;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = medinow/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -334,9 +312,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dashu.medinow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
