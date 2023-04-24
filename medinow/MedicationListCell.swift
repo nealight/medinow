@@ -11,7 +11,7 @@ import UIKit
 class MedicationListCell: UITableViewCell {
     let cellView: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemRed
+        view.backgroundColor = .systemOrange
         view.layer.cornerRadius = 10
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -21,7 +21,7 @@ class MedicationListCell: UITableViewCell {
         let label = UILabel()
                 label.text = "Tylenol"
                 label.textColor = UIColor.white
-                label.font = UIFont.boldSystemFont(ofSize: 16)
+                label.font = UIFont.boldSystemFont(ofSize: 20)
                 label.translatesAutoresizingMaskIntoConstraints = false
                 return label
     }()

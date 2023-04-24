@@ -37,9 +37,18 @@ class MedicationListViewController: UIViewController, UITableViewDelegate, UITab
         // Do any additional setup after loading the view.
     }
     
+    @objc func addTapped() {
+        let navVC = UINavigationController(rootViewController: MedicineEditViewController())
+        present(navVC, animated: true)
+    }
+    
     func setupNavigation() {
         self.navigationController?.navigationBar.topItem?.title = "Medications"
         self.navigationController?.navigationBar.prefersLargeTitles = true
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+        addButton.tintColor = .systemBlue
+        self.navigationItem.rightBarButtonItem =
+        addButton
     }
 
     func setupTableView() {
@@ -49,7 +58,6 @@ class MedicationListViewController: UIViewController, UITableViewDelegate, UITab
         view.addSubview(tableView)
         
         tableView.register(MedicationListCell.self, forCellReuseIdentifier: "cellId")
-        view.addSubview(tableView)
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: self.view.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1C1C802029F5895400E57D66 /* MedicationListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1C801F29F5895400E57D66 /* MedicationListCell.swift */; };
+		1C1C802229F5D0BD00E57D66 /* MedicineEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1C802129F5D0BD00E57D66 /* MedicineEditViewController.swift */; };
 		1C245E8A29F33A9900AEF9CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C245E8929F33A9900AEF9CE /* AppDelegate.swift */; };
 		1C245E8C29F33A9900AEF9CE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C245E8B29F33A9900AEF9CE /* SceneDelegate.swift */; };
 		1C245E8E29F33A9900AEF9CE /* MedicationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C245E8D29F33A9900AEF9CE /* MedicationListViewController.swift */; };
@@ -17,6 +18,7 @@
 
 /* Begin PBXFileReference section */
 		1C1C801F29F5895400E57D66 /* MedicationListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationListCell.swift; sourceTree = "<group>"; };
+		1C1C802129F5D0BD00E57D66 /* MedicineEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicineEditViewController.swift; sourceTree = "<group>"; };
 		1C245E8629F33A9900AEF9CE /* medinow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = medinow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C245E8929F33A9900AEF9CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1C245E8B29F33A9900AEF9CE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -58,6 +60,7 @@
 			children = (
 				1C245E8929F33A9900AEF9CE /* AppDelegate.swift */,
 				1C245E8B29F33A9900AEF9CE /* SceneDelegate.swift */,
+				1C1C802129F5D0BD00E57D66 /* MedicineEditViewController.swift */,
 				1C1C801F29F5895400E57D66 /* MedicationListCell.swift */,
 				1C245E8D29F33A9900AEF9CE /* MedicationListViewController.swift */,
 				1C245E9529F33A9A00AEF9CE /* Assets.xcassets */,
@@ -138,6 +141,7 @@
 			files = (
 				1C245E8E29F33A9900AEF9CE /* MedicationListViewController.swift in Sources */,
 				1C245E8A29F33A9900AEF9CE /* AppDelegate.swift in Sources */,
+				1C1C802229F5D0BD00E57D66 /* MedicineEditViewController.swift in Sources */,
 				1C245E8C29F33A9900AEF9CE /* SceneDelegate.swift in Sources */,
 				1C245E9429F33A9900AEF9CE /* medinow.xcdatamodeld in Sources */,
 				1C1C802029F5895400E57D66 /* MedicationListCell.swift in Sources */,
