@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 class LoadingViewController: UIViewController {
     override func viewDidLoad() {
@@ -58,10 +59,30 @@ class MedicineEditViewController: UIViewController, UITextFieldDelegate {
     func setupNavigation() {
         self.navigationController?.navigationBar.topItem?.title = "Medication Detail"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveChanges))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissMyself))
         self.navigationItem.rightBarButtonItem?.tintColor = .systemBlue
+        self.navigationItem.leftBarButtonItem?.tintColor = .systemBlue
+    }
+    
+    @objc func dismissMyself() {
+        dismiss(animated: true)
     }
     
     @objc func saveChanges() {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: "DrugPerscription", in: context)
+        let newDrug = NSManagedObject(entity: entity!, insertInto: context)
+        
+        newDrug.setValue(nameTF.text, forKey: "name")
+        newDrug.setValue(frequencyPickerOptions[frequencyPicker.selectedRow(inComponent: 0)], forKey: "dailyDosage")
+        do {
+            try context.save()
+        } catch {
+            print("Error saving")
+        }
+        
+        
         dismiss(animated: true)
     }
     
@@ -77,7 +98,7 @@ class MedicineEditViewController: UIViewController, UITextFieldDelegate {
         nameTF.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(nameTF)
         NSLayoutConstraint.activate([
-            nameTF.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            nameTF.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             nameTF.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             nameTF.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20)
         ])

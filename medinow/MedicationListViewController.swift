@@ -6,22 +6,9 @@
 //
 
 import UIKit
+import CoreData
 
-class MedicationListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! MedicationListCell
-//        cell.backgroundColor = .systemCyan
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
-    }
-    
+class MedicationListViewController: UIViewController, UITableViewDelegate {
     let tableView: UITableView = {
         let tv = UITableView()
         tv.backgroundColor = .systemBackground
@@ -29,7 +16,8 @@ class MedicationListViewController: UIViewController, UITableViewDelegate, UITab
         return tv
     }()
     
-
+    var drugs: Array<DrugPerscriptionModel> = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigation()
@@ -37,8 +25,13 @@ class MedicationListViewController: UIViewController, UITableViewDelegate, UITab
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        loadTableData()
+    }
+    
     @objc func addTapped() {
         let navVC = UINavigationController(rootViewController: MedicineEditViewController())
+        navVC.modalPresentationStyle = .fullScreen
         present(navVC, animated: true)
     }
     
@@ -65,6 +58,42 @@ class MedicationListViewController: UIViewController, UITableViewDelegate, UITab
             tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor)
         ])
         
+    }
+}
+
+extension MedicationListViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return drugs.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! MedicationListCell
+        cell.medicationLabel.text = drugs[indexPath.row].name
+//        cell.backgroundColor = .systemCyan
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    
+    func loadTableData() {
+        drugs = []
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "DrugPerscription")
+        request.returnsObjectsAsFaults = false
+        do {
+            let result = try context.fetch(request)
+            for data in result as! [NSManagedObject] {
+                drugs.append(DrugPerscriptionModel(name: data.value(forKey: "name") as! String, dailyDosage: data.value(forKey: "dailyDosage") as! Int64))
+            }
+        } catch {
+            fatalError("CoreData fatch error")
+        }
+        
+        tableView.reloadData()
     }
 }
 
