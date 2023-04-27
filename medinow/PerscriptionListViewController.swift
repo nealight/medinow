@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-class MedicationListViewController: UIViewController, UITableViewDelegate {
+class PerscriptionListViewController: UIViewController, UITableViewDelegate {
     let tableView: UITableView = {
         let tv = UITableView()
         tv.backgroundColor = .systemBackground
@@ -30,27 +30,28 @@ class MedicationListViewController: UIViewController, UITableViewDelegate {
     }
     
     @objc func addTapped() {
-        let navVC = UINavigationController(rootViewController: MedicineEditViewController())
+        let navVC = UINavigationController(rootViewController: PerscriptionEditViewController())
         navVC.modalPresentationStyle = .fullScreen
         present(navVC, animated: true)
     }
     
     func setupNavigation() {
-        self.navigationController?.navigationBar.topItem?.title = "Medications"
+        self.navigationController?.navigationBar.topItem?.title = "Perscriptions"
         self.navigationController?.navigationBar.prefersLargeTitles = true
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
-        addButton.tintColor = .systemBlue
+
         self.navigationItem.rightBarButtonItem =
         addButton
     }
 
     func setupTableView() {
         tableView.separatorStyle = .none
+        
         tableView.delegate = self
         tableView.dataSource = self
         view.addSubview(tableView)
         
-        tableView.register(MedicationListCell.self, forCellReuseIdentifier: "cellId")
+        tableView.register(PerscriptionListCell.self, forCellReuseIdentifier: "cellId")
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: self.view.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
@@ -61,15 +62,15 @@ class MedicationListViewController: UIViewController, UITableViewDelegate {
     }
 }
 
-extension MedicationListViewController: UITableViewDataSource {
+extension PerscriptionListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return drugs.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! MedicationListCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! PerscriptionListCell
         cell.medicationLabel.text = drugs[indexPath.row].name
-//        cell.backgroundColor = .systemCyan
+        
         return cell
     }
     

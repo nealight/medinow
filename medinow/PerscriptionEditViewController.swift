@@ -12,12 +12,12 @@ import CoreData
 class LoadingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         let spinner = UIActivityIndicatorView(style: .medium)
         spinner.translatesAutoresizingMaskIntoConstraints = false
         spinner.startAnimating()
         view.addSubview(spinner)
-
+        
         // Center our spinner both horizontally & vertically
         NSLayoutConstraint.activate([
             spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -26,8 +26,8 @@ class LoadingViewController: UIViewController {
     }
 }
 
-class MedicineEditViewController: UIViewController, UITextFieldDelegate {
-    
+class PerscriptionEditViewController: UIViewController, UITextFieldDelegate {
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     let nameTF = UITextField()
     let frequencyTextLabel = UILabel()
     let frequencyTextField = UITextField()
@@ -43,7 +43,7 @@ class MedicineEditViewController: UIViewController, UITextFieldDelegate {
         setupNameTF()
         setupFrequencyLabel()
         setupFrequencyPicker()
-        setupAnotherView()
+        //        setupAnotherView()
     }
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
         if (textField == nameTF) {
@@ -57,11 +57,9 @@ class MedicineEditViewController: UIViewController, UITextFieldDelegate {
     }
     
     func setupNavigation() {
-        self.navigationController?.navigationBar.topItem?.title = "Medication Detail"
+        self.navigationController?.navigationBar.topItem?.title = "Perscription Detail"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveChanges))
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissMyself))
-        self.navigationItem.rightBarButtonItem?.tintColor = .systemBlue
-        self.navigationItem.leftBarButtonItem?.tintColor = .systemBlue
     }
     
     @objc func dismissMyself() {
@@ -69,7 +67,6 @@ class MedicineEditViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func saveChanges() {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "DrugPerscription", in: context)
         let newDrug = NSManagedObject(entity: entity!, insertInto: context)
@@ -81,8 +78,6 @@ class MedicineEditViewController: UIViewController, UITextFieldDelegate {
         } catch {
             print("Error saving")
         }
-        
-        
         dismiss(animated: true)
     }
     
@@ -90,15 +85,16 @@ class MedicineEditViewController: UIViewController, UITextFieldDelegate {
         nameTF.delegate = self
         nameTF.returnKeyType = .done
         
-        
-        nameTF.placeholder = "Medication Name"
-        nameTF.minimumFontSize = 16
+        nameTF.placeholder = "Drug Name"
+        nameTF.minimumFontSize = 20
         nameTF.borderStyle = .roundedRect
-        nameTF.tintColor = .systemBlue
+        nameTF.backgroundColor = .systemGray6
+
         nameTF.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(nameTF)
         NSLayoutConstraint.activate([
             nameTF.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            nameTF.heightAnchor.constraint(equalToConstant: 40),
             nameTF.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             nameTF.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20)
         ])
@@ -106,11 +102,13 @@ class MedicineEditViewController: UIViewController, UITextFieldDelegate {
     
     func setupFrequencyLabel() {
         frequencyTextLabel.text = "Pills per day"
+        frequencyTextLabel.font.withSize(20)
         frequencyTextLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(frequencyTextLabel)
         NSLayoutConstraint.activate([
             frequencyTextLabel.topAnchor.constraint(equalTo: nameTF.bottomAnchor, constant: 20),
             frequencyTextLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
+            frequencyTextLabel.heightAnchor.constraint(equalToConstant: 40),
             frequencyTextLabel.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.5)
         ])
     }
@@ -120,6 +118,7 @@ class MedicineEditViewController: UIViewController, UITextFieldDelegate {
         
         frequencyTextField.borderStyle = .roundedRect
         frequencyTextField.tintColor = .systemBackground
+        frequencyTextField.backgroundColor = .systemGray6
         frequencyTextField.textAlignment = .center
         
         frequencyPicker.translatesAutoresizingMaskIntoConstraints = false
@@ -143,7 +142,7 @@ class MedicineEditViewController: UIViewController, UITextFieldDelegate {
     }
     
     func addKeyboardToolBar() {
-
+        
         var nextButton: UIBarButtonItem
         let keyboardToolBar = UIToolbar(frame: CGRect(x: CGFloat(0), y:
                                                         CGFloat(0), width: CGFloat(frequencyPicker.frame.size.width), height: CGFloat(25)))
@@ -151,9 +150,9 @@ class MedicineEditViewController: UIViewController, UITextFieldDelegate {
         keyboardToolBar.barStyle = .default
         frequencyTextField.inputAccessoryView = keyboardToolBar
         nextButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.frequencyPickerViewSelected))
-        nextButton.tintColor = .systemBlue
-        keyboardToolBar.items = [UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), nextButton]
 
+        keyboardToolBar.items = [UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), nextButton]
+        
     }
     
     @objc func frequencyPickerViewSelected() {
@@ -178,9 +177,7 @@ class MedicineEditViewController: UIViewController, UITextFieldDelegate {
     
 }
 
-extension MedicineEditViewController: UIPickerViewDelegate, UIPickerViewDataSource {
-    
-    
+extension PerscriptionEditViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -188,6 +185,7 @@ extension MedicineEditViewController: UIPickerViewDelegate, UIPickerViewDataSour
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return frequencyPickerOptions.count
     }
+    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return "\(frequencyPickerOptions[row])"
     }

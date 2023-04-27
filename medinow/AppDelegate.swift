@@ -19,9 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow()
         window?.makeKeyAndVisible()
         
-        let mainVC = MedicationListViewController();
-        let navigationVC = UINavigationController(rootViewController: mainVC)
-        window?.rootViewController = navigationVC
+        
+        window?.rootViewController = MainTabBarController()
         return true
     }
 

@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
-class MedicationListCell: UITableViewCell {
-    let cellView: UIView = {
+class PerscriptionListCell: UITableViewCell {
+    var cellView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemOrange
         view.layer.cornerRadius = 10
@@ -19,7 +19,6 @@ class MedicationListCell: UITableViewCell {
     
     let medicationLabel: UILabel = {
         let label = UILabel()
-                label.text = "Tylenol"
                 label.textColor = UIColor.white
                 label.font = UIFont.boldSystemFont(ofSize: 20)
                 label.translatesAutoresizingMaskIntoConstraints = false
@@ -32,10 +31,20 @@ class MedicationListCell: UITableViewCell {
         setupView()
     }
     
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        if selected {
+            cellView.backgroundColor = .systemOrange.withAlphaComponent(0.5)
+        } else {
+            cellView.backgroundColor = .systemOrange.withAlphaComponent(1)
+        }
+    }
+    
+    
     func setupView() {
+        self.selectionStyle = .none
+        
         addSubview(cellView)
         cellView.addSubview(medicationLabel)
-        
         
         NSLayoutConstraint.activate([
             cellView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
