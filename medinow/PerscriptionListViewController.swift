@@ -35,13 +35,27 @@ class PerscriptionListViewController: UIViewController, UITableViewDelegate {
         present(navVC, animated: true)
     }
     
+    @objc func editTapped() {
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneTapped))
+        self.navigationItem.leftBarButtonItem = doneButton
+        self.tableView.isEditing = true
+    }
+    
+    @objc func doneTapped() {
+        let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editTapped))
+        self.navigationItem.leftBarButtonItem = editButton
+        self.tableView.isEditing = false
+    }
+    
     func setupNavigation() {
         self.navigationController?.navigationBar.topItem?.title = "Perscriptions"
         self.navigationController?.navigationBar.prefersLargeTitles = true
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+        let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editTapped))
 
         self.navigationItem.rightBarButtonItem =
         addButton
+        self.navigationItem.leftBarButtonItem = editButton
     }
 
     func setupTableView() {
@@ -50,6 +64,7 @@ class PerscriptionListViewController: UIViewController, UITableViewDelegate {
         tableView.delegate = self
         tableView.dataSource = self
         view.addSubview(tableView)
+        
         
         tableView.register(PerscriptionListCell.self, forCellReuseIdentifier: "cellId")
         NSLayoutConstraint.activate([
@@ -60,6 +75,7 @@ class PerscriptionListViewController: UIViewController, UITableViewDelegate {
         ])
         
     }
+    
 }
 
 extension PerscriptionListViewController: UITableViewDataSource {
@@ -96,5 +112,21 @@ extension PerscriptionListViewController: UITableViewDataSource {
         
         tableView.reloadData()
     }
+    
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let action: UIContextualAction = .init(style: .normal, title: nil, handler: {_,_,completionHandler in
+            print("delete detected!")
+            completionHandler(true)
+        })
+        
+        action.backgroundColor = .systemBackground
+        action.image = UIImage(systemName: "delete.backward.fill")?.withTintColor(.red, renderingMode: .alwaysOriginal)
+        
+        
+        return UISwipeActionsConfiguration(actions: [action, ])
+    }
+    
+    
 }
 

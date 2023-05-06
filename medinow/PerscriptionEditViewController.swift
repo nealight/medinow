@@ -35,6 +35,7 @@ class PerscriptionEditViewController: UIViewController, UITextFieldDelegate {
     let anotherViewController = LoadingViewController()
     let frequencyPickerOptions = [1, 2, 3, 4]
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -57,29 +58,29 @@ class PerscriptionEditViewController: UIViewController, UITextFieldDelegate {
     }
     
     func setupNavigation() {
+
         self.navigationController?.navigationBar.topItem?.title = "Perscription Detail"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveChanges))
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissMyself))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .save, primaryAction: UIAction() { [self] _ in
+            let context = appDelegate.persistentContainer.viewContext
+            let entity = NSEntityDescription.entity(forEntityName: "DrugPerscription", in: context)
+            let newDrug = NSManagedObject(entity: entity!, insertInto: context)
+            
+            newDrug.setValue(nameTF.text, forKey: "name")
+            newDrug.setValue(frequencyPickerOptions[frequencyPicker.selectedRow(inComponent: 0)], forKey: "dailyDosage")
+            do {
+                try context.save()
+            } catch {
+                print("Error saving")
+            }
+            dismiss(animated: true)
+        })
+                                                                 
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .cancel, primaryAction: UIAction() {
+            [self] _ in
+            dismiss(animated: true);
+        })
     }
     
-    @objc func dismissMyself() {
-        dismiss(animated: true)
-    }
-    
-    @objc func saveChanges() {
-        let context = appDelegate.persistentContainer.viewContext
-        let entity = NSEntityDescription.entity(forEntityName: "DrugPerscription", in: context)
-        let newDrug = NSManagedObject(entity: entity!, insertInto: context)
-        
-        newDrug.setValue(nameTF.text, forKey: "name")
-        newDrug.setValue(frequencyPickerOptions[frequencyPicker.selectedRow(inComponent: 0)], forKey: "dailyDosage")
-        do {
-            try context.save()
-        } catch {
-            print("Error saving")
-        }
-        dismiss(animated: true)
-    }
     
     func setupNameTF() {
         nameTF.delegate = self

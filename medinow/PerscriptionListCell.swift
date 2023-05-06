@@ -25,6 +25,8 @@ class PerscriptionListCell: UITableViewCell {
                 return label
     }()
     
+    lazy var cellViewLeftMargin: NSLayoutConstraint = cellView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10)
+    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -39,9 +41,28 @@ class PerscriptionListCell: UITableViewCell {
         }
     }
     
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        if editing {
+            UIView.animate(withDuration: 0.2, animations: {
+                self.cellViewLeftMargin.constant = 50;
+                self.layoutIfNeeded();
+            })
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {super.setEditing(editing, animated: animated)})
+        } else {
+            UIView.animate(withDuration: 0.2, animations: {
+                self.cellViewLeftMargin.constant = 10;
+                self.layoutIfNeeded();
+            })
+            super.setEditing(editing, animated: animated)
+        }
+        
+        
+    }
+    
     
     func setupView() {
         self.selectionStyle = .none
+        
         
         addSubview(cellView)
         cellView.addSubview(medicationLabel)
@@ -49,7 +70,7 @@ class PerscriptionListCell: UITableViewCell {
         NSLayoutConstraint.activate([
             cellView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
             cellView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
-            cellView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10),
+            cellViewLeftMargin,
             cellView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10)
         ])
         
@@ -64,4 +85,5 @@ class PerscriptionListCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
 }
