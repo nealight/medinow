@@ -44,7 +44,7 @@ class PerscriptionListCell: UITableViewCell {
     override func setEditing(_ editing: Bool, animated: Bool) {
         if editing {
             UIView.animate(withDuration: 0.2, animations: {
-                self.cellViewLeftMargin.constant = 50;
+                self.cellViewLeftMargin.constant = 60;
                 self.layoutIfNeeded();
             })
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {super.setEditing(editing, animated: animated)})

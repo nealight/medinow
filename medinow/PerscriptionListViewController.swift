@@ -18,6 +18,8 @@ class PerscriptionListViewController: UIViewController, UITableViewDelegate {
     
     var drugs: Array<DrugPerscriptionModel> = []
     
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigation()
@@ -96,9 +98,8 @@ extension PerscriptionListViewController: UITableViewDataSource {
     
     func loadTableData() {
         drugs = []
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
         
+        let context = appDelegate.persistentContainer.viewContext
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "DrugPerscription")
         request.returnsObjectsAsFaults = false
         do {
@@ -115,9 +116,25 @@ extension PerscriptionListViewController: UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let action: UIContextualAction = .init(style: .normal, title: nil, handler: {_,_,completionHandler in
+        let action: UIContextualAction = .init(style: .normal, title: nil, handler: {[self] _,_,completionHandler in
             print("delete detected!")
+            let context = self.appDelegate.persistentContainer.viewContext
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "DrugPerscription")
+            request.predicate = NSPredicate(format:"name=%@", drugs[indexPath.row].name)
+            do {
+                let result = try context.fetch(request)
+                for data in result {
+                    let object = data as! NSManagedObject
+                    context.delete(object)
+                }
+                try context.save()
+            } catch {
+                fatalError("CoreData fatch error")
+            }
             completionHandler(true)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.loadTableData()
+            }
         })
         
         action.backgroundColor = .systemBackground

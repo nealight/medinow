@@ -4,9 +4,10 @@
 //
 //  Created by Yi Xu on 4/25/23.
 //
-
+import CoreData
 import Foundation
-struct DrugPerscriptionModel {
+
+struct DrugPerscriptionModel: Codable {
     let name: String;
     let dailyDosage: Int64;
 }
