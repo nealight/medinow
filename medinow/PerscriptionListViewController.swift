@@ -10,6 +10,7 @@ import CoreData
 
 class PerscriptionListViewController: UIViewController, UITableViewDelegate {
     var fetch_offset = 0
+    let Rows_Each_Load = 20
     
     let tableView: UITableView = {
         let tv = UITableView()
@@ -52,7 +53,6 @@ class PerscriptionListViewController: UIViewController, UITableViewDelegate {
     }
     
     func setupNavigation() {
-        self.navigationController?.navigationBar.topItem?.title = "Perscriptions"
         self.navigationController?.navigationBar.prefersLargeTitles = true
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editTapped))
@@ -88,6 +88,9 @@ extension PerscriptionListViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! PerscriptionListCell
         cell.medicationLabel.text = drugs[indexPath.row].name
         
+        let dailyDosage = drugs[indexPath.row].dailyDosage
+        cell.dosageLabel.text = "\(dailyDosage) pill\(dailyDosage == 1 ? "" : "s") per day"
+        
         if (indexPath.row == drugs.count - 1) {
             loadTableData()
         }
@@ -104,7 +107,7 @@ extension PerscriptionListViewController: UITableViewDataSource {
         let context = appDelegate.persistentContainer.newBackgroundContext()
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "DrugPerscription")
         request.returnsObjectsAsFaults = false
-        fetch_offset += 10
+        fetch_offset += Rows_Each_Load
         request.fetchLimit = fetch_offset;
         context.perform {
             let result = try! context.fetch(request)

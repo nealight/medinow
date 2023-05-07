@@ -20,7 +20,14 @@ class PerscriptionListCell: UITableViewCell {
     let medicationLabel: UILabel = {
         let label = UILabel()
                 label.textColor = UIColor.white
-                label.font = UIFont.boldSystemFont(ofSize: 20)
+                label.font = UIFont.boldSystemFont(ofSize: 25)
+                label.translatesAutoresizingMaskIntoConstraints = false
+                return label
+    }()
+    let dosageLabel: UILabel = {
+        let label = UILabel()
+                label.textColor = UIColor.white
+                label.font = UIFont.systemFont(ofSize: 15)
                 label.translatesAutoresizingMaskIntoConstraints = false
                 return label
     }()
@@ -41,9 +48,6 @@ class PerscriptionListCell: UITableViewCell {
     }
     
     override func setEditing(_ editing: Bool, animated: Bool) {
-//        if editingStyle == .delete {
-//            return
-//        }
         if editing {
             UIView.animate(withDuration: 0.2, animations: {
                 self.cellViewLeftMargin.constant = 60;
@@ -64,6 +68,7 @@ class PerscriptionListCell: UITableViewCell {
         
         addSubview(cellView)
         cellView.addSubview(medicationLabel)
+        cellView.addSubview(dosageLabel)
         
         NSLayoutConstraint.activate([
             cellView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
@@ -74,8 +79,14 @@ class PerscriptionListCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             medicationLabel.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: 20),
-            medicationLabel.centerYAnchor.constraint(equalTo: cellView.centerYAnchor),
-            medicationLabel.centerXAnchor.constraint(equalTo: cellView.centerXAnchor)
+            medicationLabel.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: 20),
+            medicationLabel.topAnchor.constraint(equalTo: cellView.topAnchor, constant: 15)
+        ])
+        
+        NSLayoutConstraint.activate([
+            dosageLabel.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: 20),
+            dosageLabel.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: 20),
+            dosageLabel.bottomAnchor.constraint(equalTo: cellView.bottomAnchor, constant: -15)
         ])
         
     }
