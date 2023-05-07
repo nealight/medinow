@@ -9,6 +9,8 @@ import UIKit
 import CoreData
 
 class PerscriptionListViewController: UIViewController, UITableViewDelegate {
+    var fetch_offset = 0
+    
     let tableView: UITableView = {
         let tv = UITableView()
         tv.backgroundColor = .systemBackground
@@ -48,7 +50,7 @@ class PerscriptionListViewController: UIViewController, UITableViewDelegate {
         self.navigationItem.leftBarButtonItem = editButton
         self.tableView.isEditing = false
     }
-     
+    
     func setupNavigation() {
         self.navigationController?.navigationBar.topItem?.title = "Perscriptions"
         self.navigationController?.navigationBar.prefersLargeTitles = true
@@ -57,7 +59,7 @@ class PerscriptionListViewController: UIViewController, UITableViewDelegate {
         self.navigationItem.rightBarButtonItem = addButton
         self.navigationItem.leftBarButtonItem = editButton
     }
-
+    
     func setupTableView() {
         tableView.separatorStyle = .none
         
@@ -86,6 +88,10 @@ extension PerscriptionListViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! PerscriptionListCell
         cell.medicationLabel.text = drugs[indexPath.row].name
         
+        if (indexPath.row == drugs.count - 1) {
+            loadTableData()
+        }
+        
         return cell
     }
     
@@ -94,22 +100,25 @@ extension PerscriptionListViewController: UITableViewDataSource {
     }
     
     func loadTableData() {
-        drugs = []
+        var fetched_drugs: [DrugPerscriptionModel] = []
         let context = appDelegate.persistentContainer.newBackgroundContext()
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "DrugPerscription")
         request.returnsObjectsAsFaults = false
+        fetch_offset += 10
+        request.fetchLimit = fetch_offset;
         context.perform {
             let result = try! context.fetch(request)
             for data in result as! [NSManagedObject] {
-                self.drugs.append(DrugPerscriptionModel(name: data.value(forKey: "name") as! String, dailyDosage: data.value(forKey: "dailyDosage") as! Int64))
+                fetched_drugs.append(DrugPerscriptionModel(name: data.value(forKey: "name") as! String, dailyDosage: data.value(forKey: "dailyDosage") as! Int64))
             }
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+            if self.drugs != fetched_drugs {
+                self.drugs = fetched_drugs
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             }
         }
-        
     }
-    
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let action: UIContextualAction = .init(style: .normal, title: nil, handler: {[self, indexPath] _,_,completionHandler in
@@ -126,21 +135,15 @@ extension PerscriptionListViewController: UITableViewDataSource {
                 
                 self.drugs.remove(at: indexPath.row)
                 DispatchQueue.main.async {
-                    completionHandler(true)
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                     self.tableView.deleteRows(at: [indexPath, ], with: .left)
+                    completionHandler(true)
                 }
             }
         })
-        
         action.backgroundColor = .systemBackground
         action.image = UIImage(systemName: "delete.backward.fill")?.withTintColor(.red, renderingMode: .alwaysOriginal)
-        
-        
         return UISwipeActionsConfiguration(actions: [action, ])
     }
-    
     
 }
 

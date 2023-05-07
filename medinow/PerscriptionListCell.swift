@@ -27,7 +27,6 @@ class PerscriptionListCell: UITableViewCell {
     
     lazy var cellViewLeftMargin: NSLayoutConstraint = cellView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10)
     
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupView()
@@ -42,9 +41,9 @@ class PerscriptionListCell: UITableViewCell {
     }
     
     override func setEditing(_ editing: Bool, animated: Bool) {
-        if editingStyle == .delete {
-            return
-        }
+//        if editingStyle == .delete {
+//            return
+//        }
         if editing {
             UIView.animate(withDuration: 0.2, animations: {
                 self.cellViewLeftMargin.constant = 60;
@@ -58,10 +57,7 @@ class PerscriptionListCell: UITableViewCell {
             })
             super.setEditing(editing, animated: animated)
         }
-        
-        
     }
-    
     
     func setupView() {
         self.selectionStyle = .none
