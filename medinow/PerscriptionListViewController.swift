@@ -48,15 +48,13 @@ class PerscriptionListViewController: UIViewController, UITableViewDelegate {
         self.navigationItem.leftBarButtonItem = editButton
         self.tableView.isEditing = false
     }
-    
+     
     func setupNavigation() {
         self.navigationController?.navigationBar.topItem?.title = "Perscriptions"
         self.navigationController?.navigationBar.prefersLargeTitles = true
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editTapped))
-
-        self.navigationItem.rightBarButtonItem =
-        addButton
+        self.navigationItem.rightBarButtonItem = addButton
         self.navigationItem.leftBarButtonItem = editButton
     }
 
@@ -66,7 +64,6 @@ class PerscriptionListViewController: UIViewController, UITableViewDelegate {
         tableView.delegate = self
         tableView.dataSource = self
         view.addSubview(tableView)
-        
         
         tableView.register(PerscriptionListCell.self, forCellReuseIdentifier: "cellId")
         NSLayoutConstraint.activate([
@@ -98,42 +95,42 @@ extension PerscriptionListViewController: UITableViewDataSource {
     
     func loadTableData() {
         drugs = []
-        
-        let context = appDelegate.persistentContainer.viewContext
+        let context = appDelegate.persistentContainer.newBackgroundContext()
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "DrugPerscription")
         request.returnsObjectsAsFaults = false
-        do {
-            let result = try context.fetch(request)
+        context.perform {
+            let result = try! context.fetch(request)
             for data in result as! [NSManagedObject] {
-                drugs.append(DrugPerscriptionModel(name: data.value(forKey: "name") as! String, dailyDosage: data.value(forKey: "dailyDosage") as! Int64))
+                self.drugs.append(DrugPerscriptionModel(name: data.value(forKey: "name") as! String, dailyDosage: data.value(forKey: "dailyDosage") as! Int64))
             }
-        } catch {
-            fatalError("CoreData fatch error")
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
         
-        tableView.reloadData()
     }
     
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let action: UIContextualAction = .init(style: .normal, title: nil, handler: {[self] _,_,completionHandler in
+        let action: UIContextualAction = .init(style: .normal, title: nil, handler: {[self, indexPath] _,_,completionHandler in
             print("delete detected!")
-            let context = self.appDelegate.persistentContainer.viewContext
+            let context = self.appDelegate.persistentContainer.newBackgroundContext()
             let request = NSFetchRequest<NSFetchRequestResult>(entityName: "DrugPerscription")
             request.predicate = NSPredicate(format:"name=%@", drugs[indexPath.row].name)
-            do {
-                let result = try context.fetch(request)
-                for data in result {
-                    let object = data as! NSManagedObject
-                    context.delete(object)
+            context.perform {
+                let result = try! context.fetch(request)
+                let data = result[0]
+                let object = data as! NSManagedObject
+                context.delete(object)
+                try! context.save()
+                
+                self.drugs.remove(at: indexPath.row)
+                DispatchQueue.main.async {
+                    completionHandler(true)
                 }
-                try context.save()
-            } catch {
-                fatalError("CoreData fatch error")
-            }
-            completionHandler(true)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.loadTableData()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    self.tableView.deleteRows(at: [indexPath, ], with: .left)
+                }
             }
         })
         

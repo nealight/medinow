@@ -42,6 +42,9 @@ class PerscriptionListCell: UITableViewCell {
     }
     
     override func setEditing(_ editing: Bool, animated: Bool) {
+        if editingStyle == .delete {
+            return
+        }
         if editing {
             UIView.animate(withDuration: 0.2, animations: {
                 self.cellViewLeftMargin.constant = 60;
@@ -62,7 +65,6 @@ class PerscriptionListCell: UITableViewCell {
     
     func setupView() {
         self.selectionStyle = .none
-        
         
         addSubview(cellView)
         cellView.addSubview(medicationLabel)

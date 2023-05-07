@@ -58,23 +58,21 @@ class PerscriptionEditViewController: UIViewController, UITextFieldDelegate {
     }
     
     func setupNavigation() {
-
         self.navigationController?.navigationBar.topItem?.title = "Perscription Detail"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .save, primaryAction: UIAction() { [self] _ in
-            let context = appDelegate.persistentContainer.viewContext
+            let context = appDelegate.persistentContainer.newBackgroundContext()
             let entity = NSEntityDescription.entity(forEntityName: "DrugPerscription", in: context)
             let newDrug = NSManagedObject(entity: entity!, insertInto: context)
             
             newDrug.setValue(nameTF.text, forKey: "name")
             newDrug.setValue(frequencyPickerOptions[frequencyPicker.selectedRow(inComponent: 0)], forKey: "dailyDosage")
-            do {
-                try context.save()
-            } catch {
-                print("Error saving")
+            context.perform {
+                try! context.save()
+                DispatchQueue.main.async {
+                    self.dismiss(animated: true)
+                }
             }
-            dismiss(animated: true)
         })
-                                                                 
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .cancel, primaryAction: UIAction() {
             [self] _ in
             dismiss(animated: true);
