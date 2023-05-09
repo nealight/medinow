@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import CoreData
 
-class PerscriptionListDataSource: NSObject, UITableViewDataSource, UITableViewDelegate{
+class PerscriptionListDataSource: NSObject, UITableViewDataSource{
     var fetch_offset = 0
     let Rows_Each_Load = 20
     
