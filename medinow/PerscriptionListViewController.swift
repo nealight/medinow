@@ -67,7 +67,7 @@ class PerscriptionListViewController: UIViewController, UITableViewDelegate {
         tableView.dataSource = self
         view.addSubview(tableView)
         
-        tableView.register(PerscriptionListCell.self, forCellReuseIdentifier: "cellId")
+        tableView.register(PerscriptionListCell.self, forCellReuseIdentifier: "PerscriptionListCell")
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: self.view.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
@@ -85,7 +85,7 @@ extension PerscriptionListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! PerscriptionListCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PerscriptionListCell", for: indexPath) as! PerscriptionListCell
         cell.medicationLabel.text = drugs[indexPath.row].name
         
         let dailyDosage = drugs[indexPath.row].dailyDosage

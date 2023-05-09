@@ -7,7 +7,7 @@
 import CoreData
 import Foundation
 
-struct DrugPerscriptionModel: Codable, Equatable {
+struct DrugPerscriptionModel: Codable, Equatable, Hashable {
     let name: String;
     let dailyDosage: Int64;
 }

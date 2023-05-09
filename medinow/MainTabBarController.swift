@@ -23,7 +23,12 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         let perscriptionTab = UITabBarItem(title: perscriptionVC.title, image: .init(systemName: "list.bullet.clipboard.fill"), tag: 0)
         perscriptionNavVC.tabBarItem = perscriptionTab
         
-        let inventoryVCLayout = UICollectionViewLayout()
+        let inventoryVCLayout = UICollectionViewFlowLayout()
+        inventoryVCLayout.itemSize = CGSize(width: view.frame.size.width / 2 - 15, height: view.frame.size.width / 2 - 15)
+        inventoryVCLayout.sectionInset = .init(top: 10, left: 10, bottom: 10, right: 10)
+        inventoryVCLayout.minimumLineSpacing = 10
+        inventoryVCLayout.minimumInteritemSpacing = 10
+        
         let inventoryVC = InventoryListViewController(collectionViewLayout: inventoryVCLayout)
         inventoryVC.title = "Inventory"
         let inventoryNavVC = UINavigationController(rootViewController: inventoryVC)
@@ -33,7 +38,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     }
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        print("Selected \(viewController.title ?? "None")")
+        print("Selected \(viewController.title!)")
     }
     
 }

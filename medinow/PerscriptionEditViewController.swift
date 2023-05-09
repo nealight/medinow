@@ -9,32 +9,13 @@ import Foundation
 import UIKit
 import CoreData
 
-class LoadingViewController: UIViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        let spinner = UIActivityIndicatorView(style: .medium)
-        spinner.translatesAutoresizingMaskIntoConstraints = false
-        spinner.startAnimating()
-        view.addSubview(spinner)
-        
-        // Center our spinner both horizontally & vertically
-        NSLayoutConstraint.activate([
-            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
-    }
-}
-
 class PerscriptionEditViewController: UIViewController, UITextFieldDelegate {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     let nameTF = UITextField()
     let frequencyTextLabel = UILabel()
     let frequencyTextField = UITextField()
     let frequencyPicker = UIPickerView()
-    let anotherViewController = LoadingViewController()
-    let frequencyPickerOptions = [1, 2, 3, 4]
-    
+    let frequencyPickerOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,8 +97,8 @@ class PerscriptionEditViewController: UIViewController, UITextFieldDelegate {
         frequencyTextField.inputView = frequencyPicker
         
         frequencyTextField.borderStyle = .roundedRect
-        frequencyTextField.tintColor = .systemBackground
         frequencyTextField.backgroundColor = .systemGray6
+        frequencyTextField.tintColor = frequencyTextField.backgroundColor
         frequencyTextField.textAlignment = .center
         
         frequencyPicker.translatesAutoresizingMaskIntoConstraints = false
@@ -157,23 +138,6 @@ class PerscriptionEditViewController: UIViewController, UITextFieldDelegate {
     @objc func frequencyPickerViewSelected() {
         self.frequencyTextField.endEditing(false)
     }
-    
-    func setupAnotherView() {
-        self.addChild(anotherViewController)
-        anotherViewController.didMove(toParent: self)
-        
-        let anotherView = anotherViewController.view!
-        anotherView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(anotherView)
-        
-        NSLayoutConstraint.activate([
-            anotherView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            anotherView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            anotherView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            anotherView.heightAnchor.constraint(equalToConstant: 100)
-        ])
-    }
-    
 }
 
 extension PerscriptionEditViewController: UIPickerViewDelegate, UIPickerViewDataSource {
