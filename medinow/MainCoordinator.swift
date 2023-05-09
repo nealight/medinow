@@ -15,6 +15,7 @@ class MainCoordinator: Coordinator {
     lazy var mainTabBarController = MainTabBarController()
     lazy var perscriptionEditViewController = PerscriptionEditViewController()
     
+    
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
         self.navigationController.isNavigationBarHidden = true
@@ -25,10 +26,20 @@ class MainCoordinator: Coordinator {
     }
     
     func addPerscriptionTapped() {
+        if perscriptionEditViewController.saved {
+            perscriptionEditViewController = PerscriptionEditViewController()
+        }
         let navVC = UINavigationController(rootViewController: perscriptionEditViewController)
         navVC.modalPresentationStyle = .fullScreen
         navigationController.present(navVC, animated: true)
     }
     
+    func savePerscriptionTapped() {
+        perscriptionEditViewController.dismiss(animated: true)
+    }
+    
+    func cancelPerscriptionEditTapped() {
+        perscriptionEditViewController.dismiss(animated: true)
+    }
     
 }

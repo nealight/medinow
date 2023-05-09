@@ -16,6 +16,7 @@ class PerscriptionEditViewController: UIViewController, UITextFieldDelegate {
     let frequencyTextField = UITextField()
     let frequencyPicker = UIPickerView()
     let frequencyPickerOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    var saved = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,14 +50,15 @@ class PerscriptionEditViewController: UIViewController, UITextFieldDelegate {
             newDrug.setValue(frequencyPickerOptions[frequencyPicker.selectedRow(inComponent: 0)], forKey: "dailyDosage")
             context.perform {
                 try! context.save()
+                self.saved = true
                 DispatchQueue.main.async {
-                    self.dismiss(animated: true)
+                    self.appDelegate.coordinator?.savePerscriptionTapped()
                 }
             }
         })
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .cancel, primaryAction: UIAction() {
             [self] _ in
-            dismiss(animated: true);
+            self.appDelegate.coordinator?.cancelPerscriptionEditTapped()
         })
     }
     
