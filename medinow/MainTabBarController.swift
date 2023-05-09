@@ -9,6 +9,16 @@ import Foundation
 import UIKit
 
 class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
+    let coordinator: Coordinator = (UIApplication.shared.delegate as! AppDelegate).coordinator!
+    
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
@@ -24,7 +34,8 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         perscriptionNavVC.tabBarItem = perscriptionTab
         
         let inventoryVCLayout = UICollectionViewFlowLayout()
-        inventoryVCLayout.itemSize = CGSize(width: view.frame.size.width / 2 - 15, height: view.frame.size.width / 2 - 15)
+        let cellPerRow: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 4 : 2
+        inventoryVCLayout.itemSize = CGSize(width: view.frame.size.width / cellPerRow - 15, height: view.frame.size.width / cellPerRow - 15)
         inventoryVCLayout.sectionInset = .init(top: 10, left: 10, bottom: 10, right: 10)
         inventoryVCLayout.minimumLineSpacing = 10
         inventoryVCLayout.minimumInteritemSpacing = 10
@@ -35,6 +46,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         let inventoryTab = UITabBarItem(title: inventoryVC.title, image: .init(systemName: "cross.case.fill"), tag: 1)
         inventoryNavVC.tabBarItem = inventoryTab
         self.viewControllers = [perscriptionNavVC, inventoryNavVC]
+
     }
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {

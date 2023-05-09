@@ -12,13 +12,22 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var coordinator: MainCoordinator?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        let navController = UINavigationController()
+
+            // send that into our coordinator so that it can display view controllers
+        coordinator = MainCoordinator(navigationController: navController)
+
+            // tell the coordinator to take over control
+        coordinator?.start()
         
         window = UIWindow()
+        window?.backgroundColor = .systemBackground
         window?.makeKeyAndVisible()
-        window?.rootViewController = MainTabBarController()
+        window?.rootViewController = navController
         return true
     }
 

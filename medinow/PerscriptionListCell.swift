@@ -71,10 +71,10 @@ class PerscriptionListCell: UITableViewCell {
         cellView.addSubview(dosageLabel)
         
         NSLayoutConstraint.activate([
-            cellView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
+            cellView.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
             cellView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
             cellViewLeftMargin,
-            cellView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10)
+            cellView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5)
         ])
         
         NSLayoutConstraint.activate([
