@@ -14,7 +14,7 @@ class MainCoordinator: Coordinator {
     
     lazy var mainTabBarController = MainTabBarController()
     lazy var perscriptionEditViewController = PerscriptionEditViewController()
-    
+    var perscriptionLastSaved = false
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -26,7 +26,7 @@ class MainCoordinator: Coordinator {
     }
     
     func addPerscriptionTapped() {
-        if perscriptionEditViewController.saved {
+        if perscriptionLastSaved {
             perscriptionEditViewController = PerscriptionEditViewController()
         }
         let navVC = UINavigationController(rootViewController: perscriptionEditViewController)
@@ -35,10 +35,12 @@ class MainCoordinator: Coordinator {
     }
     
     func savePerscriptionTapped() {
+        perscriptionLastSaved = true
         perscriptionEditViewController.dismiss(animated: true)
     }
     
     func cancelPerscriptionEditTapped() {
+        perscriptionLastSaved = false
         perscriptionEditViewController.dismiss(animated: true)
     }
     

@@ -20,7 +20,7 @@ class PerscriptionListCell: UITableViewCell {
     let medicationLabel: UILabel = {
         let label = UILabel()
                 label.textColor = UIColor.white
-                label.font = UIFont.boldSystemFont(ofSize: 25)
+                label.font = UIFont.boldSystemFont(ofSize: 30)
                 label.translatesAutoresizingMaskIntoConstraints = false
                 return label
     }()
@@ -86,7 +86,7 @@ class PerscriptionListCell: UITableViewCell {
         NSLayoutConstraint.activate([
             dosageLabel.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: 20),
             dosageLabel.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: 20),
-            dosageLabel.bottomAnchor.constraint(equalTo: cellView.bottomAnchor, constant: -15)
+            dosageLabel.topAnchor.constraint(equalTo: medicationLabel.bottomAnchor, constant: 5)
         ])
         
     }
