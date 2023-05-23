@@ -44,4 +44,8 @@ class MainCoordinator: Coordinator {
         perscriptionEditViewController.dismiss(animated: true)
     }
     
+    func getPerscriptionDataSource() -> PerscriptionDataSource {
+        return PerscriptionDataSource()
+    }
+    
 }

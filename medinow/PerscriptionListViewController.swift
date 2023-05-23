@@ -9,8 +9,8 @@ import UIKit
 import CoreData
 
 class PerscriptionListViewController: UIViewController {
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    lazy var dataSource = PerscriptionListDataSource()
+    let coordinator = (UIApplication.shared.delegate as! AppDelegate).coordinator!
+    lazy var dataSource = coordinator.getPerscriptionDataSource()
     
     let tableView: UITableView = {
         let tv = UITableView()
@@ -33,7 +33,7 @@ class PerscriptionListViewController: UIViewController {
     }
     
     @objc func addTapped() {
-        appDelegate.coordinator!.addPerscriptionTapped()
+        coordinator.addPerscriptionTapped()
     }
     
     @objc func editTapped() {

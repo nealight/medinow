@@ -1,5 +1,5 @@
 //
-//  PerscriptionListDataSource.swift
+//  PerscriptionDataSource.swift
 //  medinow
 //
 //  Created by Yi Xu on 5/9/23.
@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import CoreData
 
-class PerscriptionListDataSource: NSObject, UITableViewDataSource{
+class PerscriptionDataSource: NSObject, UITableViewDataSource {
     var fetch_offset = 0
     let Rows_Each_Load = 20
     

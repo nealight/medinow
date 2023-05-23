@@ -28,14 +28,14 @@ class InventoryListViewController: UICollectionViewController {
         self.collectionView.register(InventoryCell.self, forCellWithReuseIdentifier: cellReuseID)
         self.collectionView.dataSource = dataSource
         
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Drug>()
+        var snapshot = NSDiffableDataSourceSnapshot<Section, DrugInventoryModel>()
         snapshot.appendSections(Section.allCases)
-        snapshot.appendItems([.init(name: "Vitamin C"), ], toSection: .unexpired)
-        snapshot.appendItems([.init(name: "Vitamin D"), ], toSection: .unexpired)
+        snapshot.appendItems([.init(name: "Vitamin C", expirationDate: Date(), originalQuantity: 0, remainingQuantity: 0), ], toSection: .unexpired)
+        snapshot.appendItems([.init(name: "Vitamin D", expirationDate: Date(), originalQuantity: 0, remainingQuantity: 0), ], toSection: .unexpired)
         dataSource.apply(snapshot)
     }
     
-    func makeDataSource() -> UICollectionViewDiffableDataSource<Section, Drug> {
+    func makeDataSource() -> UICollectionViewDiffableDataSource<Section, DrugInventoryModel> {
             UICollectionViewDiffableDataSource(
                 collectionView: collectionView,
                 cellProvider: { collectionView, indexPath, product in
