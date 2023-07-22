@@ -14,6 +14,7 @@ class MainCoordinator: Coordinator {
     
     lazy var mainTabBarController = MainTabBarController()
     lazy var perscriptionEditViewController = PerscriptionEditViewController()
+    lazy var inventoryEditViewController = InventoryEditViewController()
     var perscriptionLastSaved = false
     
     init(navigationController: UINavigationController) {
@@ -48,4 +49,20 @@ class MainCoordinator: Coordinator {
         return PerscriptionDataSource()
     }
     
+    func addInventoryTapped() {
+        let navVC = UINavigationController(rootViewController: inventoryEditViewController)
+        navVC.modalPresentationStyle = .fullScreen
+        navigationController.present(navVC, animated: true)
+    }
+    
+    func inverntoryCameraButtonTapped() {
+        let vc = DrugImageCameraController()
+        vc.sourceType = .camera
+        vc.allowsEditing = true
+        vc.delegate = vc
+        
+        inventoryEditViewController.present(vc, animated: true)
+    }
 }
+
+

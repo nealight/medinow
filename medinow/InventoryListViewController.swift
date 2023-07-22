@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 class InventoryListViewController: UICollectionViewController {
+    let coordinator = (UIApplication.shared.delegate as! AppDelegate).coordinator!
     let cellReuseID = "InventoryCell"
     private lazy var dataSource = makeDataSource()
     
@@ -19,12 +20,12 @@ class InventoryListViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigation()
         setupView()
     }
     
     func setupView() {
         self.view.backgroundColor = .systemBackground
-        self.navigationController?.navigationBar.prefersLargeTitles = true
         self.collectionView.register(InventoryCell.self, forCellWithReuseIdentifier: cellReuseID)
         self.collectionView.dataSource = dataSource
         
@@ -47,6 +48,15 @@ class InventoryListViewController: UICollectionViewController {
                 }
             )
         }
+    
+    func setupNavigation() {
+        let addButtonAction = UIAction() { _ in
+            self.coordinator.addInventoryTapped()
+        }
+        
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .add, primaryAction: addButtonAction)
+    }
 }
 
 //extension InventoryListViewController {

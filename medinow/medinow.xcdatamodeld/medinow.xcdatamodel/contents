@@ -5,6 +5,7 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="originalQuantity" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="remainingQuantity" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="sameDrugTarget" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DrugInventory" inverseName="sameDrugTarget" inverseEntity="DrugInventory"/>
     </entity>
     <entity name="DrugPerscription" representedClassName="DrugPerscription" syncable="YES" codeGenerationType="class">
         <attribute name="dailyDosage" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
