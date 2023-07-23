@@ -17,6 +17,8 @@ class MainCoordinator: Coordinator {
     lazy var inventoryEditViewController = InventoryEditViewController()
     var perscriptionLastSaved = false
     
+    var capturedInventoryDrugImage: UIImage?
+    
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
         self.navigationController.isNavigationBarHidden = true
@@ -58,11 +60,23 @@ class MainCoordinator: Coordinator {
     func inverntoryCameraButtonTapped() {
         let vc = DrugImageCameraController()
         vc.sourceType = .camera
-        vc.allowsEditing = true
+        vc.allowsEditing = false
         vc.delegate = vc
-        
         inventoryEditViewController.present(vc, animated: true)
     }
+    
+    func setInventoryDrugImage(image: UIImage?) {
+        guard let image = image else {
+            print("No image found")
+            inventoryEditViewController.dismiss(animated: true)
+            return
+        }
+        capturedInventoryDrugImage = image
+        inventoryEditViewController.dismiss(animated: true)
+        inventoryEditViewController.capturedDrugImage(image: image)
+    }
+    
+    
 }
 
 

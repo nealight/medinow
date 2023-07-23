@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Vision
 
 class InventoryEditViewController: UIViewController {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -43,6 +44,52 @@ class InventoryEditViewController: UIViewController {
         let cameraAction = UIAction() { _ in
             self.coordinator.inverntoryCameraButtonTapped()
         }
-        cameraButton.addAction(cameraAction, for: .touchDown)
+        cameraButton.addAction(cameraAction, for: .touchUpInside)
+    }
+    
+    private func handleTextRecognition(request: VNRequest?, error: Error?) {
+        if let error = error {
+            print("ERROR: \(error)")
+            return
+        }
+        guard let results = request?.results, results.count > 0 else {
+            print("No text found")
+            return
+        }
+        
+        var recognizedObservations = [VNRecognizedTextObservation]()
+
+        for result in results {
+            if let observation = result as? VNRecognizedTextObservation {
+                if (observation.topCandidates(1).first != nil) {
+                    recognizedObservations.append(observation)
+//                    print(text.string)
+//                    print(text.confidence)
+//                    print(observation.boundingBox.size)
+//                    print("\n")
+                }
+            }
+        }
+        
+        recognizedObservations.sort { ob1, ob2 in
+            ob1.boundingBox.height * ob1.boundingBox.width > ob2.boundingBox.height * ob2.boundingBox.width
+        }
+        
+        for observation in recognizedObservations.prefix(upTo: 3) {
+            print(observation.topCandidates(1).first?.string ?? "")
+        }
+    }
+    
+    func capturedDrugImage(image: UIImage) {
+        let request = VNRecognizeTextRequest(completionHandler: handleTextRecognition)
+        request.minimumTextHeight = 1/16
+        request.recognitionLevel = .accurate
+        request.recognitionLanguages = ["en-US"]
+
+        
+        let imageRequestHandler = VNImageRequestHandler(cgImage:image.cgImage!, orientation: .right, options: [:])
+        DispatchQueue.global().async {
+            try? imageRequestHandler.perform([request, ])
+        }
     }
 }
