@@ -78,26 +78,50 @@
 		1C245E8829F33A9900AEF9CE /* medinow */ = {
 			isa = PBXGroup;
 			children = (
-				1C245E8929F33A9900AEF9CE /* AppDelegate.swift */,
-				1C245E8B29F33A9900AEF9CE /* SceneDelegate.swift */,
-				1C1C802129F5D0BD00E57D66 /* PerscriptionEditViewController.swift */,
-				1C245E8D29F33A9900AEF9CE /* PerscriptionListViewController.swift */,
-				1C0D17202A0ADB3E00B1A1E8 /* PerscriptionDataSource.swift */,
-				1C1C801F29F5895400E57D66 /* PerscriptionListCell.swift */,
-				1C3A4CE329F845330016AD06 /* DrugPerscriptionModel.swift */,
-				1C7C976B29FAAEEE007808FC /* MainTabBarController.swift */,
-				1CEE555F2A08243A00B96C38 /* InventoryListViewController.swift */,
-				1CABC08C2A1C0CFF00EA11CE /* InventoryEditViewController.swift */,
-				1C0D17182A0A82EB00B1A1E8 /* InventoryCell.swift */,
-				1C0D171A2A0A88D200B1A1E8 /* DrugInventoryModel.swift */,
-				1CFC64442A6C793200BA6A42 /* DrugImageCameraController.swift */,
-				1C0D171C2A0AB6AF00B1A1E8 /* Coordinator.swift */,
-				1C0D171E2A0AB8E900B1A1E8 /* MainCoordinator.swift */,
+				1CFC64482A6D784800BA6A42 /* Global */,
+				1CFC64462A6D780400BA6A42 /* Perscription */,
+				1CFC64472A6D782200BA6A42 /* Inventory */,
 				1C245E9529F33A9A00AEF9CE /* Assets.xcassets */,
 				1C245E9A29F33A9A00AEF9CE /* Info.plist */,
 				1C245E9229F33A9900AEF9CE /* medinow.xcdatamodeld */,
 			);
 			path = medinow;
+			sourceTree = "<group>";
+		};
+		1CFC64462A6D780400BA6A42 /* Perscription */ = {
+			isa = PBXGroup;
+			children = (
+				1C0D17202A0ADB3E00B1A1E8 /* PerscriptionDataSource.swift */,
+				1C245E8D29F33A9900AEF9CE /* PerscriptionListViewController.swift */,
+				1C1C801F29F5895400E57D66 /* PerscriptionListCell.swift */,
+				1C1C802129F5D0BD00E57D66 /* PerscriptionEditViewController.swift */,
+				1C3A4CE329F845330016AD06 /* DrugPerscriptionModel.swift */,
+			);
+			name = Perscription;
+			sourceTree = "<group>";
+		};
+		1CFC64472A6D782200BA6A42 /* Inventory */ = {
+			isa = PBXGroup;
+			children = (
+				1CABC08C2A1C0CFF00EA11CE /* InventoryEditViewController.swift */,
+				1CEE555F2A08243A00B96C38 /* InventoryListViewController.swift */,
+				1C0D171A2A0A88D200B1A1E8 /* DrugInventoryModel.swift */,
+				1CFC64442A6C793200BA6A42 /* DrugImageCameraController.swift */,
+			);
+			name = Inventory;
+			sourceTree = "<group>";
+		};
+		1CFC64482A6D784800BA6A42 /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				1C245E8929F33A9900AEF9CE /* AppDelegate.swift */,
+				1C245E8B29F33A9900AEF9CE /* SceneDelegate.swift */,
+				1C7C976B29FAAEEE007808FC /* MainTabBarController.swift */,
+				1C0D17182A0A82EB00B1A1E8 /* InventoryCell.swift */,
+				1C0D171C2A0AB6AF00B1A1E8 /* Coordinator.swift */,
+				1C0D171E2A0AB8E900B1A1E8 /* MainCoordinator.swift */,
+			);
+			name = Global;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -15,6 +15,7 @@ class MainCoordinator: Coordinator {
     lazy var mainTabBarController = MainTabBarController()
     lazy var perscriptionEditViewController = PerscriptionEditViewController()
     lazy var inventoryEditViewController = InventoryEditViewController()
+    lazy var drugImageCameraController = DrugImageCameraController()
     var perscriptionLastSaved = false
     
     var capturedInventoryDrugImage: UIImage?
@@ -58,11 +59,10 @@ class MainCoordinator: Coordinator {
     }
     
     func inverntoryCameraButtonTapped() {
-        let vc = DrugImageCameraController()
-        vc.sourceType = .camera
-        vc.allowsEditing = false
-        vc.delegate = vc
-        inventoryEditViewController.present(vc, animated: true)
+        drugImageCameraController.sourceType = .camera
+        drugImageCameraController.allowsEditing = false
+        drugImageCameraController.delegate = drugImageCameraController
+        inventoryEditViewController.present(drugImageCameraController, animated: true)
     }
     
     func setInventoryDrugImage(image: UIImage?) {
@@ -72,11 +72,13 @@ class MainCoordinator: Coordinator {
             return
         }
         capturedInventoryDrugImage = image
-        inventoryEditViewController.dismiss(animated: true)
+        drugImageCameraController.dismiss(animated: true)
         inventoryEditViewController.capturedDrugImage(image: image)
     }
     
-    
+    func cancelInventoryEditTapped() {
+        inventoryEditViewController.dismiss(animated: true)
+    }
 }
 
 
