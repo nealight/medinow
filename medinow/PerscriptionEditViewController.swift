@@ -11,11 +11,13 @@ import CoreData
 
 class PerscriptionEditViewController: UIViewController, UITextFieldDelegate {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    let nameTF = UITextField()
+    let drugInfoTextFieldFactory = DrugInfoTextFieldFactory()
     let frequencyTextLabel = UILabel()
-    let frequencyTextField = UITextField()
     let frequencyPicker = UIPickerView()
     let frequencyPickerOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    
+    lazy var nameTF = drugInfoTextFieldFactory.create(placeholder: "Drug Name")
+    lazy var frequencyTextField = drugInfoTextFieldFactory.create(placeholder: "")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,12 +27,11 @@ class PerscriptionEditViewController: UIViewController, UITextFieldDelegate {
         setupNameTF()
         setupFrequencyLabel()
         setupFrequencyPicker()
-        //        setupAnotherView()
     }
     
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
         if (textField == nameTF) {
-            print("nameTF Finished Editing")
+            NSLog("Finished Editing drug name")
         }
     }
     
@@ -39,39 +40,39 @@ class PerscriptionEditViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
+    func savePerscription() {
+        let context = appDelegate.persistentContainer.newBackgroundContext()
+        let entity = NSEntityDescription.entity(forEntityName: "DrugPerscription", in: context)
+        let newDrug = NSManagedObject(entity: entity!, insertInto: context)
+        
+        newDrug.setValue(nameTF.text, forKey: "name")
+        newDrug.setValue(frequencyPickerOptions[frequencyPicker.selectedRow(inComponent: 0)], forKey: "dailyDosage")
+        context.perform {
+            try! context.save()
+            DispatchQueue.main.async {
+                self.appDelegate.coordinator?.savePerscriptionTapped()
+            }
+        }
+    }
+    
+    func cancelPerscriptionEdit() {
+        self.appDelegate.coordinator?.cancelPerscriptionEditTapped()
+    }
+    
     func setupNavigation() {
         self.navigationController?.navigationBar.topItem?.title = "Perscription Detail"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .save, primaryAction: UIAction() { [self] _ in
-            let context = appDelegate.persistentContainer.newBackgroundContext()
-            let entity = NSEntityDescription.entity(forEntityName: "DrugPerscription", in: context)
-            let newDrug = NSManagedObject(entity: entity!, insertInto: context)
-            
-            newDrug.setValue(nameTF.text, forKey: "name")
-            newDrug.setValue(frequencyPickerOptions[frequencyPicker.selectedRow(inComponent: 0)], forKey: "dailyDosage")
-            context.perform {
-                try! context.save()
-                DispatchQueue.main.async {
-                    self.appDelegate.coordinator?.savePerscriptionTapped()
-                }
-            }
+            self.savePerscription()
         })
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .cancel, primaryAction: UIAction() {
             [self] _ in
-            self.appDelegate.coordinator?.cancelPerscriptionEditTapped()
+            self.cancelPerscriptionEdit()
         })
     }
     
     
     func setupNameTF() {
         nameTF.delegate = self
-        nameTF.returnKeyType = .done
-        
-        nameTF.placeholder = "Drug Name"
-        nameTF.minimumFontSize = 20
-        nameTF.borderStyle = .roundedRect
-        nameTF.backgroundColor = .systemGray6
-
-        nameTF.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(nameTF)
         NSLayoutConstraint.activate([
             nameTF.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
@@ -96,14 +97,10 @@ class PerscriptionEditViewController: UIViewController, UITextFieldDelegate {
     
     func setupFrequencyPicker() {
         frequencyTextField.inputView = frequencyPicker
-        
-        frequencyTextField.borderStyle = .roundedRect
-        frequencyTextField.backgroundColor = .systemGray6
-        frequencyTextField.tintColor = frequencyTextField.backgroundColor
         frequencyTextField.textAlignment = .center
+        frequencyTextField.tintColor = frequencyTextField.backgroundColor
         
         frequencyPicker.translatesAutoresizingMaskIntoConstraints = false
-        frequencyTextField.translatesAutoresizingMaskIntoConstraints = false
         
         frequencyPicker.dataSource = self
         frequencyPicker.delegate = self
@@ -123,7 +120,6 @@ class PerscriptionEditViewController: UIViewController, UITextFieldDelegate {
     }
     
     func addKeyboardToolBar() {
-        
         var nextButton: UIBarButtonItem
         let keyboardToolBar = UIToolbar(frame: CGRect(x: CGFloat(0), y:
                                                         CGFloat(0), width: CGFloat(frequencyPicker.frame.size.width), height: CGFloat(25)))

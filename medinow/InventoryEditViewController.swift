@@ -10,22 +10,64 @@ import UIKit
 import Vision
 
 class InventoryEditViewController: UIViewController {
-    let coordinator = (UIApplication.shared.delegate as! AppDelegate).coordinator!
+    let drugInfoTextFieldFactory = DrugInfoTextFieldFactory()
+    let coordinator: InventoryEditViewControllerCoordinator
+    lazy var drugNameTF = drugInfoTextFieldFactory.create(placeholder: "Drug Name")
+    lazy var capletQuantityTF = drugInfoTextFieldFactory.create(placeholder: "Quantity")
+    
+    
+    init(coordinator: InventoryEditViewControllerCoordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required convenience init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        
         setupNavigation()
         setupCameraButton()
+        setupDrugNameTF()
+        setupCapletQuantityTF()
     }
     
     func setupNavigation() {
         self.navigationController?.navigationBar.topItem?.title = "Inventory Detail"
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .cancel, primaryAction: UIAction() {
-            [self] _ in
+        let cancelInventoryEditTappedAction = UIAction() { [self] _ in
             self.coordinator.cancelInventoryEditTapped()
-        })
+        }
+        let saveInventoryEditTappedAction = UIAction() { [self] _ in
+            self.coordinator.saveInventoryEditTapped()
+        }
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .cancel, primaryAction: cancelInventoryEditTappedAction)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .save, primaryAction: saveInventoryEditTappedAction)
+    }
+    
+    func setupDrugNameTF() {
+        drugNameTF.delegate = self
+        view.addSubview(drugNameTF)
+        NSLayoutConstraint.activate([
+            drugNameTF.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            drugNameTF.heightAnchor.constraint(equalToConstant: 40),
+            drugNameTF.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
+            drugNameTF.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20)
+        ])
+    }
+    
+    func setupCapletQuantityTF() {
+        capletQuantityTF.delegate = self
+        capletQuantityTF.keyboardType = .numberPad
+        view.addSubview(capletQuantityTF)
+        NSLayoutConstraint.activate([
+            capletQuantityTF.topAnchor.constraint(equalTo: drugNameTF.bottomAnchor, constant: 20),
+            capletQuantityTF.heightAnchor.constraint(equalToConstant: 40),
+            capletQuantityTF.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
+            capletQuantityTF.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20)
+        ])
     }
     
     func setupCameraButton() {
@@ -85,6 +127,7 @@ class InventoryEditViewController: UIViewController {
         for candidate in candidates {
             alert.addAction(UIAlertAction(title: NSLocalizedString(candidate, comment: "Default action"), style: .default, handler: { _ in
                 NSLog("\"\(candidate)\" has been selected.")
+                self.drugNameTF.text = candidate
             }))
         }
         
@@ -100,5 +143,23 @@ class InventoryEditViewController: UIViewController {
         DispatchQueue.global().async {
             try? imageRequestHandler.perform([request, ])
         }
+    }
+}
+
+extension InventoryEditViewController: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        switch textField {
+        case drugNameTF:
+            NSLog("Finished Editing drug name")
+        case capletQuantityTF:
+            NSLog("Finished Editing drug quantity")
+        default:
+            return
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

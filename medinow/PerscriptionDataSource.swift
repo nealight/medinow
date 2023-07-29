@@ -72,7 +72,7 @@ class PerscriptionDataSource: NSObject, UITableViewDataSource {
     }
     
     func deleteRowAt(_ tableView: UITableView, indexPath: IndexPath, completionHandler: @escaping (Bool) -> Void) {
-        print("delete detected!")
+        NSLog("[\(type(of: self))] delete detected!")
         let context = self.appDelegate.persistentContainer.newBackgroundContext()
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "DrugPerscription")
         request.predicate = NSPredicate(format:"name=%@", drugs[indexPath.row].name)

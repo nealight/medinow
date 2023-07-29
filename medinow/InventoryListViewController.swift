@@ -31,8 +31,8 @@ class InventoryListViewController: UICollectionViewController {
         
         var snapshot = NSDiffableDataSourceSnapshot<Section, DrugInventoryModel>()
         snapshot.appendSections(Section.allCases)
-        snapshot.appendItems([.init(name: "Vitamin C", expirationDate: Date(), originalQuantity: 0, remainingQuantity: 0), ], toSection: .unexpired)
-        snapshot.appendItems([.init(name: "Vitamin D", expirationDate: Date(), originalQuantity: 0, remainingQuantity: 0), ], toSection: .unexpired)
+        snapshot.appendItems([.init(snapshot: .init(), name: "Vitamin C", expirationDate: Date(), originalQuantity: 0, remainingQuantity: 0)], toSection: .unexpired)
+        snapshot.appendItems([.init(snapshot: .init(), name: "Vitamin D", expirationDate: Date(), originalQuantity: 0, remainingQuantity: 0)], toSection: .unexpired)
         dataSource.apply(snapshot)
     }
     

@@ -8,13 +8,21 @@
 import Foundation
 import UIKit
 
+protocol InventoryEditViewControllerCoordinator {
+    func addInventoryTapped()
+    func inverntoryCameraButtonTapped()
+    func setInventoryDrugImage(image: UIImage?)
+    func cancelInventoryEditTapped()
+    func saveInventoryEditTapped()
+}
+
 class MainCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     
     lazy var mainTabBarController = MainTabBarController()
     lazy var perscriptionEditViewController = PerscriptionEditViewController()
-    lazy var inventoryEditViewController = InventoryEditViewController()
+    lazy var inventoryEditViewController = InventoryEditViewController(coordinator: self)
     lazy var drugImageCameraController = DrugImageCameraController()
     var perscriptionLastSaved = false
     
@@ -51,7 +59,9 @@ class MainCoordinator: Coordinator {
     func getPerscriptionDataSource() -> PerscriptionDataSource {
         return PerscriptionDataSource()
     }
-    
+}
+
+extension MainCoordinator: InventoryEditViewControllerCoordinator {
     func addInventoryTapped() {
         let navVC = UINavigationController(rootViewController: inventoryEditViewController)
         navVC.modalPresentationStyle = .fullScreen
@@ -67,7 +77,7 @@ class MainCoordinator: Coordinator {
     
     func setInventoryDrugImage(image: UIImage?) {
         guard let image = image else {
-            print("No image found")
+            NSLog("No image found")
             inventoryEditViewController.dismiss(animated: true)
             return
         }
@@ -77,6 +87,10 @@ class MainCoordinator: Coordinator {
     }
     
     func cancelInventoryEditTapped() {
+        inventoryEditViewController.dismiss(animated: true)
+    }
+    
+    func saveInventoryEditTapped() {
         inventoryEditViewController.dismiss(animated: true)
     }
 }

@@ -8,6 +8,7 @@
 import Foundation
 
 struct DrugInventoryModel: Hashable {
+    let snapshot: Data
     let name: String
     let expirationDate: Date
     let originalQuantity: Int64
