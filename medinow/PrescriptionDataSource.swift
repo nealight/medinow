@@ -1,5 +1,5 @@
 //
-//  PerscriptionDataSource.swift
+//  PrescriptionDataSource.swift
 //  medinow
 //
 //  Created by Yi Xu on 5/9/23.
@@ -8,25 +8,25 @@
 import Foundation
 import UIKit
 
-class PerscriptionDataSource: NSObject, UITableViewDataSource {
+class PrescriptionDataSource: NSObject, UITableViewDataSource {
     var fetch_offset = 0
     let Rows_Each_Load = 20
-    let drugPerscriptionService: DrugPerscriptionServiceProvider
+    let drugPrescriptionService: DrugPrescriptionServiceProvider
     
-    init(fetch_offset: Int = 0, drugPerscriptionService: DrugPerscriptionService) {
-        self.drugPerscriptionService = drugPerscriptionService
+    init(fetch_offset: Int = 0, drugPrescriptionService: DrugPrescriptionService) {
+        self.drugPrescriptionService = drugPrescriptionService
     }
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    lazy var drugs: Array<DrugPerscriptionModel> = initializeDrugs()
+    lazy var drugs: Array<DrugPrescriptionModel> = initializeDrugs()
     
     
-    func initializeDrugs() -> Array<DrugPerscriptionModel> {
-        var fetched_drugs: [DrugPerscriptionModel] = []
+    func initializeDrugs() -> Array<DrugPrescriptionModel> {
+        var fetched_drugs: [DrugPrescriptionModel] = []
         fetch_offset += Rows_Each_Load
-        let result = drugPerscriptionService.fetchDrugs(fetch_offset: fetch_offset)
+        let result = drugPrescriptionService.fetchDrugs(fetch_offset: fetch_offset)
         for data in result {
-            fetched_drugs.append(DrugPerscriptionModel(name: data.value(forKey: "name") as! String, dailyDosage: data.value(forKey: "dailyDosage") as! Int64))
+            fetched_drugs.append(DrugPrescriptionModel(name: data.value(forKey: "name") as! String, dailyDosage: data.value(forKey: "dailyDosage") as! Int64))
         }
         return fetched_drugs
     }
@@ -37,7 +37,7 @@ class PerscriptionDataSource: NSObject, UITableViewDataSource {
 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PerscriptionListCell", for: indexPath) as! PerscriptionListCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PrescriptionListCell", for: indexPath) as! PrescriptionListCell
         cell.medicationLabel.text = drugs[indexPath.row].name
         
         let dailyDosage = drugs[indexPath.row].dailyDosage
@@ -51,12 +51,12 @@ class PerscriptionDataSource: NSObject, UITableViewDataSource {
     }
     
     func loadTableData(_ tableView: UITableView) {
-        var fetched_drugs: [DrugPerscriptionModel] = []
+        var fetched_drugs: [DrugPrescriptionModel] = []
         fetch_offset += Rows_Each_Load
         
-        drugPerscriptionService.fetchDrugsBackground(fetch_offset: fetch_offset) { (result) in
+        drugPrescriptionService.fetchDrugsBackground(fetch_offset: fetch_offset) { (result) in
             for data in result {
-                fetched_drugs.append(DrugPerscriptionModel(name: data.value(forKey: "name") as! String, dailyDosage: data.value(forKey: "dailyDosage") as! Int64))
+                fetched_drugs.append(DrugPrescriptionModel(name: data.value(forKey: "name") as! String, dailyDosage: data.value(forKey: "dailyDosage") as! Int64))
             }
             if self.drugs != fetched_drugs {
                 self.drugs = fetched_drugs
@@ -72,7 +72,7 @@ class PerscriptionDataSource: NSObject, UITableViewDataSource {
         self.drugs.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath, ], with: .left)
         
-        drugPerscriptionService.removeDrugBackground(durgName: drugs[indexPath.row].name, completionHandler: completionHandler)
+        drugPrescriptionService.removeDrugBackground(durgName: drugs[indexPath.row].name, completionHandler: completionHandler)
     }
     
 

@@ -1,5 +1,5 @@
 //
-//  DrugPerscriptionService.swift
+//  DrugPrescriptionService.swift
 //  medinow
 //
 //  Created by Yi Xu on 7/30/23.
@@ -9,19 +9,19 @@ import Foundation
 import CoreData
 import UIKit
 
-protocol DrugPerscriptionServiceProvider {
+protocol DrugPrescriptionServiceProvider {
     func fetchDrugs(fetch_offset: Int) -> [NSManagedObject]
     func fetchDrugsBackground(fetch_offset: Int, action: @escaping ([NSManagedObject]) -> ())
     func removeDrugBackground(durgName: String, completionHandler: @escaping (Bool) -> Void)
-    func savePerscription(perscription: DrugPerscriptionModel)
+    func savePrescription(prescription: DrugPrescriptionModel)
 }
 
-class DrugPerscriptionService: DrugPerscriptionServiceProvider {
+class DrugPrescriptionService: DrugPrescriptionServiceProvider {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    lazy var drugPerscriptionContext: NSManagedObjectContext = appDelegate.persistentContainer.viewContext
+    lazy var drugPrescriptionContext: NSManagedObjectContext = appDelegate.persistentContainer.viewContext
     func fetchDrugs(fetch_offset: Int) -> [NSManagedObject] {
         let context = appDelegate.persistentContainer.viewContext
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "DrugPerscription")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "DrugPrescription")
         request.returnsObjectsAsFaults = false
         request.fetchLimit = fetch_offset;
         let result = try! context.fetch(request)
@@ -29,24 +29,24 @@ class DrugPerscriptionService: DrugPerscriptionServiceProvider {
     }
     
     func fetchDrugsBackground(fetch_offset: Int, action: @escaping ([NSManagedObject]) -> ()) {
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "DrugPerscription")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "DrugPrescription")
         request.returnsObjectsAsFaults = false
         request.fetchLimit = fetch_offset;
-        drugPerscriptionContext.perform { [action] in
-            let result = try! self.drugPerscriptionContext.fetch(request)
+        drugPrescriptionContext.perform { [action] in
+            let result = try! self.drugPrescriptionContext.fetch(request)
             action(result as! [NSManagedObject])
         }
     }
     
     func removeDrugBackground(durgName: String, completionHandler: @escaping (Bool) -> Void) {
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "DrugPerscription")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "DrugPrescription")
         request.predicate = NSPredicate(format:"name=%@", durgName)
-        drugPerscriptionContext.perform {
-            let result = try! self.drugPerscriptionContext.fetch(request)
+        drugPrescriptionContext.perform {
+            let result = try! self.drugPrescriptionContext.fetch(request)
             let data = result[0]
             let object = data as! NSManagedObject
-            self.drugPerscriptionContext.delete(object)
-            try! self.drugPerscriptionContext.save()
+            self.drugPrescriptionContext.delete(object)
+            try! self.drugPrescriptionContext.save()
             
             DispatchQueue.main.async {
                 completionHandler(true)
@@ -54,11 +54,11 @@ class DrugPerscriptionService: DrugPerscriptionServiceProvider {
         }
     }
     
-    func savePerscription(perscription: DrugPerscriptionModel) {
-        let entity = NSEntityDescription.entity(forEntityName: "DrugPerscription", in: drugPerscriptionContext)
-        let newDrug = NSManagedObject(entity: entity!, insertInto: drugPerscriptionContext)
-        newDrug.setValue(perscription.name, forKey: "name")
-        newDrug.setValue(perscription.dailyDosage, forKey: "dailyDosage")
-        try! drugPerscriptionContext.save()
+    func savePrescription(prescription: DrugPrescriptionModel) {
+        let entity = NSEntityDescription.entity(forEntityName: "DrugPrescription", in: drugPrescriptionContext)
+        let newDrug = NSManagedObject(entity: entity!, insertInto: drugPrescriptionContext)
+        newDrug.setValue(prescription.name, forKey: "name")
+        newDrug.setValue(prescription.dailyDosage, forKey: "dailyDosage")
+        try! drugPrescriptionContext.save()
     }
 }

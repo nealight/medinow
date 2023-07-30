@@ -20,12 +20,12 @@ class MainCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     
-    let drugPerscriptionService = DrugPerscriptionService()
+    let drugPrescriptionService = DrugPrescriptionService()
     lazy var mainTabBarController = MainTabBarController()
-    lazy var perscriptionEditViewController = PerscriptionEditViewController(drugPerscriptionService: drugPerscriptionService)
+    lazy var prescriptionEditViewController = PrescriptionEditViewController(drugPrescriptionService: drugPrescriptionService)
     lazy var inventoryEditViewController = InventoryEditViewController(coordinator: self)
     lazy var drugImageCameraController = DrugImageCameraController()
-    var perscriptionLastSaved = false
+    var prescriptionLastSaved = false
     
     var capturedInventoryDrugImage: UIImage?
     
@@ -38,27 +38,27 @@ class MainCoordinator: Coordinator {
         navigationController.pushViewController(mainTabBarController, animated: false)
     }
     
-    func addPerscriptionTapped() {
-        if perscriptionLastSaved {
-            perscriptionEditViewController = PerscriptionEditViewController(drugPerscriptionService: drugPerscriptionService)
+    func addPrescriptionTapped() {
+        if prescriptionLastSaved {
+            prescriptionEditViewController = PrescriptionEditViewController(drugPrescriptionService: drugPrescriptionService)
         }
-        let navVC = UINavigationController(rootViewController: perscriptionEditViewController)
+        let navVC = UINavigationController(rootViewController: prescriptionEditViewController)
         navVC.modalPresentationStyle = .fullScreen
         navigationController.present(navVC, animated: true)
     }
     
-    func savePerscriptionTapped() {
-        perscriptionLastSaved = true
-        perscriptionEditViewController.dismiss(animated: true)
+    func savePrescriptionTapped() {
+        prescriptionLastSaved = true
+        prescriptionEditViewController.dismiss(animated: true)
     }
     
-    func cancelPerscriptionEditTapped() {
-        perscriptionLastSaved = false
-        perscriptionEditViewController.dismiss(animated: true)
+    func cancelPrescriptionEditTapped() {
+        prescriptionLastSaved = false
+        prescriptionEditViewController.dismiss(animated: true)
     }
     
-    func getPerscriptionDataSource() -> PerscriptionDataSource {
-        return PerscriptionDataSource(drugPerscriptionService: drugPerscriptionService)
+    func getPrescriptionDataSource() -> PrescriptionDataSource {
+        return PrescriptionDataSource(drugPrescriptionService: drugPrescriptionService)
     }
 }
 

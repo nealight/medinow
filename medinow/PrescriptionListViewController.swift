@@ -7,9 +7,9 @@
 
 import UIKit
 
-class PerscriptionListViewController: UIViewController {
+class PrescriptionListViewController: UIViewController {
     let coordinator = (UIApplication.shared.delegate as! AppDelegate).coordinator
-    lazy var dataSource = coordinator.getPerscriptionDataSource()
+    lazy var dataSource = coordinator.getPrescriptionDataSource()
     
     let tableView: UITableView = {
         let tv = UITableView()
@@ -31,7 +31,7 @@ class PerscriptionListViewController: UIViewController {
     }
     
     @objc func addTapped() {
-        coordinator.addPerscriptionTapped()
+        coordinator.addPrescriptionTapped()
     }
     
     @objc func editTapped() {
@@ -60,7 +60,7 @@ class PerscriptionListViewController: UIViewController {
         tableView.dataSource = dataSource
         view.addSubview(tableView)
         
-        tableView.register(PerscriptionListCell.self, forCellReuseIdentifier: "PerscriptionListCell")
+        tableView.register(PrescriptionListCell.self, forCellReuseIdentifier: "PrescriptionListCell")
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: self.view.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
@@ -72,7 +72,7 @@ class PerscriptionListViewController: UIViewController {
     
 }
 
-extension PerscriptionListViewController: UITableViewDelegate {
+extension PrescriptionListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let action: UIContextualAction = .init(style: .normal, title: nil, handler: {[self, indexPath] _,_,completionHandler in
             dataSource.deleteRowAt(tableView, indexPath: indexPath, completionHandler: completionHandler)

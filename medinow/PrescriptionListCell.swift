@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class PerscriptionListCell: UITableViewCell {
+class PrescriptionListCell: UITableViewCell {
     var cellView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemOrange

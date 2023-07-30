@@ -27,11 +27,11 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBar.backgroundColor = .secondarySystemBackground
-        let perscriptionVC = PerscriptionListViewController();
-        perscriptionVC.title = "Perscriptions"
-        let perscriptionNavVC = UINavigationController(rootViewController: perscriptionVC)
-        let perscriptionTab = UITabBarItem(title: perscriptionVC.title, image: .init(systemName: "list.bullet.clipboard.fill"), tag: 0)
-        perscriptionNavVC.tabBarItem = perscriptionTab
+        let prescriptionVC = PrescriptionListViewController();
+        prescriptionVC.title = "Prescriptions"
+        let prescriptionNavVC = UINavigationController(rootViewController: prescriptionVC)
+        let prescriptionTab = UITabBarItem(title: prescriptionVC.title, image: .init(systemName: "list.bullet.clipboard.fill"), tag: 0)
+        prescriptionNavVC.tabBarItem = prescriptionTab
         
         let inventoryVCLayout = UICollectionViewFlowLayout()
         let cellPerRow: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 4 : 2
@@ -45,7 +45,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         let inventoryNavVC = UINavigationController(rootViewController: inventoryVC)
         let inventoryTab = UITabBarItem(title: inventoryVC.title, image: .init(systemName: "cross.case.fill"), tag: 1)
         inventoryNavVC.tabBarItem = inventoryTab
-        self.viewControllers = [perscriptionNavVC, inventoryNavVC]
+        self.viewControllers = [prescriptionNavVC, inventoryNavVC]
 
     }
     

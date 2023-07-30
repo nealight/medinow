@@ -8,19 +8,19 @@
 import Foundation
 import UIKit
 
-class PerscriptionEditViewController: UIViewController, UITextFieldDelegate {
+class PrescriptionEditViewController: UIViewController, UITextFieldDelegate {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     let drugInfoTextFieldFactory = DrugInfoTextFieldFactory()
     let frequencyTextLabel = UILabel()
     let frequencyPicker = UIPickerView()
     let frequencyPickerOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    let drugPerscriptionService: DrugPerscriptionServiceProvider
+    let drugPrescriptionService: DrugPrescriptionServiceProvider
     
     lazy var nameTF = drugInfoTextFieldFactory.create(placeholder: "Drug Name")
     lazy var frequencyTextField = drugInfoTextFieldFactory.create(placeholder: "")
     
-    init(drugPerscriptionService: DrugPerscriptionServiceProvider) {
-        self.drugPerscriptionService = drugPerscriptionService
+    init(drugPrescriptionService: DrugPrescriptionServiceProvider) {
+        self.drugPrescriptionService = drugPrescriptionService
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -49,27 +49,27 @@ class PerscriptionEditViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    func savePerscription() {
-        drugPerscriptionService.savePerscription(perscription: .init(name: nameTF.text!, dailyDosage: Int64(frequencyPickerOptions[frequencyPicker.selectedRow(inComponent: 0)])))
+    func savePrescription() {
+        drugPrescriptionService.savePrescription(prescription: .init(name: nameTF.text!, dailyDosage: Int64(frequencyPickerOptions[frequencyPicker.selectedRow(inComponent: 0)])))
         
         DispatchQueue.main.async {
-            self.appDelegate.coordinator.savePerscriptionTapped()
+            self.appDelegate.coordinator.savePrescriptionTapped()
         }
         
     }
     
-    func cancelPerscriptionEdit() {
-        self.appDelegate.coordinator.cancelPerscriptionEditTapped()
+    func cancelPrescriptionEdit() {
+        self.appDelegate.coordinator.cancelPrescriptionEditTapped()
     }
     
     func setupNavigation() {
-        self.navigationController?.navigationBar.topItem?.title = "Perscription Detail"
+        self.navigationController?.navigationBar.topItem?.title = "Prescription Detail"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .save, primaryAction: UIAction() { [self] _ in
-            self.savePerscription()
+            self.savePrescription()
         })
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .cancel, primaryAction: UIAction() {
             [self] _ in
-            self.cancelPerscriptionEdit()
+            self.cancelPrescriptionEdit()
         })
     }
     
@@ -140,7 +140,7 @@ class PerscriptionEditViewController: UIViewController, UITextFieldDelegate {
     }
 }
 
-extension PerscriptionEditViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+extension PrescriptionEditViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
