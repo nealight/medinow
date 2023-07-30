@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-import CoreData
 
 class PerscriptionEditViewController: UIViewController, UITextFieldDelegate {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -15,9 +14,19 @@ class PerscriptionEditViewController: UIViewController, UITextFieldDelegate {
     let frequencyTextLabel = UILabel()
     let frequencyPicker = UIPickerView()
     let frequencyPickerOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    let drugPerscriptionService: DrugPerscriptionServiceProvider
     
     lazy var nameTF = drugInfoTextFieldFactory.create(placeholder: "Drug Name")
     lazy var frequencyTextField = drugInfoTextFieldFactory.create(placeholder: "")
+    
+    init(drugPerscriptionService: DrugPerscriptionServiceProvider) {
+        self.drugPerscriptionService = drugPerscriptionService
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,18 +50,12 @@ class PerscriptionEditViewController: UIViewController, UITextFieldDelegate {
     }
     
     func savePerscription() {
-        let context = appDelegate.persistentContainer.newBackgroundContext()
-        let entity = NSEntityDescription.entity(forEntityName: "DrugPerscription", in: context)
-        let newDrug = NSManagedObject(entity: entity!, insertInto: context)
+        drugPerscriptionService.savePerscription(perscription: .init(name: nameTF.text!, dailyDosage: Int64(frequencyPickerOptions[frequencyPicker.selectedRow(inComponent: 0)])))
         
-        newDrug.setValue(nameTF.text, forKey: "name")
-        newDrug.setValue(frequencyPickerOptions[frequencyPicker.selectedRow(inComponent: 0)], forKey: "dailyDosage")
-        context.perform {
-            try! context.save()
-            DispatchQueue.main.async {
-                self.appDelegate.coordinator.savePerscriptionTapped()
-            }
+        DispatchQueue.main.async {
+            self.appDelegate.coordinator.savePerscriptionTapped()
         }
+        
     }
     
     func cancelPerscriptionEdit() {

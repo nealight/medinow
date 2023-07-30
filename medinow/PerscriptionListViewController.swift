@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import CoreData
 
 class PerscriptionListViewController: UIViewController {
     let coordinator = (UIApplication.shared.delegate as! AppDelegate).coordinator

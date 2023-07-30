@@ -7,12 +7,11 @@
 
 import Foundation
 import UIKit
-import CoreData
 
 class PerscriptionDataSource: NSObject, UITableViewDataSource {
     var fetch_offset = 0
     let Rows_Each_Load = 20
-    let drugPerscriptionService: DrugPerscriptionService
+    let drugPerscriptionService: DrugPerscriptionServiceProvider
     
     init(fetch_offset: Int = 0, drugPerscriptionService: DrugPerscriptionService) {
         self.drugPerscriptionService = drugPerscriptionService

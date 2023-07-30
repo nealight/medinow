@@ -9,7 +9,14 @@ import Foundation
 import CoreData
 import UIKit
 
-class DrugPerscriptionService {
+protocol DrugPerscriptionServiceProvider {
+    func fetchDrugs(fetch_offset: Int) -> [NSManagedObject]
+    func fetchDrugsBackground(fetch_offset: Int, action: @escaping ([NSManagedObject]) -> ())
+    func removeDrugBackground(durgName: String, completionHandler: @escaping (Bool) -> Void)
+    func savePerscription(perscription: DrugPerscriptionModel)
+}
+
+class DrugPerscriptionService: DrugPerscriptionServiceProvider {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     lazy var drugPerscriptionContext: NSManagedObjectContext = appDelegate.persistentContainer.viewContext
     func fetchDrugs(fetch_offset: Int) -> [NSManagedObject] {
@@ -45,5 +52,13 @@ class DrugPerscriptionService {
                 completionHandler(true)
             }
         }
+    }
+    
+    func savePerscription(perscription: DrugPerscriptionModel) {
+        let entity = NSEntityDescription.entity(forEntityName: "DrugPerscription", in: drugPerscriptionContext)
+        let newDrug = NSManagedObject(entity: entity!, insertInto: drugPerscriptionContext)
+        newDrug.setValue(perscription.name, forKey: "name")
+        newDrug.setValue(perscription.dailyDosage, forKey: "dailyDosage")
+        try! drugPerscriptionContext.save()
     }
 }

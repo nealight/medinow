@@ -20,8 +20,9 @@ class MainCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     
+    let drugPerscriptionService = DrugPerscriptionService()
     lazy var mainTabBarController = MainTabBarController()
-    lazy var perscriptionEditViewController = PerscriptionEditViewController()
+    lazy var perscriptionEditViewController = PerscriptionEditViewController(drugPerscriptionService: drugPerscriptionService)
     lazy var inventoryEditViewController = InventoryEditViewController(coordinator: self)
     lazy var drugImageCameraController = DrugImageCameraController()
     var perscriptionLastSaved = false
@@ -39,7 +40,7 @@ class MainCoordinator: Coordinator {
     
     func addPerscriptionTapped() {
         if perscriptionLastSaved {
-            perscriptionEditViewController = PerscriptionEditViewController()
+            perscriptionEditViewController = PerscriptionEditViewController(drugPerscriptionService: drugPerscriptionService)
         }
         let navVC = UINavigationController(rootViewController: perscriptionEditViewController)
         navVC.modalPresentationStyle = .fullScreen
@@ -57,7 +58,7 @@ class MainCoordinator: Coordinator {
     }
     
     func getPerscriptionDataSource() -> PerscriptionDataSource {
-        return PerscriptionDataSource(drugPerscriptionService: DrugPerscriptionService())
+        return PerscriptionDataSource(drugPerscriptionService: drugPerscriptionService)
     }
 }
 
