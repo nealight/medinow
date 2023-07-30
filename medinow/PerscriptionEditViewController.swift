@@ -50,13 +50,13 @@ class PerscriptionEditViewController: UIViewController, UITextFieldDelegate {
         context.perform {
             try! context.save()
             DispatchQueue.main.async {
-                self.appDelegate.coordinator?.savePerscriptionTapped()
+                self.appDelegate.coordinator.savePerscriptionTapped()
             }
         }
     }
     
     func cancelPerscriptionEdit() {
-        self.appDelegate.coordinator?.cancelPerscriptionEditTapped()
+        self.appDelegate.coordinator.cancelPerscriptionEditTapped()
     }
     
     func setupNavigation() {

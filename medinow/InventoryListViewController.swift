@@ -7,9 +7,11 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 class InventoryListViewController: UICollectionViewController {
-    let coordinator = (UIApplication.shared.delegate as! AppDelegate).coordinator!
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let coordinator = (UIApplication.shared.delegate as! AppDelegate).coordinator
     let cellReuseID = "InventoryCell"
     private lazy var dataSource = makeDataSource()
     
@@ -31,9 +33,20 @@ class InventoryListViewController: UICollectionViewController {
         
         var snapshot = NSDiffableDataSourceSnapshot<Section, DrugInventoryModel>()
         snapshot.appendSections(Section.allCases)
-        snapshot.appendItems([.init(snapshot: .init(), name: "Vitamin C", expirationDate: Date(), originalQuantity: 0, remainingQuantity: 0)], toSection: .unexpired)
-        snapshot.appendItems([.init(snapshot: .init(), name: "Vitamin D", expirationDate: Date(), originalQuantity: 0, remainingQuantity: 0)], toSection: .unexpired)
-        dataSource.apply(snapshot)
+        
+        var fetched_drugs: [DrugInventoryModel] = []
+        let context = appDelegate.persistentContainer.newBackgroundContext()
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "DrugInventory")
+        request.returnsObjectsAsFaults = false
+        
+        context.perform {
+            let result = try! context.fetch(request)
+            for data in result as! [NSManagedObject] {
+                fetched_drugs.append(DrugInventoryModel(snapshot: data.value(forKey: "snapshot") as? Data, name: data.value(forKey: "name") as! String, expirationDate: Date(), originalQuantity: data.value(forKey: "originalQuantity") as! Int64, remainingQuantity: data.value(forKey: "remainingQuantity") as! Int64))
+            }
+            snapshot.appendItems(fetched_drugs)
+            self.dataSource.apply(snapshot)
+        }
     }
     
     func makeDataSource() -> UICollectionViewDiffableDataSource<Section, DrugInventoryModel> {
@@ -44,6 +57,10 @@ class InventoryListViewController: UICollectionViewController {
                         withReuseIdentifier: self.cellReuseID,
                         for: indexPath
                     ) as! InventoryCell
+                    if let snapshot = product.snapshot {
+                        cell.drugImage = UIImage(data: snapshot)
+                        cell.setupView()
+                    }
                     return cell
                 }
             )
@@ -53,7 +70,6 @@ class InventoryListViewController: UICollectionViewController {
         let addButtonAction = UIAction() { _ in
             self.coordinator.addInventoryTapped()
         }
-        
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .add, primaryAction: addButtonAction)
     }

@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
-    let coordinator: Coordinator = (UIApplication.shared.delegate as! AppDelegate).coordinator!
+    let coordinator: Coordinator = (UIApplication.shared.delegate as! AppDelegate).coordinator
     
     init() {
         super.init(nibName: nil, bundle: nil)

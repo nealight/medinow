@@ -8,10 +8,12 @@
 import Foundation
 import UIKit
 import Vision
+import CoreData
 
 class InventoryEditViewController: UIViewController {
     let drugInfoTextFieldFactory = DrugInfoTextFieldFactory()
     let coordinator: InventoryEditViewControllerCoordinator
+    var drugInventoryImage: UIImage?
     lazy var drugNameTF = drugInfoTextFieldFactory.create(placeholder: "Drug Name")
     lazy var capletQuantityTF = drugInfoTextFieldFactory.create(placeholder: "Quantity")
     
@@ -34,13 +36,30 @@ class InventoryEditViewController: UIViewController {
         setupCapletQuantityTF()
     }
     
+    private func saveDrugInventory() {
+        let context =  (UIApplication.shared.delegate as! AppDelegate).persistentContainer.newBackgroundContext()
+        let entity = NSEntityDescription.entity(forEntityName: "DrugInventory", in: context)
+        let newDrug = NSManagedObject(entity: entity!, insertInto: context)
+        
+        newDrug.setValue(drugNameTF.text, forKey: "name")
+        newDrug.setValue(Int(capletQuantityTF.text!) ?? 0, forKey: "remainingQuantity")
+        newDrug.setValue(Int(capletQuantityTF.text!) ?? 0, forKey: "originalQuantity")
+        newDrug.setValue(drugInventoryImage?.jpegData(compressionQuality: 1), forKey: "snapshot")
+        context.perform {
+            try! context.save()
+            DispatchQueue.main.async {
+                self.coordinator.cancelInventoryEditTapped()
+            }
+        }
+    }
+    
     func setupNavigation() {
         self.navigationController?.navigationBar.topItem?.title = "Inventory Detail"
         let cancelInventoryEditTappedAction = UIAction() { [self] _ in
-            self.coordinator.cancelInventoryEditTapped()
+            coordinator.cancelInventoryEditTapped()
         }
         let saveInventoryEditTappedAction = UIAction() { [self] _ in
-            self.coordinator.saveInventoryEditTapped()
+            saveDrugInventory()
         }
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .cancel, primaryAction: cancelInventoryEditTappedAction)
@@ -135,6 +154,7 @@ class InventoryEditViewController: UIViewController {
     }
     
     func capturedDrugImage(image: UIImage) {
+        self.drugInventoryImage = image
         let request = VNRecognizeTextRequest(completionHandler: handleTextRecognition)
         request.minimumTextHeight = 1/16
         request.recognitionLevel = .accurate

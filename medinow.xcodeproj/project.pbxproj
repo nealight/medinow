@@ -107,6 +107,7 @@
 			children = (
 				1CABC08C2A1C0CFF00EA11CE /* InventoryEditViewController.swift */,
 				1CEE555F2A08243A00B96C38 /* InventoryListViewController.swift */,
+				1C0D17182A0A82EB00B1A1E8 /* InventoryCell.swift */,
 				1C0D171A2A0A88D200B1A1E8 /* DrugInventoryModel.swift */,
 				1CFC64442A6C793200BA6A42 /* DrugImageCameraController.swift */,
 			);
@@ -119,7 +120,6 @@
 				1C245E8929F33A9900AEF9CE /* AppDelegate.swift */,
 				1C245E8B29F33A9900AEF9CE /* SceneDelegate.swift */,
 				1C7C976B29FAAEEE007808FC /* MainTabBarController.swift */,
-				1C0D17182A0A82EB00B1A1E8 /* InventoryCell.swift */,
 				1C0D171C2A0AB6AF00B1A1E8 /* Coordinator.swift */,
 				1C0D171E2A0AB8E900B1A1E8 /* MainCoordinator.swift */,
 				1CFC64492A74C80E00BA6A42 /* InputTextFieldFactory.swift */,

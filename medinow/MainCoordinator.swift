@@ -70,7 +70,7 @@ extension MainCoordinator: InventoryEditViewControllerCoordinator {
     
     func inverntoryCameraButtonTapped() {
         drugImageCameraController.sourceType = .camera
-        drugImageCameraController.allowsEditing = false
+        drugImageCameraController.allowsEditing = true
         drugImageCameraController.delegate = drugImageCameraController
         inventoryEditViewController.present(drugImageCameraController, animated: true)
     }
