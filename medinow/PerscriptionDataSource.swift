@@ -53,14 +53,10 @@ class PerscriptionDataSource: NSObject, UITableViewDataSource {
     
     func loadTableData(_ tableView: UITableView) {
         var fetched_drugs: [DrugPerscriptionModel] = []
-        let context = appDelegate.persistentContainer.newBackgroundContext()
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "DrugPerscription")
-        request.returnsObjectsAsFaults = false
         fetch_offset += Rows_Each_Load
-        request.fetchLimit = fetch_offset;
-        context.perform {
-            let result = try! context.fetch(request)
-            for data in result as! [NSManagedObject] {
+        
+        drugPerscriptionService.fetchDrugsBackground(fetch_offset: fetch_offset) { (result) in
+            for data in result {
                 fetched_drugs.append(DrugPerscriptionModel(name: data.value(forKey: "name") as! String, dailyDosage: data.value(forKey: "dailyDosage") as! Int64))
             }
             if self.drugs != fetched_drugs {

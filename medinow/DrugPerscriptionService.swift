@@ -20,4 +20,19 @@ class DrugPerscriptionService {
         let result = try! context.fetch(request)
         return result as! [NSManagedObject]
     }
+    
+    func fetchDrugsBackground(fetch_offset: Int, action: @escaping ([NSManagedObject]) -> ()) {
+        let context = appDelegate.persistentContainer.newBackgroundContext()
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "DrugPerscription")
+        request.returnsObjectsAsFaults = false
+        request.fetchLimit = fetch_offset;
+        context.perform { [action] in
+            let result = try! context.fetch(request)
+            action(result as! [NSManagedObject])
+        }
+    }
+    
+    func removeDrugBackground(durgName: String) {
+        
+    }
 }
