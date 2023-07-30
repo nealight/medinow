@@ -18,13 +18,13 @@
 		1C245E8E29F33A9900AEF9CE /* PrescriptionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C245E8D29F33A9900AEF9CE /* PrescriptionListViewController.swift */; };
 		1C245E9429F33A9900AEF9CE /* medinow.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1C245E9229F33A9900AEF9CE /* medinow.xcdatamodeld */; };
 		1C245E9629F33A9A00AEF9CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C245E9529F33A9A00AEF9CE /* Assets.xcassets */; };
-		1C3A4CE429F845330016AD06 /* DrugPerscriptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3A4CE329F845330016AD06 /* DrugPerscriptionModel.swift */; };
+		1C3A4CE429F845330016AD06 /* DrugPerescriptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3A4CE329F845330016AD06 /* DrugPerescriptionModel.swift */; };
 		1C7C976C29FAAEEE007808FC /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7C976B29FAAEEE007808FC /* MainTabBarController.swift */; };
 		1CABC08D2A1C0CFF00EA11CE /* InventoryEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CABC08C2A1C0CFF00EA11CE /* InventoryEditViewController.swift */; };
 		1CEE55602A08243A00B96C38 /* InventoryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEE555F2A08243A00B96C38 /* InventoryListViewController.swift */; };
 		1CFC64452A6C793200BA6A42 /* DrugImageCameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC64442A6C793200BA6A42 /* DrugImageCameraController.swift */; };
 		1CFC644A2A74C80E00BA6A42 /* InputTextFieldFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC64492A74C80E00BA6A42 /* InputTextFieldFactory.swift */; };
-		1CFC644E2A76C06000BA6A42 /* DrugPerscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC644D2A76C06000BA6A42 /* DrugPerscriptionService.swift */; };
+		1CFC644E2A76C06000BA6A42 /* DrugPrescriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC644D2A76C06000BA6A42 /* DrugPrescriptionService.swift */; };
 		1CFC64502A76C27000BA6A42 /* DrugInventoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC644F2A76C27000BA6A42 /* DrugInventoryModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -42,14 +42,14 @@
 		1C245E9329F33A9900AEF9CE /* medinow.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = medinow.xcdatamodel; sourceTree = "<group>"; };
 		1C245E9529F33A9A00AEF9CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1C245E9A29F33A9A00AEF9CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1C3A4CE329F845330016AD06 /* DrugPerscriptionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrugPerscriptionModel.swift; sourceTree = "<group>"; };
+		1C3A4CE329F845330016AD06 /* DrugPerescriptionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrugPerescriptionModel.swift; sourceTree = "<group>"; };
 		1C7C976B29FAAEEE007808FC /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		1CABC08C2A1C0CFF00EA11CE /* InventoryEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryEditViewController.swift; sourceTree = "<group>"; };
 		1CD0B9D12A76E38F008A4D4E /* medinow.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = medinow.entitlements; sourceTree = "<group>"; };
 		1CEE555F2A08243A00B96C38 /* InventoryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryListViewController.swift; sourceTree = "<group>"; };
 		1CFC64442A6C793200BA6A42 /* DrugImageCameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrugImageCameraController.swift; sourceTree = "<group>"; };
 		1CFC64492A74C80E00BA6A42 /* InputTextFieldFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextFieldFactory.swift; sourceTree = "<group>"; };
-		1CFC644D2A76C06000BA6A42 /* DrugPerscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrugPerscriptionService.swift; sourceTree = "<group>"; };
+		1CFC644D2A76C06000BA6A42 /* DrugPrescriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrugPrescriptionService.swift; sourceTree = "<group>"; };
 		1CFC644F2A76C27000BA6A42 /* DrugInventoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrugInventoryModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -97,12 +97,12 @@
 		1CFC64462A6D780400BA6A42 /* Perscription */ = {
 			isa = PBXGroup;
 			children = (
-				1CFC644D2A76C06000BA6A42 /* DrugPerscriptionService.swift */,
+				1CFC644D2A76C06000BA6A42 /* DrugPrescriptionService.swift */,
 				1C0D17202A0ADB3E00B1A1E8 /* PrescriptionDataSource.swift */,
 				1C245E8D29F33A9900AEF9CE /* PrescriptionListViewController.swift */,
 				1C1C801F29F5895400E57D66 /* PrescriptionListCell.swift */,
 				1C1C802129F5D0BD00E57D66 /* PrescriptionEditViewController.swift */,
-				1C3A4CE329F845330016AD06 /* DrugPerscriptionModel.swift */,
+				1C3A4CE329F845330016AD06 /* DrugPerescriptionModel.swift */,
 			);
 			name = Perscription;
 			sourceTree = "<group>";
@@ -202,9 +202,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C245E8E29F33A9900AEF9CE /* PrescriptionListViewController.swift in Sources */,
-				1C3A4CE429F845330016AD06 /* DrugPerscriptionModel.swift in Sources */,
+				1C3A4CE429F845330016AD06 /* DrugPerescriptionModel.swift in Sources */,
 				1C7C976C29FAAEEE007808FC /* MainTabBarController.swift in Sources */,
-				1CFC644E2A76C06000BA6A42 /* DrugPerscriptionService.swift in Sources */,
+				1CFC644E2A76C06000BA6A42 /* DrugPrescriptionService.swift in Sources */,
 				1C245E8A29F33A9900AEF9CE /* AppDelegate.swift in Sources */,
 				1C1C802229F5D0BD00E57D66 /* PrescriptionEditViewController.swift in Sources */,
 				1C245E8C29F33A9900AEF9CE /* SceneDelegate.swift in Sources */,
