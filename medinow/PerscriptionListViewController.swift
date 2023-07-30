@@ -29,7 +29,6 @@ class PerscriptionListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        self.dataSource.loadTableData(self.tableView)
     }
     
     @objc func addTapped() {

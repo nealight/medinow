@@ -17,12 +17,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
-        coordinator.start()
         window = UIWindow()
         window?.backgroundColor = .systemBackground
         window?.makeKeyAndVisible()
         window?.rootViewController = navController
+        coordinator.start()
         return true
     }
 

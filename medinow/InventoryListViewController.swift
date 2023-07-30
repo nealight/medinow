@@ -58,6 +58,7 @@ class InventoryListViewController: UICollectionViewController {
                         for: indexPath
                     ) as! InventoryCell
                     if let snapshot = product.snapshot {
+                        cell.medicationLabel.text = product.name
                         cell.drugImage = UIImage(data: snapshot)
                     }
                     return cell
