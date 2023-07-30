@@ -32,7 +32,7 @@ class DrugPerscriptionService {
         }
     }
     
-    func removeDrugBackground(durgName: String) {
+    func removeDrugBackground(durgName: String, completionHandler: @escaping (Bool) -> Void) {
         
     }
 }
