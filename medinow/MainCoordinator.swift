@@ -57,7 +57,7 @@ class MainCoordinator: Coordinator {
     }
     
     func getPerscriptionDataSource() -> PerscriptionDataSource {
-        return PerscriptionDataSource()
+        return PerscriptionDataSource(drugPerscriptionService: DrugPerscriptionService())
     }
 }
 

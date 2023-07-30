@@ -9,7 +9,16 @@ import Foundation
 import UIKit
 
 class InventoryCell: UICollectionViewCell {
-    var drugImage: UIImage?
+    private var _drugImage: UIImage?
+    var drugImage: UIImage? {
+        get {
+            return self._drugImage
+        }
+        set (newValue) {
+            self._drugImage = newValue
+            setupView()
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

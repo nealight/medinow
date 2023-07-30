@@ -11,7 +11,7 @@ import CoreData
 
 class InventoryListViewController: UICollectionViewController {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    let coordinator = (UIApplication.shared.delegate as! AppDelegate).coordinator
+    lazy var coordinator = appDelegate.coordinator
     let cellReuseID = "InventoryCell"
     private lazy var dataSource = makeDataSource()
     
@@ -59,7 +59,6 @@ class InventoryListViewController: UICollectionViewController {
                     ) as! InventoryCell
                     if let snapshot = product.snapshot {
                         cell.drugImage = UIImage(data: snapshot)
-                        cell.setupView()
                     }
                     return cell
                 }

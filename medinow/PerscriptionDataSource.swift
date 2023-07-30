@@ -12,6 +12,11 @@ import CoreData
 class PerscriptionDataSource: NSObject, UITableViewDataSource {
     var fetch_offset = 0
     let Rows_Each_Load = 20
+    let drugPerscriptionService: DrugPerscriptionService
+    
+    init(fetch_offset: Int = 0, drugPerscriptionService: DrugPerscriptionService) {
+        self.drugPerscriptionService = drugPerscriptionService
+    }
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     lazy var drugs: Array<DrugPerscriptionModel> = initializeDrugs()
@@ -19,13 +24,9 @@ class PerscriptionDataSource: NSObject, UITableViewDataSource {
     
     func initializeDrugs() -> Array<DrugPerscriptionModel> {
         var fetched_drugs: [DrugPerscriptionModel] = []
-        let context = appDelegate.persistentContainer.viewContext
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "DrugPerscription")
-        request.returnsObjectsAsFaults = false
         fetch_offset += Rows_Each_Load
-        request.fetchLimit = fetch_offset;
-        let result = try! context.fetch(request)
-        for data in result as! [NSManagedObject] {
+        let result = drugPerscriptionService.fetchDrugs(fetch_offset: fetch_offset)
+        for data in result {
             fetched_drugs.append(DrugPerscriptionModel(name: data.value(forKey: "name") as! String, dailyDosage: data.value(forKey: "dailyDosage") as! Int64))
         }
         return fetched_drugs
