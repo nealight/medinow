@@ -18,7 +18,7 @@
 		1C245E8E29F33A9900AEF9CE /* PrescriptionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C245E8D29F33A9900AEF9CE /* PrescriptionListViewController.swift */; };
 		1C245E9429F33A9900AEF9CE /* medinow.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1C245E9229F33A9900AEF9CE /* medinow.xcdatamodeld */; };
 		1C245E9629F33A9A00AEF9CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C245E9529F33A9A00AEF9CE /* Assets.xcassets */; };
-		1C3A4CE429F845330016AD06 /* DrugPerescriptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3A4CE329F845330016AD06 /* DrugPerescriptionModel.swift */; };
+		1C3A4CE429F845330016AD06 /* DrugPrescriptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3A4CE329F845330016AD06 /* DrugPrescriptionModel.swift */; };
 		1C7C976C29FAAEEE007808FC /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7C976B29FAAEEE007808FC /* MainTabBarController.swift */; };
 		1CABC08D2A1C0CFF00EA11CE /* InventoryEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CABC08C2A1C0CFF00EA11CE /* InventoryEditViewController.swift */; };
 		1CEE55602A08243A00B96C38 /* InventoryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEE555F2A08243A00B96C38 /* InventoryListViewController.swift */; };
@@ -42,7 +42,7 @@
 		1C245E9329F33A9900AEF9CE /* medinow.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = medinow.xcdatamodel; sourceTree = "<group>"; };
 		1C245E9529F33A9A00AEF9CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1C245E9A29F33A9A00AEF9CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1C3A4CE329F845330016AD06 /* DrugPerescriptionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrugPerescriptionModel.swift; sourceTree = "<group>"; };
+		1C3A4CE329F845330016AD06 /* DrugPrescriptionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrugPrescriptionModel.swift; sourceTree = "<group>"; };
 		1C7C976B29FAAEEE007808FC /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		1CABC08C2A1C0CFF00EA11CE /* InventoryEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryEditViewController.swift; sourceTree = "<group>"; };
 		1CD0B9D12A76E38F008A4D4E /* medinow.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = medinow.entitlements; sourceTree = "<group>"; };
@@ -102,7 +102,7 @@
 				1C245E8D29F33A9900AEF9CE /* PrescriptionListViewController.swift */,
 				1C1C801F29F5895400E57D66 /* PrescriptionListCell.swift */,
 				1C1C802129F5D0BD00E57D66 /* PrescriptionEditViewController.swift */,
-				1C3A4CE329F845330016AD06 /* DrugPerescriptionModel.swift */,
+				1C3A4CE329F845330016AD06 /* DrugPrescriptionModel.swift */,
 			);
 			name = Perscription;
 			sourceTree = "<group>";
@@ -202,7 +202,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C245E8E29F33A9900AEF9CE /* PrescriptionListViewController.swift in Sources */,
-				1C3A4CE429F845330016AD06 /* DrugPerescriptionModel.swift in Sources */,
+				1C3A4CE429F845330016AD06 /* DrugPrescriptionModel.swift in Sources */,
 				1C7C976C29FAAEEE007808FC /* MainTabBarController.swift in Sources */,
 				1CFC644E2A76C06000BA6A42 /* DrugPrescriptionService.swift in Sources */,
 				1C245E8A29F33A9900AEF9CE /* AppDelegate.swift in Sources */,
