@@ -70,22 +70,10 @@ class PerscriptionDataSource: NSObject, UITableViewDataSource {
     
     func deleteRowAt(_ tableView: UITableView, indexPath: IndexPath, completionHandler: @escaping (Bool) -> Void) {
         NSLog("[\(type(of: self))] delete detected!")
-        let context = self.appDelegate.persistentContainer.newBackgroundContext()
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "DrugPerscription")
-        request.predicate = NSPredicate(format:"name=%@", drugs[indexPath.row].name)
-        context.perform {
-            let result = try! context.fetch(request)
-            let data = result[0]
-            let object = data as! NSManagedObject
-            context.delete(object)
-            try! context.save()
-            
-            self.drugs.remove(at: indexPath.row)
-            DispatchQueue.main.async {
-                tableView.deleteRows(at: [indexPath, ], with: .left)
-                completionHandler(true)
-            }
-        }
+        self.drugs.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath, ], with: .left)
+        
+        drugPerscriptionService.removeDrugBackground(durgName: drugs[indexPath.row].name, completionHandler: completionHandler)
     }
     
 
