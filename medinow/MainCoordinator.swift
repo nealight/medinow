@@ -19,6 +19,7 @@ protocol InventoryEditViewControllerCoordinator {
 class MainCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     let drugPrescriptionService = DrugPrescriptionService()
     lazy var mainTabBarController = MainTabBarController()
