@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class PrescriptionListViewController: UIViewController {
     let coordinator = (UIApplication.shared.delegate as! AppDelegate).coordinator
@@ -68,6 +69,26 @@ class PrescriptionListViewController: UIViewController {
             tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor)
         ])
         dataSource.loadTableData(self.tableView)
+        
+        NotificationCenter.default.addObserver(forName: NSPersistentCloudKitContainer.eventChangedNotification, object: nil, queue: .main) { [weak self] notification in
+
+            guard let event = notification.userInfo?[NSPersistentCloudKitContainer.eventNotificationUserInfoKey] as? NSPersistentCloudKitContainer.Event else {
+                return
+            }
+
+            let isFinished = event.endDate != nil
+            
+            switch (event.type, isFinished) {
+            case (.import, true):
+                // Finished downloading records
+                guard let tableView = self?.tableView else {
+                    break
+                }
+                self?.dataSource.loadTableData(tableView)
+            default:
+                break
+            }
+        }
     }
     
 }

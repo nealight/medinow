@@ -74,16 +74,3 @@ class InventoryListViewController: UICollectionViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .add, primaryAction: addButtonAction)
     }
 }
-
-//extension InventoryListViewController {
-//    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return 8
-//    }
-//
-//    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseID, for: indexPath)
-//
-//        cell.backgroundColor = .systemCyan
-//        return cell
-//    }
-//}

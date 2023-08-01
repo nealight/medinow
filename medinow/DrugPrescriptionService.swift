@@ -10,7 +10,6 @@ import CoreData
 import UIKit
 
 protocol DrugPrescriptionServiceProvider {
-    func fetchDrugs(fetch_offset: Int) -> [NSManagedObject]
     func fetchDrugsBackground(fetch_offset: Int, action: @escaping ([NSManagedObject]) -> ())
     func removeDrugBackground(durgName: String, completionHandler: @escaping (Bool) -> Void)
     func savePrescription(prescription: DrugPrescriptionModel)
@@ -19,14 +18,6 @@ protocol DrugPrescriptionServiceProvider {
 class DrugPrescriptionService: DrugPrescriptionServiceProvider {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     lazy var drugPrescriptionContext: NSManagedObjectContext = appDelegate.persistentContainer.viewContext
-    func fetchDrugs(fetch_offset: Int) -> [NSManagedObject] {
-        let context = appDelegate.persistentContainer.viewContext
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "DrugPrescription")
-        request.returnsObjectsAsFaults = false
-        request.fetchLimit = fetch_offset;
-        let result = try! context.fetch(request)
-        return result as! [NSManagedObject]
-    }
     
     func fetchDrugsBackground(fetch_offset: Int, action: @escaping ([NSManagedObject]) -> ()) {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "DrugPrescription")
