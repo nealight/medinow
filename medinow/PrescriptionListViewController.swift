@@ -67,7 +67,7 @@ class PrescriptionListViewController: UIViewController {
             tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
             tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor)
         ])
-        
+        dataSource.loadTableData(self.tableView)
     }
     
 }

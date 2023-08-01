@@ -18,18 +18,7 @@ class PrescriptionDataSource: NSObject, UITableViewDataSource {
     }
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    lazy var drugs: Array<DrugPrescriptionModel> = initializeDrugs()
-    
-    
-    func initializeDrugs() -> Array<DrugPrescriptionModel> {
-        var fetched_drugs: [DrugPrescriptionModel] = []
-        fetch_offset += Rows_Each_Load
-        let result = drugPrescriptionService.fetchDrugs(fetch_offset: fetch_offset)
-        for data in result {
-            fetched_drugs.append(DrugPrescriptionModel(name: data.value(forKey: "name") as! String, dailyDosage: data.value(forKey: "dailyDosage") as! Int64))
-        }
-        return fetched_drugs
-    }
+    var drugs: Array<DrugPrescriptionModel> = []
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return drugs.count
@@ -43,7 +32,7 @@ class PrescriptionDataSource: NSObject, UITableViewDataSource {
         let dailyDosage = drugs[indexPath.row].dailyDosage
         cell.dosageLabel.text = "\(dailyDosage) pill\(dailyDosage == 1 ? "" : "s") per day"
         
-        if (indexPath.row == drugs.count - 1) {
+        if (indexPath.row >= drugs.count - 1) {
             loadTableData(tableView)
         }
         
