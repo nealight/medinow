@@ -10,6 +10,7 @@ import UIKit
 
 class PrescriptionEditViewController: UIViewController, UITextFieldDelegate {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    lazy var coordinator = appDelegate.coordinator
     let drugInfoTextFieldFactory = DrugInfoTextFieldFactory()
     let frequencyTextLabel = UILabel()
     let frequencyPicker = UIPickerView()
@@ -17,7 +18,7 @@ class PrescriptionEditViewController: UIViewController, UITextFieldDelegate {
     let drugPrescriptionService: DrugPrescriptionServiceProvider
     
     lazy var nameTF = drugInfoTextFieldFactory.create(placeholder: "Drug Name")
-    lazy var frequencyTextField = drugInfoTextFieldFactory.create(placeholder: "")
+    lazy var frequencyTextField = drugInfoTextFieldFactory.create(placeholder: "0")
     
     init(drugPrescriptionService: DrugPrescriptionServiceProvider) {
         self.drugPrescriptionService = drugPrescriptionService
@@ -50,12 +51,7 @@ class PrescriptionEditViewController: UIViewController, UITextFieldDelegate {
     }
     
     func savePrescription() {
-        drugPrescriptionService.savePrescription(prescription: .init(name: nameTF.text!, dailyDosage: Int64(frequencyPickerOptions[frequencyPicker.selectedRow(inComponent: 0)])))
-        
-        DispatchQueue.main.async {
-            self.appDelegate.coordinator.savePrescriptionTapped()
-        }
-        
+        coordinator.savePrescriptionTapped()
     }
     
     func cancelPrescriptionEdit() {
@@ -108,9 +104,8 @@ class PrescriptionEditViewController: UIViewController, UITextFieldDelegate {
         frequencyPicker.dataSource = self
         frequencyPicker.delegate = self
         
-        frequencyPicker.selectRow(0, inComponent: 0, animated: false)
-        frequencyTextField.text = "\(frequencyPickerOptions[frequencyPicker.selectedRow(inComponent: 0)])"
-        
+        frequencyPicker.selectRow(Int(frequencyTextField.text!)! - 1, inComponent: 0, animated: false)
+               
         view.addSubview(frequencyTextField)
         NSLayoutConstraint.activate([
             frequencyTextField.topAnchor.constraint(equalTo: frequencyTextLabel.topAnchor),

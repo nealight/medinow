@@ -16,6 +16,14 @@ protocol InventoryEditViewControllerCoordinator {
     func saveInventoryEditTapped()
 }
 
+protocol PrescriptionCoordinator {
+    func addPrescriptionTapped()
+    func savePrescriptionTapped()
+    func cancelPrescriptionEditTapped()
+    func getPrescriptionDataSource() -> PrescriptionDataSource
+    func editPrescription(for name: String)
+}
+
 class MainCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
@@ -29,6 +37,7 @@ class MainCoordinator: Coordinator {
     lazy var inventoryEditViewController = InventoryEditViewController(coordinator: self, inventoryService: inventoryService)
     lazy var drugImageCameraController = DrugImageCameraController()
     var prescriptionLastSaved = false
+    var originalPerscriptionName: String? = nil
     
     var capturedInventoryDrugImage: UIImage?
     
@@ -39,6 +48,23 @@ class MainCoordinator: Coordinator {
     
     func start() {
         navigationController.pushViewController(mainTabBarController, animated: false)
+    }
+}
+
+extension MainCoordinator: PrescriptionCoordinator {
+    func editPrescription(for name: String) {
+        prescriptionEditViewController = PrescriptionEditViewController(drugPrescriptionService: drugPrescriptionService)
+        drugPrescriptionService.fetchDrug(for: name) { object in
+            self.originalPerscriptionName = object.value(forKey: "name") as! String
+            self.prescriptionEditViewController.nameTF.text = object.value(forKey: "name") as! String
+            self.prescriptionEditViewController.frequencyTextField.text = String(object.value(forKey: "dailyDosage") as! Int64)
+            
+            DispatchQueue.main.async {
+                let navVC = UINavigationController(rootViewController: self.prescriptionEditViewController)
+                navVC.modalPresentationStyle = .fullScreen
+                self.navigationController.present(navVC, animated: true)
+            }
+        }
     }
     
     func addPrescriptionTapped() {
@@ -51,7 +77,14 @@ class MainCoordinator: Coordinator {
     }
     
     func savePrescriptionTapped() {
-        prescriptionLastSaved = true
+        if let originalPerscriptionName = originalPerscriptionName {
+            drugPrescriptionService.editPrescription(prescription: .init(name: prescriptionEditViewController.nameTF.text!, dailyDosage: Int64(prescriptionEditViewController.frequencyPickerOptions[prescriptionEditViewController.frequencyPicker.selectedRow(inComponent: 0)])), originalName: originalPerscriptionName)
+            self.originalPerscriptionName = nil
+        } else {
+            drugPrescriptionService.insertPrescription(prescription: .init(name: prescriptionEditViewController.nameTF.text!, dailyDosage: Int64(prescriptionEditViewController.frequencyPickerOptions[prescriptionEditViewController.frequencyPicker.selectedRow(inComponent: 0)])))
+            prescriptionLastSaved = true
+        }
+        
         prescriptionEditViewController.dismiss(animated: true)
     }
     

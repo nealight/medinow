@@ -23,7 +23,10 @@ class PrescriptionDataSource: NSObject, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return drugs.count
     }
-
+    
+    func getDrug(at index: IndexPath) -> DrugPrescriptionModel {
+        return drugs[index.row]
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PrescriptionListCell", for: indexPath) as! PrescriptionListCell
