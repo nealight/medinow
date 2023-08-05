@@ -9,8 +9,17 @@ import UIKit
 import CoreData
 
 class PrescriptionListViewController: UIViewController {
-    let coordinator = (UIApplication.shared.delegate as! AppDelegate).coordinator
+    let coordinator: PrescriptionCoordinator
     lazy var dataSource = coordinator.getPrescriptionDataSource()
+    
+    init(coordinator: PrescriptionCoordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     let tableView: UITableView = {
         let tv = UITableView()
@@ -18,7 +27,6 @@ class PrescriptionListViewController: UIViewController {
         tv.translatesAutoresizingMaskIntoConstraints = false
         return tv
     }()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()

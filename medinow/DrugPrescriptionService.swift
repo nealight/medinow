@@ -32,7 +32,6 @@ class DrugPrescriptionService: DrugPrescriptionServiceProvider {
         }
     }
     
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     lazy var drugPrescriptionContext: NSManagedObjectContext = appDelegate.persistentContainer.viewContext
     
     func fetchDrugsBackground(fetch_offset: Int, action: @escaping ([NSManagedObject]) -> ()) {

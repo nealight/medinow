@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class DrugImageCameraController: UIImagePickerController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-    let coordinator = (UIApplication.shared.delegate as! AppDelegate).coordinator
+    let coordinator = appDelegate.coordinator
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         coordinator.setInventoryDrugImage(image: info[.originalImage] as? UIImage)

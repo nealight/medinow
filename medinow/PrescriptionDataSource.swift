@@ -17,7 +17,6 @@ class PrescriptionDataSource: NSObject, UITableViewDataSource {
         self.drugPrescriptionService = drugPrescriptionService
     }
     
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var drugs: Array<DrugPrescriptionModel> = []
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

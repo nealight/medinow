@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 class PrescriptionEditViewController: UIViewController, UITextFieldDelegate {
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     lazy var coordinator = appDelegate.coordinator
     let drugInfoTextFieldFactory = DrugInfoTextFieldFactory()
     let frequencyTextLabel = UILabel()
@@ -55,7 +54,7 @@ class PrescriptionEditViewController: UIViewController, UITextFieldDelegate {
     }
     
     func cancelPrescriptionEdit() {
-        self.appDelegate.coordinator.cancelPrescriptionEditTapped()
+        appDelegate.coordinator.cancelPrescriptionEditTapped()
     }
     
     func setupNavigation() {
