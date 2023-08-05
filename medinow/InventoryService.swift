@@ -10,21 +10,20 @@ import CoreData
 import UIKit
 
 protocol InventoryServiceProvider {
-    func fetchInventoryDetailBackground(fetch_offset: Int?, action: @escaping ([NSManagedObject]) -> ())
+    func fetchInventoryDetailsBackground(fetch_offset: Int?, action: @escaping ([NSManagedObject]) -> ())
     func saveDrugInventory(drugInventory: DrugInventoryModel)
 }
 
 extension InventoryServiceProvider {
     func fetchInventoryDetailBackground(action: @escaping ([NSManagedObject]) -> ()) {
-        return fetchInventoryDetailBackground(fetch_offset: nil, action: action)
+        return fetchInventoryDetailsBackground(fetch_offset: nil, action: action)
     }
 }
 
 class InventoryService: InventoryServiceProvider {
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     lazy var drugInventoryContext: NSManagedObjectContext = appDelegate.persistentContainer.viewContext
     
-    func fetchInventoryDetailBackground(fetch_offset: Int?, action: @escaping ([NSManagedObject]) -> ()) {
+    func fetchInventoryDetailsBackground(fetch_offset: Int?, action: @escaping ([NSManagedObject]) -> ()) {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "DrugInventory")
         request.returnsObjectsAsFaults = false
         if let fetch_offset = fetch_offset {

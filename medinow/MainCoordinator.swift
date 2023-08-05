@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-protocol InventoryEditViewControllerCoordinator {
+protocol InventoryCoordinator {
     func addInventoryTapped()
     func inverntoryCameraButtonTapped()
     func setInventoryDrugImage(image: UIImage?)
@@ -27,12 +27,11 @@ protocol PrescriptionCoordinator {
 class MainCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     let drugPrescriptionService = DrugPrescriptionService()
     let inventoryService = InventoryService()
     
-    lazy var mainTabBarController = MainTabBarController(inventoryService: inventoryService)
+    lazy var mainTabBarController = MainTabBarController(coordinator: self)
     lazy var prescriptionEditViewController = PrescriptionEditViewController(drugPrescriptionService: drugPrescriptionService)
     lazy var inventoryEditViewController = InventoryEditViewController(coordinator: self, inventoryService: inventoryService)
     lazy var drugImageCameraController = DrugImageCameraController()
@@ -55,8 +54,8 @@ extension MainCoordinator: PrescriptionCoordinator {
     func editPrescription(for name: String) {
         prescriptionEditViewController = PrescriptionEditViewController(drugPrescriptionService: drugPrescriptionService)
         drugPrescriptionService.fetchDrug(for: name) { object in
-            self.originalPerscriptionName = object.value(forKey: "name") as! String
-            self.prescriptionEditViewController.nameTF.text = object.value(forKey: "name") as! String
+            self.originalPerscriptionName = object.value(forKey: "name") as? String
+            self.prescriptionEditViewController.nameTF.text = object.value(forKey: "name") as? String
             self.prescriptionEditViewController.frequencyTextField.text = String(object.value(forKey: "dailyDosage") as! Int64)
             
             DispatchQueue.main.async {
@@ -100,7 +99,7 @@ extension MainCoordinator: PrescriptionCoordinator {
     }
 }
 
-extension MainCoordinator: InventoryEditViewControllerCoordinator {
+extension MainCoordinator: InventoryCoordinator {
     func addInventoryTapped() {
         let navVC = UINavigationController(rootViewController: inventoryEditViewController)
         navVC.modalPresentationStyle = .fullScreen

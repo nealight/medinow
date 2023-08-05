@@ -17,7 +17,7 @@ class DrugInfoTextFieldFactory: InputTextFieldFactory {
         let nameTF = UITextField()
         nameTF.returnKeyType = .done
         
-        nameTF.text = placeholder
+        nameTF.placeholder = placeholder
         nameTF.minimumFontSize = 20
         nameTF.borderStyle = .roundedRect
         nameTF.backgroundColor = .systemGray6

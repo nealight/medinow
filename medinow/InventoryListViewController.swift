@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 class InventoryListViewController: UICollectionViewController {
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     lazy var coordinator = appDelegate.coordinator
     let cellReuseID = "InventoryCell"
     let inventoryService: InventoryServiceProvider

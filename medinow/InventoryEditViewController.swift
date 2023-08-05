@@ -11,14 +11,14 @@ import Vision
 
 class InventoryEditViewController: UIViewController {
     let drugInfoTextFieldFactory = DrugInfoTextFieldFactory()
-    let coordinator: InventoryEditViewControllerCoordinator
+    let coordinator: InventoryCoordinator
     let inventoryService: InventoryServiceProvider
     var drugInventoryImage: UIImage?
     lazy var drugNameTF = drugInfoTextFieldFactory.create(placeholder: "Drug Name")
     lazy var capletQuantityTF = drugInfoTextFieldFactory.create(placeholder: "Quantity")
     
     
-    init(coordinator: InventoryEditViewControllerCoordinator, inventoryService: InventoryServiceProvider) {
+    init(coordinator: InventoryCoordinator, inventoryService: InventoryServiceProvider) {
         self.coordinator = coordinator
         self.inventoryService = inventoryService
         super.init(nibName: nil, bundle: nil)

@@ -9,11 +9,10 @@ import Foundation
 import UIKit
 
 class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
-    let coordinator: Coordinator = (UIApplication.shared.delegate as! AppDelegate).coordinator
-    let inventoryService: InventoryServiceProvider
+    let coordinator: MainCoordinator
     
-    init(inventoryService: InventoryServiceProvider) {
-        self.inventoryService = inventoryService
+    init(coordinator: MainCoordinator) {
+        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -29,7 +28,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBar.backgroundColor = .secondarySystemBackground
-        let prescriptionVC = PrescriptionListViewController();
+        let prescriptionVC = PrescriptionListViewController(coordinator: self.coordinator);
         prescriptionVC.title = "Prescriptions"
         let prescriptionNavVC = UINavigationController(rootViewController: prescriptionVC)
         let prescriptionTab = UITabBarItem(title: prescriptionVC.title, image: .init(systemName: "list.bullet.clipboard.fill"), tag: 0)
@@ -42,7 +41,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         inventoryVCLayout.minimumLineSpacing = 10
         inventoryVCLayout.minimumInteritemSpacing = 10
         
-        let inventoryVC = InventoryListViewController(inventoryService: inventoryService, collectionViewLayout: inventoryVCLayout)
+        let inventoryVC = InventoryListViewController(inventoryService: coordinator.inventoryService, collectionViewLayout: inventoryVCLayout)
         inventoryVC.title = "Inventory"
         let inventoryNavVC = UINavigationController(rootViewController: inventoryVC)
         let inventoryTab = UITabBarItem(title: inventoryVC.title, image: .init(systemName: "cross.case.fill"), tag: 1)
