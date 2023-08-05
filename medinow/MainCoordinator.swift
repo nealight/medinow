@@ -22,9 +22,11 @@ class MainCoordinator: Coordinator {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     let drugPrescriptionService = DrugPrescriptionService()
-    lazy var mainTabBarController = MainTabBarController()
+    let inventoryService = InventoryService()
+    
+    lazy var mainTabBarController = MainTabBarController(inventoryService: inventoryService)
     lazy var prescriptionEditViewController = PrescriptionEditViewController(drugPrescriptionService: drugPrescriptionService)
-    lazy var inventoryEditViewController = InventoryEditViewController(coordinator: self)
+    lazy var inventoryEditViewController = InventoryEditViewController(coordinator: self, inventoryService: inventoryService)
     lazy var drugImageCameraController = DrugImageCameraController()
     var prescriptionLastSaved = false
     

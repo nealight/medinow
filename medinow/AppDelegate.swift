@@ -68,7 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
-        try! container.initializeCloudKitSchema(options: [])
+        try? container.initializeCloudKitSchema(options: [])
         return container
     }()
 

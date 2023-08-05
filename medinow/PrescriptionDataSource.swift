@@ -58,7 +58,7 @@ class PrescriptionDataSource: NSObject, UITableViewDataSource {
     
     func deleteRowAt(_ tableView: UITableView, indexPath: IndexPath, completionHandler: @escaping (Bool) -> Void) {
         NSLog("[\(type(of: self))] delete detected!")
-        drugPrescriptionService.removeDrugBackground(durgName: drugs[indexPath.row].name, completionHandler: completionHandler)
+        drugPrescriptionService.removeDrugBackground(drugName: drugs[indexPath.row].name, completionHandler: completionHandler)
         self.drugs.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath, ], with: .left)
     }

@@ -7,12 +7,12 @@
 
 import Foundation
 import UIKit
-import CoreData
 
 class InventoryListViewController: UICollectionViewController {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     lazy var coordinator = appDelegate.coordinator
     let cellReuseID = "InventoryCell"
+    let inventoryService: InventoryServiceProvider
     private lazy var dataSource = makeDataSource()
     
     enum Section: Int, CaseIterable {
@@ -20,32 +20,42 @@ class InventoryListViewController: UICollectionViewController {
         case expired
     }
     
+    init(inventoryService: InventoryServiceProvider, collectionViewLayout: UICollectionViewLayout) {
+        self.inventoryService = inventoryService
+        super.init(collectionViewLayout: collectionViewLayout)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigation()
+        setupDataSource()
         setupView()
     }
     
     func setupView() {
         self.view.backgroundColor = .systemBackground
         self.collectionView.register(InventoryCell.self, forCellWithReuseIdentifier: cellReuseID)
+    }
+    
+    func setupDataSource() {
         self.collectionView.dataSource = dataSource
-        
         var snapshot = NSDiffableDataSourceSnapshot<Section, DrugInventoryModel>()
         snapshot.appendSections(Section.allCases)
-        
+    
         var fetched_drugs: [DrugInventoryModel] = []
-        let context = appDelegate.persistentContainer.newBackgroundContext()
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "DrugInventory")
-        request.returnsObjectsAsFaults = false
         
-        context.perform {
-            let result = try! context.fetch(request)
-            for data in result as! [NSManagedObject] {
+        inventoryService.fetchInventoryDetailBackground() { (result) in
+            for data in result {
                 fetched_drugs.append(DrugInventoryModel(snapshot: data.value(forKey: "snapshot") as? Data, name: data.value(forKey: "name") as! String, expirationDate: Date(), originalQuantity: data.value(forKey: "originalQuantity") as! Int64, remainingQuantity: data.value(forKey: "remainingQuantity") as! Int64))
             }
             snapshot.appendItems(fetched_drugs)
-            self.dataSource.apply(snapshot)
+            DispatchQueue.main.async {
+                self.dataSource.apply(snapshot)
+            }
         }
     }
     

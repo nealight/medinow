@@ -42,7 +42,6 @@ class InventoryCell: UICollectionViewCell {
     }
     
     func setupView() {
-        
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 15

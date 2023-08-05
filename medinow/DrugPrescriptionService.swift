@@ -11,7 +11,7 @@ import UIKit
 
 protocol DrugPrescriptionServiceProvider {
     func fetchDrugsBackground(fetch_offset: Int, action: @escaping ([NSManagedObject]) -> ())
-    func removeDrugBackground(durgName: String, completionHandler: @escaping (Bool) -> Void)
+    func removeDrugBackground(drugName: String, completionHandler: @escaping (Bool) -> Void)
     func savePrescription(prescription: DrugPrescriptionModel)
 }
 
@@ -29,9 +29,9 @@ class DrugPrescriptionService: DrugPrescriptionServiceProvider {
         }
     }
     
-    func removeDrugBackground(durgName: String, completionHandler: @escaping (Bool) -> Void) {
+    func removeDrugBackground(drugName: String, completionHandler: @escaping (Bool) -> Void) {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "DrugPrescription")
-        request.predicate = NSPredicate(format:"name=%@", durgName)
+        request.predicate = NSPredicate(format:"name=%@", drugName)
         drugPrescriptionContext.perform {
             let result = try! self.drugPrescriptionContext.fetch(request)
             let data = result[0]

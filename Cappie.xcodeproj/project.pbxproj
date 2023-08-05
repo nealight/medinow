@@ -19,6 +19,8 @@
 		1C245E9429F33A9900AEF9CE /* medinow.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1C245E9229F33A9900AEF9CE /* medinow.xcdatamodeld */; };
 		1C245E9629F33A9A00AEF9CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C245E9529F33A9A00AEF9CE /* Assets.xcassets */; };
 		1C3A4CE429F845330016AD06 /* DrugPrescriptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3A4CE329F845330016AD06 /* DrugPrescriptionModel.swift */; };
+		1C40CA492A7E9634007D7BD8 /* InventoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C40CA482A7E9634007D7BD8 /* InventoryDetailViewController.swift */; };
+		1C40CA4B2A7E96F8007D7BD8 /* InventoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C40CA4A2A7E96F8007D7BD8 /* InventoryService.swift */; };
 		1C7C976C29FAAEEE007808FC /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7C976B29FAAEEE007808FC /* MainTabBarController.swift */; };
 		1CABC08D2A1C0CFF00EA11CE /* InventoryEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CABC08C2A1C0CFF00EA11CE /* InventoryEditViewController.swift */; };
 		1CEE55602A08243A00B96C38 /* InventoryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEE555F2A08243A00B96C38 /* InventoryListViewController.swift */; };
@@ -43,6 +45,8 @@
 		1C245E9529F33A9A00AEF9CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1C245E9A29F33A9A00AEF9CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1C3A4CE329F845330016AD06 /* DrugPrescriptionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrugPrescriptionModel.swift; sourceTree = "<group>"; };
+		1C40CA482A7E9634007D7BD8 /* InventoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryDetailViewController.swift; sourceTree = "<group>"; };
+		1C40CA4A2A7E96F8007D7BD8 /* InventoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryService.swift; sourceTree = "<group>"; };
 		1C7C976B29FAAEEE007808FC /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		1CABC08C2A1C0CFF00EA11CE /* InventoryEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryEditViewController.swift; sourceTree = "<group>"; };
 		1CEE555F2A08243A00B96C38 /* InventoryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryListViewController.swift; sourceTree = "<group>"; };
@@ -108,6 +112,8 @@
 		1CFC64472A6D782200BA6A42 /* Inventory */ = {
 			isa = PBXGroup;
 			children = (
+				1C40CA4A2A7E96F8007D7BD8 /* InventoryService.swift */,
+				1C40CA482A7E9634007D7BD8 /* InventoryDetailViewController.swift */,
 				1CABC08C2A1C0CFF00EA11CE /* InventoryEditViewController.swift */,
 				1CEE555F2A08243A00B96C38 /* InventoryListViewController.swift */,
 				1C0D17182A0A82EB00B1A1E8 /* InventoryCell.swift */,
@@ -199,6 +205,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C40CA4B2A7E96F8007D7BD8 /* InventoryService.swift in Sources */,
 				1C245E8E29F33A9900AEF9CE /* PrescriptionListViewController.swift in Sources */,
 				1C3A4CE429F845330016AD06 /* DrugPrescriptionModel.swift in Sources */,
 				1C7C976C29FAAEEE007808FC /* MainTabBarController.swift in Sources */,
@@ -214,6 +221,7 @@
 				1CEE55602A08243A00B96C38 /* InventoryListViewController.swift in Sources */,
 				1C0D17212A0ADB3E00B1A1E8 /* PrescriptionDataSource.swift in Sources */,
 				1CFC64452A6C793200BA6A42 /* DrugImageCameraController.swift in Sources */,
+				1C40CA492A7E9634007D7BD8 /* InventoryDetailViewController.swift in Sources */,
 				1C0D171F2A0AB8E900B1A1E8 /* MainCoordinator.swift in Sources */,
 				1C0D17192A0A82EB00B1A1E8 /* InventoryCell.swift in Sources */,
 				1C1C802029F5895400E57D66 /* PrescriptionListCell.swift in Sources */,

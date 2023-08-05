@@ -10,8 +10,10 @@ import UIKit
 
 class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     let coordinator: Coordinator = (UIApplication.shared.delegate as! AppDelegate).coordinator
+    let inventoryService: InventoryServiceProvider
     
-    init() {
+    init(inventoryService: InventoryServiceProvider) {
+        self.inventoryService = inventoryService
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -40,7 +42,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         inventoryVCLayout.minimumLineSpacing = 10
         inventoryVCLayout.minimumInteritemSpacing = 10
         
-        let inventoryVC = InventoryListViewController(collectionViewLayout: inventoryVCLayout)
+        let inventoryVC = InventoryListViewController(inventoryService: inventoryService, collectionViewLayout: inventoryVCLayout)
         inventoryVC.title = "Inventory"
         let inventoryNavVC = UINavigationController(rootViewController: inventoryVC)
         let inventoryTab = UITabBarItem(title: inventoryVC.title, image: .init(systemName: "cross.case.fill"), tag: 1)
