@@ -18,7 +18,7 @@ class PrescriptionEditViewController: UIViewController, UITextFieldDelegate {
     let drugPrescriptionService: DrugPrescriptionServiceProvider
     
     lazy var nameTF = drugInfoTextFieldFactory.create(placeholder: "Drug Name")
-    lazy var frequencyTextField = drugInfoTextFieldFactory.create(placeholder: "0")
+    lazy var frequencyTextField = drugInfoTextFieldFactory.create(placeholder: "1")
     
     init(drugPrescriptionService: DrugPrescriptionServiceProvider) {
         self.drugPrescriptionService = drugPrescriptionService
@@ -104,7 +104,8 @@ class PrescriptionEditViewController: UIViewController, UITextFieldDelegate {
         frequencyPicker.dataSource = self
         frequencyPicker.delegate = self
         
-        frequencyPicker.selectRow(Int(frequencyTextField.text!)! - 1, inComponent: 0, animated: false)
+        frequencyPicker.selectRow(Int(frequencyTextField.placeholder!)! - 1, inComponent: 0, animated: false)
+        frequencyTextField.text = frequencyTextField.placeholder
                
         view.addSubview(frequencyTextField)
         NSLayoutConstraint.activate([
