@@ -36,7 +36,7 @@ class MainCoordinator: Coordinator {
     lazy var prescriptionEditViewController = PrescriptionEditViewController(drugPrescriptionService: drugPrescriptionService)
     lazy var inventoryEditViewController = InventoryEditViewController(coordinator: self, inventoryService: inventoryService)
     lazy var drugImageCameraController = DrugImageCameraController()
-    var prescriptionLastSaved = false
+    var prescriptionLastSaved = true
     var originalPerscriptionName: String? = nil
     
     var capturedInventoryDrugImage: UIImage?
@@ -89,7 +89,9 @@ extension MainCoordinator: PrescriptionCoordinator {
     }
     
     func cancelPrescriptionEditTapped() {
-        prescriptionLastSaved = false
+        if originalPerscriptionName == nil {
+            prescriptionLastSaved = false
+        }
         prescriptionEditViewController.dismiss(animated: true)
     }
     

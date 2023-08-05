@@ -18,7 +18,7 @@ class PrescriptionEditViewController: UIViewController, UITextFieldDelegate {
     let drugPrescriptionService: DrugPrescriptionServiceProvider
     
     lazy var nameTF = drugInfoTextFieldFactory.create(placeholder: "Drug Name")
-    lazy var frequencyTextField = drugInfoTextFieldFactory.create(placeholder: "0")
+    lazy var frequencyTextField = drugInfoTextFieldFactory.create(placeholder: "1")
     
     init(drugPrescriptionService: DrugPrescriptionServiceProvider) {
         self.drugPrescriptionService = drugPrescriptionService

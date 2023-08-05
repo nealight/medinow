@@ -764,7 +764,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "A2567418-399D-46B3-9A79-55AA49FB0BE9"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "medinow/MainCoordinator.swift"
@@ -780,7 +780,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "89564D7E-E625-421B-831E-71A500DE4863"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "medinow/PrescriptionEditViewController.swift"
@@ -789,6 +789,22 @@
             startingLineNumber = "98"
             endingLineNumber = "98"
             landmarkName = "setupFrequencyPicker()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0BCF7623-2053-4A86-A9F2-A9A04AE8E60E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "medinow/MainCoordinator.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
+            landmarkName = "cancelPrescriptionEditTapped()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
