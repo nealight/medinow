@@ -13,7 +13,9 @@ class InventoryEditViewController: UIViewController {
     let drugInfoTextFieldFactory = DrugInfoTextFieldFactory()
     let coordinator: InventoryCoordinator
     let inventoryService: InventoryServiceProvider
+    lazy var drugImageView = UIImageView()
     var drugInventoryImage: UIImage?
+    let cameraButton = UIButton(type: .system)
     lazy var drugNameTF = drugInfoTextFieldFactory.create(placeholder: "Drug Name")
     lazy var capletQuantityTF = drugInfoTextFieldFactory.create(placeholder: "Quantity")
     
@@ -35,11 +37,24 @@ class InventoryEditViewController: UIViewController {
         setupCameraButton()
         setupDrugNameTF()
         setupCapletQuantityTF()
+        setupDrugImage()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if self.drugInventoryImage == nil {
+            self.drugImageView.isHidden = true
+        } else {
+            self.drugImageView.image = self.drugInventoryImage
+            self.drugImageView.isHidden = false
+        }
+        self.view.layoutIfNeeded()
+        self.cameraButton.isHidden = !self.drugImageView.isHidden
     }
     
     private func saveDrugInventory() {
         inventoryService.saveDrugInventory(drugInventory: DrugInventoryModel(snapshot: drugInventoryImage?.jpegData(compressionQuality: 1), name: drugNameTF.text ?? "N/A", expirationDate: .now + 365, originalQuantity: Int64(capletQuantityTF.text!) ?? 0, remainingQuantity: Int64(capletQuantityTF.text!) ?? 0))
-        coordinator.cancelInventoryEditTapped()
+        coordinator.saveInventoryEditTapped()
     }
     
     func setupNavigation() {
@@ -79,7 +94,6 @@ class InventoryEditViewController: UIViewController {
     }
     
     func setupCameraButton() {
-        let cameraButton = UIButton(type: .system)
         cameraButton.layer.cornerRadius = 20
         cameraButton.backgroundColor = .systemBlue.withAlphaComponent(0.15)
         cameraButton.tintColor = .systemBlue
@@ -97,6 +111,22 @@ class InventoryEditViewController: UIViewController {
             self.coordinator.inverntoryCameraButtonTapped()
         }
         cameraButton.addAction(cameraAction, for: .touchUpInside)
+    }
+    
+    func setupDrugImage() {
+        drugImageView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(drugImageView)
+        NSLayoutConstraint.activate([
+            drugImageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40),
+            drugImageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
+            drugImageView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20)
+        ])
+        NSLayoutConstraint.activate([
+            drugImageView.heightAnchor.constraint(equalTo: drugImageView.widthAnchor, multiplier: 0.6)
+        ])
+        drugImageView.contentMode = .scaleAspectFill
+        drugImageView.clipsToBounds = true
+        drugImageView.layer.cornerRadius = 20
     }
     
     private func handleTextRecognition(request: VNRequest?, error: Error?) {

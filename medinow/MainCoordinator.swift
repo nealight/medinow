@@ -83,7 +83,6 @@ extension MainCoordinator: PrescriptionCoordinator {
             drugPrescriptionService.insertPrescription(prescription: .init(name: prescriptionEditViewController.nameTF.text!, dailyDosage: Int64(prescriptionEditViewController.frequencyPickerOptions[prescriptionEditViewController.frequencyPicker.selectedRow(inComponent: 0)])))
             prescriptionLastSaved = true
         }
-        
         prescriptionEditViewController.dismiss(animated: true)
     }
     
@@ -130,6 +129,7 @@ extension MainCoordinator: InventoryCoordinator {
     
     func saveInventoryEditTapped() {
         inventoryEditViewController.dismiss(animated: true)
+        inventoryEditViewController = InventoryEditViewController(coordinator: self, inventoryService: inventoryService)
     }
 }
 
