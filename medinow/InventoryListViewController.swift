@@ -13,6 +13,7 @@ class InventoryListViewController: UICollectionViewController {
     let cellReuseID = "InventoryCell"
     let inventoryService: InventoryServiceProvider
     private lazy var dataSource = makeDataSource()
+    var shouldNotReloadView = false
     
     enum Section: Int, CaseIterable {
         case unexpired
@@ -36,6 +37,10 @@ class InventoryListViewController: UICollectionViewController {
     }
     
     func setupView() {
+        if (shouldNotReloadView) {
+            shouldNotReloadView = false
+            return
+        }
         self.view.backgroundColor = .systemBackground
         self.collectionView.register(InventoryCell.self, forCellWithReuseIdentifier: cellReuseID)
     }

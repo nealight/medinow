@@ -31,7 +31,7 @@ class MainCoordinator: Coordinator {
     let drugPrescriptionService = DrugPrescriptionService()
     let inventoryService = InventoryService()
     
-    lazy var mainTabBarController = MainTabBarController(coordinator: self)
+    lazy var mainTabBarController: MainTabBarController = MainTabBarController(coordinator: self, inventoryVC: self.inventoryListViewController)
     lazy var prescriptionEditViewController = PrescriptionEditViewController(drugPrescriptionService: drugPrescriptionService)
     lazy var inventoryEditViewController = InventoryEditViewController(coordinator: self, inventoryService: inventoryService)
     lazy var drugImageCameraController = DrugImageCameraController()
@@ -39,6 +39,18 @@ class MainCoordinator: Coordinator {
     var originalPerscriptionName: String? = nil
     
     var capturedInventoryDrugImage: UIImage?
+    
+    lazy var inventoryListViewController = {
+        let inventoryVCLayout = UICollectionViewFlowLayout()
+        let cellPerRow: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 4 : 2
+        inventoryVCLayout.itemSize = CGSize(width: UIScreen.main.bounds.width / cellPerRow - 15, height: UIScreen.main.bounds.width / cellPerRow - 15)
+        inventoryVCLayout.sectionInset = .init(top: 10, left: 10, bottom: 10, right: 10)
+        inventoryVCLayout.minimumLineSpacing = 10
+        inventoryVCLayout.minimumInteritemSpacing = 10
+        
+        let inventoryVC = InventoryListViewController(inventoryService: self.inventoryService, collectionViewLayout: inventoryVCLayout)
+        return inventoryVC
+    }()
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -115,7 +127,6 @@ extension MainCoordinator: InventoryCoordinator {
     func setInventoryDrugImage(image: UIImage?) {
         guard let image = image else {
             NSLog("No image found")
-            inventoryEditViewController.dismiss(animated: true)
             return
         }
         capturedInventoryDrugImage = image
@@ -124,7 +135,8 @@ extension MainCoordinator: InventoryCoordinator {
     }
     
     func cancelInventoryEditTapped() {
-        inventoryEditViewController.dismiss(animated: true)
+        inventoryListViewController.shouldNotReloadView = true
+        inventoryEditViewController.navigationController?.dismiss(animated: true)
     }
     
     func saveInventoryEditTapped() {

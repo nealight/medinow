@@ -6,8 +6,9 @@
 //
 
 import Foundation
-import UIKit
+import VisionKit
 import Vision
+import UIKit
 
 class InventoryEditViewController: UIViewController {
     let drugInfoTextFieldFactory = DrugInfoTextFieldFactory()
