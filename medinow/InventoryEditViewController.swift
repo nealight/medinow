@@ -54,7 +54,14 @@ class InventoryEditViewController: UIViewController {
     }
     
     private func saveDrugInventory() {
-        inventoryService.saveDrugInventory(drugInventory: DrugInventoryModel(snapshot: drugInventoryImage?.jpegData(compressionQuality: 1), name: drugNameTF.text ?? "N/A", expirationDate: .now + 365, originalQuantity: Int64(capletQuantityTF.text!) ?? 0, remainingQuantity: Int64(capletQuantityTF.text!) ?? 0))
+        guard let drugInventoryImage = drugInventoryImage else {
+            let alert = UIAlertController(title: "No Image Taken", message: "Please add a photo to the drug that you are adding to your inventory.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Confirm", style: .cancel))
+            present(alert, animated: true)
+            return
+        }
+        
+        inventoryService.saveDrugInventory(drugInventory: DrugInventoryModel(snapshot: drugInventoryImage.jpegData(compressionQuality: 1), name: drugNameTF.text ?? "N/A", expirationDate: .now + 365, originalQuantity: Int64(capletQuantityTF.text!) ?? 0, remainingQuantity: Int64(capletQuantityTF.text!) ?? 0))
         coordinator.saveInventoryEditTapped()
     }
     

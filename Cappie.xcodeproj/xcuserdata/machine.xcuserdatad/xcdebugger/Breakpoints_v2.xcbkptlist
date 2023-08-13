@@ -315,8 +315,8 @@
             filePath = "medinow/InventoryEditViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "173"
-            endingLineNumber = "173"
+            startingLineNumber = "180"
+            endingLineNumber = "180"
             landmarkName = "promptForChoosingDrugName(candidates:)"
             landmarkType = "7">
             <Locations>
@@ -498,8 +498,8 @@
             filePath = "medinow/InventoryEditViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "165"
-            endingLineNumber = "165"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
             landmarkName = "promptForChoosingDrugName(candidates:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -895,8 +895,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "18"
             endingLineNumber = "18"
-            landmarkName = "cameraButton"
-            landmarkType = "24">
+            landmarkName = "InventoryEditViewController"
+            landmarkType = "3">
             <Locations>
                <Location
                   uuid = "73720818-A874-4266-A936-980AD027DCBD - b5ce3a4214a9e563"
