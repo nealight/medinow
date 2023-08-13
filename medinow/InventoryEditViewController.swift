@@ -17,8 +17,8 @@ class InventoryEditViewController: UIViewController {
     lazy var drugImageView = UIImageView()
     var drugInventoryImage: UIImage?
     let cameraButton = UIButton(type: .system)
-    lazy var drugNameTF = drugInfoTextFieldFactory.create(placeholder: "Drug Name")
-    lazy var capletQuantityTF = drugInfoTextFieldFactory.create(placeholder: "Quantity")
+    lazy var drugNameTF = drugInfoTextFieldFactory.create(placeholder: NSLocalizedString("Drug Name", comment: ""))
+    lazy var capletQuantityTF = drugInfoTextFieldFactory.create(placeholder: NSLocalizedString("Quantity", comment: ""))
     
     
     init(coordinator: InventoryCoordinator, inventoryService: InventoryServiceProvider) {
@@ -55,8 +55,8 @@ class InventoryEditViewController: UIViewController {
     
     private func saveDrugInventory() {
         guard let drugInventoryImage = drugInventoryImage else {
-            let alert = UIAlertController(title: "No Image Taken", message: "Please add a photo to the drug that you are adding to your inventory.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Confirm", style: .cancel))
+            let alert = UIAlertController(title: NSLocalizedString("No Image Taken", comment: ""), message: NSLocalizedString("Please add a photo to the drug that you are adding to your inventory.", comment: ""), preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: .cancel))
             present(alert, animated: true)
             return
         }
@@ -66,7 +66,7 @@ class InventoryEditViewController: UIViewController {
     }
     
     func setupNavigation() {
-        self.navigationController?.navigationBar.topItem?.title = "Inventory Detail"
+        self.navigationController?.navigationBar.topItem?.title = NSLocalizedString("Inventory Detail", comment: "")
         let cancelInventoryEditTappedAction = UIAction() { [self] _ in
             coordinator.cancelInventoryEditTapped()
         }

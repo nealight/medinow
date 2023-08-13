@@ -31,13 +31,13 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         super.viewWillAppear(animated)
         self.tabBar.backgroundColor = .secondarySystemBackground
         let prescriptionVC = PrescriptionListViewController(coordinator: self.coordinator);
-        prescriptionVC.title = "Prescriptions"
+        prescriptionVC.title = NSLocalizedString("Prescriptions", comment: "")
         let prescriptionNavVC = UINavigationController(rootViewController: prescriptionVC)
         let prescriptionTab = UITabBarItem(title: prescriptionVC.title, image: .init(systemName: "list.bullet.clipboard.fill"), tag: 0)
         prescriptionNavVC.tabBarItem = prescriptionTab
         
         
-        inventoryVC.title = "Inventory"
+        inventoryVC.title = NSLocalizedString("Inventory", comment: "")
         let inventoryNavVC = UINavigationController(rootViewController: inventoryVC)
         let inventoryTab = UITabBarItem(title: inventoryVC.title, image: .init(systemName: "cross.case.fill"), tag: 1)
         inventoryNavVC.tabBarItem = inventoryTab

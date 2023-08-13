@@ -1,0 +1,16 @@
+/* 
+  Localizable.strings
+  Cappie
+
+  Created by Yi Xu on 8/12/23.
+  
+*/
+
+"Prescriptions" = "处方";
+"Inventory" = "库存";
+"Inventory Detail" = "库存具体信息";
+"No Image Taken" = "没有拍摄照片";
+"Please add a photo to the drug that you are adding to your inventory." = "请给这个药物拍张照片！";
+"Okay" = "好的";
+"Drug Name" = "药物名称";
+"Quantity" = "数量";

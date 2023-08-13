@@ -11,6 +11,7 @@
 		1C0D171D2A0AB6AF00B1A1E8 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D171C2A0AB6AF00B1A1E8 /* Coordinator.swift */; };
 		1C0D171F2A0AB8E900B1A1E8 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D171E2A0AB8E900B1A1E8 /* MainCoordinator.swift */; };
 		1C0D17212A0ADB3E00B1A1E8 /* PrescriptionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D17202A0ADB3E00B1A1E8 /* PrescriptionDataSource.swift */; };
+		1C0FB1D72A8865CB006C8BE1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1C0FB1D92A8865CB006C8BE1 /* Localizable.strings */; };
 		1C1C802029F5895400E57D66 /* PrescriptionListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1C801F29F5895400E57D66 /* PrescriptionListCell.swift */; };
 		1C1C802229F5D0BD00E57D66 /* PrescriptionEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1C802129F5D0BD00E57D66 /* PrescriptionEditViewController.swift */; };
 		1C245E8A29F33A9900AEF9CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C245E8929F33A9900AEF9CE /* AppDelegate.swift */; };
@@ -35,6 +36,7 @@
 		1C0D171C2A0AB6AF00B1A1E8 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		1C0D171E2A0AB8E900B1A1E8 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		1C0D17202A0ADB3E00B1A1E8 /* PrescriptionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionDataSource.swift; sourceTree = "<group>"; };
+		1C0FB1DA2A8865D0006C8BE1 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		1C1C801F29F5895400E57D66 /* PrescriptionListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionListCell.swift; sourceTree = "<group>"; };
 		1C1C802129F5D0BD00E57D66 /* PrescriptionEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionEditViewController.swift; sourceTree = "<group>"; };
 		1C245E8629F33A9900AEF9CE /* Cappie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cappie.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,6 +134,7 @@
 				1C0D171C2A0AB6AF00B1A1E8 /* Coordinator.swift */,
 				1C0D171E2A0AB8E900B1A1E8 /* MainCoordinator.swift */,
 				1CFC64492A74C80E00BA6A42 /* InputTextFieldFactory.swift */,
+				1C0FB1D92A8865CB006C8BE1 /* Localizable.strings */,
 			);
 			name = Global;
 			sourceTree = "<group>";
@@ -178,6 +181,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 1C245E7D29F33A9900AEF9CE;
 			productRefGroup = 1C245E8729F33A9900AEF9CE /* Products */;
@@ -195,6 +199,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C245E9629F33A9A00AEF9CE /* Assets.xcassets in Resources */,
+				1C0FB1D72A8865CB006C8BE1 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,6 +234,17 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		1C0FB1D92A8865CB006C8BE1 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1C0FB1DA2A8865D0006C8BE1 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		1C245E9B29F33A9A00AEF9CE /* Debug */ = {
