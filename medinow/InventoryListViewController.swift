@@ -37,6 +37,7 @@ class InventoryListViewController: UICollectionViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.prefersLargeTitles = true
         reloadDrugInventoryData()
     }
     
@@ -85,7 +86,6 @@ class InventoryListViewController: UICollectionViewController {
         let addButtonAction = UIAction() { _ in
             self.coordinator.addInventoryTapped()
         }
-        self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .add, primaryAction: addButtonAction)
     }
 }
