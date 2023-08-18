@@ -39,6 +39,7 @@ class InventoryService: InventoryServiceProvider {
         let entity = NSEntityDescription.entity(forEntityName: "DrugInventory", in: drugInventoryContext)
         let newDrug = NSManagedObject(entity: entity!, insertInto: drugInventoryContext)
         
+        newDrug.setValue(drugInventory.uuid, forKey: "uuid")
         newDrug.setValue(drugInventory.name, forKey: "name")
         newDrug.setValue(drugInventory.remainingQuantity, forKey: "remainingQuantity")
         newDrug.setValue(drugInventory.originalQuantity, forKey: "originalQuantity")

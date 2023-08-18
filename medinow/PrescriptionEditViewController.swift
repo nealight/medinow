@@ -16,7 +16,7 @@ class PrescriptionEditViewController: UIViewController, UITextFieldDelegate {
     let frequencyPickerOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     let drugPrescriptionService: DrugPrescriptionServiceProvider
     
-    lazy var nameTF = drugInfoTextFieldFactory.create(placeholder: "Drug Name")
+    lazy var nameTF = drugInfoTextFieldFactory.create(placeholder: NSLocalizedString("Drug Name", comment: ""))
     lazy var frequencyTextField = drugInfoTextFieldFactory.create(placeholder: "1")
     
     init(drugPrescriptionService: DrugPrescriptionServiceProvider) {
@@ -58,7 +58,7 @@ class PrescriptionEditViewController: UIViewController, UITextFieldDelegate {
     }
     
     func setupNavigation() {
-        self.navigationController?.navigationBar.topItem?.title = "Prescription Detail"
+        self.navigationController?.navigationBar.topItem?.title = NSLocalizedString("Prescription Detail", comment: "")
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .save, primaryAction: UIAction() { [self] _ in
             self.savePrescription()
         })
@@ -81,7 +81,7 @@ class PrescriptionEditViewController: UIViewController, UITextFieldDelegate {
     }
     
     func setupFrequencyLabel() {
-        frequencyTextLabel.text = "Pills per day"
+        frequencyTextLabel.text = NSLocalizedString("Pills per day", comment: "")
         frequencyTextLabel.font.withSize(20)
         frequencyTextLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(frequencyTextLabel)

@@ -52,8 +52,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         */
         let container = NSPersistentCloudKitContainer(name: "medinow")
         
-        container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        container.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
         container.viewContext.automaticallyMergesChangesFromParent = true
+        try? container.initializeCloudKitSchema(options: [])
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
@@ -70,7 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
-        try? container.initializeCloudKitSchema(options: [])
+        
         return container
     }()
 

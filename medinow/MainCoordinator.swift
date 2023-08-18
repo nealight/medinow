@@ -114,6 +114,7 @@ extension MainCoordinator: InventoryCoordinator {
     func addInventoryTapped() {
         let navVC = UINavigationController(rootViewController: inventoryEditViewController)
         navVC.modalPresentationStyle = .fullScreen
+        navVC.modalPresentationStyle = .overFullScreen
         navigationController.present(navVC, animated: true)
     }
     
@@ -135,12 +136,12 @@ extension MainCoordinator: InventoryCoordinator {
     }
     
     func cancelInventoryEditTapped() {
-        inventoryListViewController.shouldNotReloadView = true
         inventoryEditViewController.navigationController?.dismiss(animated: true)
     }
     
     func saveInventoryEditTapped() {
-        inventoryEditViewController.dismiss(animated: true)
+        inventoryListViewController.reloadDrugInventoryData()
+        inventoryEditViewController.navigationController?.dismiss(animated: true)
         inventoryEditViewController = InventoryEditViewController(coordinator: self, inventoryService: inventoryService)
     }
 }

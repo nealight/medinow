@@ -6,6 +6,7 @@
         <attribute name="originalQuantity" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="remainingQuantity" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="snapshot" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+        <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <relationship name="sameDrugTarget" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DrugInventory" inverseName="sameDrugTarget" inverseEntity="DrugInventory"/>
     </entity>
     <entity name="DrugPrescription" representedClassName="DrugPrescription" syncable="YES" codeGenerationType="class">
