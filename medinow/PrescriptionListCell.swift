@@ -27,7 +27,7 @@ class PrescriptionListCell: UITableViewCell {
     let dosageLabel: UILabel = {
         let label = UILabel()
                 label.textColor = UIColor.white
-                label.font = UIFont.systemFont(ofSize: 15)
+        label.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
                 label.translatesAutoresizingMaskIntoConstraints = false
                 return label
     }()

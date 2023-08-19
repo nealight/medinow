@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class DrugImageCameraController: UIImagePickerController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-    let coordinator = appDelegate.coordinator
+    weak var coordinator: InventoryCoordinator?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +18,6 @@ class DrugImageCameraController: UIImagePickerController, UINavigationController
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        coordinator.setInventoryDrugImage(image: info[.originalImage] as? UIImage)
+        coordinator?.setInventoryDrugImage(image: info[.originalImage] as? UIImage)
     }
 }

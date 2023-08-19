@@ -9,17 +9,18 @@ import Foundation
 import UIKit
 
 class PrescriptionEditViewController: UIViewController, UITextFieldDelegate {
-    lazy var coordinator = appDelegate.coordinator
+    unowned let coordinator: PrescriptionCoordinator
     let drugInfoTextFieldFactory = DrugInfoTextFieldFactory()
     let frequencyTextLabel = UILabel()
     let frequencyPicker = UIPickerView()
     let frequencyPickerOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     let drugPrescriptionService: DrugPrescriptionServiceProvider
     
-    lazy var nameTF = drugInfoTextFieldFactory.create(placeholder: "Drug Name")
+    lazy var nameTF = drugInfoTextFieldFactory.create(placeholder: NSLocalizedString("Drug Name", comment: ""))
     lazy var frequencyTextField = drugInfoTextFieldFactory.create(placeholder: "1")
     
-    init(drugPrescriptionService: DrugPrescriptionServiceProvider) {
+    init(coordinator: PrescriptionCoordinator, drugPrescriptionService: DrugPrescriptionServiceProvider) {
+        self.coordinator = coordinator
         self.drugPrescriptionService = drugPrescriptionService
         super.init(nibName: nil, bundle: nil)
     }
@@ -50,7 +51,13 @@ class PrescriptionEditViewController: UIViewController, UITextFieldDelegate {
     }
     
     func savePrescription() {
-        coordinator.savePrescriptionTapped()
+        guard let text = nameTF.text, nameTF.text != "" else {
+            let alert = UIAlertController(title: NSLocalizedString("Missing Prescription Information", comment: ""), message: NSLocalizedString("You have not filled out your prescription information.", comment: ""), preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: .cancel))
+            present(alert, animated: true)
+            return
+        }
+        coordinator.savePrescriptionTapped(text: text, dosage: Int64(frequencyPickerOptions[frequencyPicker.selectedRow(inComponent: 0)]))
     }
     
     func cancelPrescriptionEdit() {
@@ -58,7 +65,7 @@ class PrescriptionEditViewController: UIViewController, UITextFieldDelegate {
     }
     
     func setupNavigation() {
-        self.navigationController?.navigationBar.topItem?.title = "Prescription Detail"
+        self.navigationController?.navigationBar.topItem?.title = NSLocalizedString("Prescription Detail", comment: "")
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .save, primaryAction: UIAction() { [self] _ in
             self.savePrescription()
         })
@@ -81,7 +88,7 @@ class PrescriptionEditViewController: UIViewController, UITextFieldDelegate {
     }
     
     func setupFrequencyLabel() {
-        frequencyTextLabel.text = "Pills per day"
+        frequencyTextLabel.text = NSLocalizedString("Pills per day", comment: "")
         frequencyTextLabel.font.withSize(20)
         frequencyTextLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(frequencyTextLabel)

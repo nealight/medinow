@@ -9,18 +9,18 @@ import Foundation
 import UIKit
 
 class InventoryListViewController: UICollectionViewController {
-    lazy var coordinator = appDelegate.coordinator
+    unowned let coordinator: InventoryCoordinator
     let cellReuseID = "InventoryCell"
     let inventoryService: InventoryServiceProvider
     private lazy var dataSource = makeDataSource()
-    var shouldNotReloadView = false
     
     enum Section: Int, CaseIterable {
         case unexpired
         case expired
     }
     
-    init(inventoryService: InventoryServiceProvider, collectionViewLayout: UICollectionViewLayout) {
+    init(coordinator: InventoryCoordinator, inventoryService: InventoryServiceProvider, collectionViewLayout: UICollectionViewLayout) {
+        self.coordinator = coordinator
         self.inventoryService = inventoryService
         super.init(collectionViewLayout: collectionViewLayout)
     }
@@ -28,33 +28,36 @@ class InventoryListViewController: UICollectionViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigation()
-        setupDataSource()
         setupView()
+        setupDataSource()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        reloadDrugInventoryData()
     }
     
     func setupView() {
-        if (shouldNotReloadView) {
-            shouldNotReloadView = false
-            return
-        }
         self.view.backgroundColor = .systemBackground
         self.collectionView.register(InventoryCell.self, forCellWithReuseIdentifier: cellReuseID)
     }
     
     func setupDataSource() {
         self.collectionView.dataSource = dataSource
+    }
+    
+    func reloadDrugInventoryData() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, DrugInventoryModel>()
         snapshot.appendSections(Section.allCases)
-    
-        var fetched_drugs: [DrugInventoryModel] = []
-        
         inventoryService.fetchInventoryDetailBackground() { (result) in
+            var fetched_drugs: [DrugInventoryModel] = []
             for data in result {
-                fetched_drugs.append(DrugInventoryModel(snapshot: data.value(forKey: "snapshot") as? Data, name: data.value(forKey: "name") as! String, expirationDate: Date(), originalQuantity: data.value(forKey: "originalQuantity") as! Int64, remainingQuantity: data.value(forKey: "remainingQuantity") as! Int64))
+                fetched_drugs.append(DrugInventoryModel(uuid: data.value(forKey: "uuid") as! UUID, snapshot: data.value(forKey: "snapshot") as? Data, name: data.value(forKey: "name") as! String, expirationDate: Date(), originalQuantity: data.value(forKey: "originalQuantity") as! Int64, remainingQuantity: data.value(forKey: "remainingQuantity") as! Int64))
             }
             snapshot.appendItems(fetched_drugs)
             DispatchQueue.main.async {
@@ -84,7 +87,6 @@ class InventoryListViewController: UICollectionViewController {
         let addButtonAction = UIAction() { _ in
             self.coordinator.addInventoryTapped()
         }
-        self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .add, primaryAction: addButtonAction)
     }
 }

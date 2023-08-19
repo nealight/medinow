@@ -12,7 +12,7 @@ import UIKit
 
 class InventoryEditViewController: UIViewController {
     let drugInfoTextFieldFactory = DrugInfoTextFieldFactory()
-    let coordinator: InventoryCoordinator
+    unowned let coordinator: InventoryCoordinator
     let inventoryService: InventoryServiceProvider
     lazy var drugImageView = UIImageView()
     var drugInventoryImage: UIImage?
@@ -55,13 +55,13 @@ class InventoryEditViewController: UIViewController {
     
     private func saveDrugInventory() {
         guard let drugInventoryImage = drugInventoryImage else {
-            let alert = UIAlertController(title: NSLocalizedString("No Image Taken", comment: ""), message: NSLocalizedString("Please add a photo to the drug that you are adding to your inventory.", comment: ""), preferredStyle: .alert)
+            let alert = UIAlertController(title: NSLocalizedString("No Photo Taken", comment: ""), message: NSLocalizedString("Please add a photo to the drug that you are adding to your inventory.", comment: ""), preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: .cancel))
             present(alert, animated: true)
             return
         }
         
-        inventoryService.saveDrugInventory(drugInventory: DrugInventoryModel(snapshot: drugInventoryImage.jpegData(compressionQuality: 1), name: drugNameTF.text ?? "N/A", expirationDate: .now + 365, originalQuantity: Int64(capletQuantityTF.text!) ?? 0, remainingQuantity: Int64(capletQuantityTF.text!) ?? 0))
+        inventoryService.saveDrugInventory(drugInventory: DrugInventoryModel(uuid: UUID(), snapshot: drugInventoryImage.jpegData(compressionQuality: 1), name: drugNameTF.text ?? "N/A", expirationDate: .now + 365, originalQuantity: Int64(capletQuantityTF.text!) ?? 0, remainingQuantity: Int64(capletQuantityTF.text!) ?? 0))
         coordinator.saveInventoryEditTapped()
     }
     
@@ -129,8 +129,12 @@ class InventoryEditViewController: UIViewController {
             drugImageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             drugImageView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20)
         ])
+        let cellPerRow: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 4 : 2
+        let width = (view.frame.size.width / cellPerRow - 15 - 20 - 60)
+        let height = (view.frame.size.width / cellPerRow - 15 - 20 - 20)
+        let ratio = width / height
         NSLayoutConstraint.activate([
-            drugImageView.heightAnchor.constraint(equalTo: drugImageView.widthAnchor, multiplier: 0.6)
+            drugImageView.heightAnchor.constraint(equalTo: drugImageView.widthAnchor, multiplier: ratio)
         ])
         drugImageView.contentMode = .scaleAspectFill
         drugImageView.clipsToBounds = true

@@ -9,12 +9,23 @@ import Foundation
 import UIKit
 
 class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
-    let coordinator: MainCoordinator
-    let inventoryVC: InventoryListViewController
+    unowned let coordinator: MainCoordinator
+    lazy var inventoryVC = {
+        let inventoryVCLayout = UICollectionViewFlowLayout()
+        let cellPerRow: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 4 : 2
+        inventoryVCLayout.itemSize = CGSize(width: UIScreen.main.bounds.width / cellPerRow - 15, height: UIScreen.main.bounds.width / cellPerRow - 15)
+        inventoryVCLayout.sectionInset = .init(top: 10, left: 10, bottom: 10, right: 10)
+        inventoryVCLayout.minimumLineSpacing = 10
+        inventoryVCLayout.minimumInteritemSpacing = 10
+        
+        let inventoryVC = InventoryListViewController(coordinator: coordinator, inventoryService: coordinator.inventoryService, collectionViewLayout: inventoryVCLayout)
+        return inventoryVC
+    }()
     
-    init(coordinator: MainCoordinator, inventoryVC: InventoryListViewController) {
+    lazy var prescriptionVC = PrescriptionListViewController(coordinator: coordinator)
+    
+    init(coordinator: MainCoordinator) {
         self.coordinator = coordinator
-        self.inventoryVC = inventoryVC
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -25,12 +36,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         self.tabBar.backgroundColor = .secondarySystemBackground
-        let prescriptionVC = PrescriptionListViewController(coordinator: self.coordinator);
         prescriptionVC.title = NSLocalizedString("Prescriptions", comment: "")
         let prescriptionNavVC = UINavigationController(rootViewController: prescriptionVC)
         let prescriptionTab = UITabBarItem(title: prescriptionVC.title, image: .init(systemName: "list.bullet.clipboard.fill"), tag: 0)
