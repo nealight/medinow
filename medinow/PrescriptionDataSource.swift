@@ -32,7 +32,14 @@ class PrescriptionDataSource: NSObject, UITableViewDataSource {
         cell.medicationLabel.text = drugs[indexPath.row].name
         
         let dailyDosage = drugs[indexPath.row].dailyDosage
-        cell.dosageLabel.text = "\(dailyDosage) pill\(dailyDosage == 1 ? "" : "s") per day"
+        
+        switch Locale.current.language.languageCode?.identifier {
+        case "zh":
+            cell.dosageLabel.text = "每日\(dailyDosage)粒"
+        default:
+            cell.dosageLabel.text = "\(dailyDosage) pill\(dailyDosage == 1 ? "" : "s") per day"
+        }
+        
         
         if (indexPath.row >= drugs.count - 1) {
             loadTableData(tableView)
