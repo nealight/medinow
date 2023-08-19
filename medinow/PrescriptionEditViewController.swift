@@ -50,7 +50,10 @@ class PrescriptionEditViewController: UIViewController, UITextFieldDelegate {
     }
     
     func savePrescription() {
-        coordinator.savePrescriptionTapped()
+        guard let text = nameTF.text, nameTF.text != "" else {
+            return
+        }
+        coordinator.savePrescriptionTapped(text: text, dosage: Int64(frequencyPickerOptions[frequencyPicker.selectedRow(inComponent: 0)]))
     }
     
     func cancelPrescriptionEdit() {

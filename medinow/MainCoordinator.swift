@@ -18,7 +18,7 @@ protocol InventoryCoordinator {
 
 protocol PrescriptionCoordinator {
     func addPrescriptionTapped()
-    func savePrescriptionTapped()
+    func savePrescriptionTapped(text: String, dosage: Int64)
     func cancelPrescriptionEditTapped()
     func getPrescriptionDataSource() -> PrescriptionDataSource
     func editPrescription(for name: String)
@@ -87,12 +87,12 @@ extension MainCoordinator: PrescriptionCoordinator {
         navigationController.present(navVC, animated: true)
     }
     
-    func savePrescriptionTapped() {
+    func savePrescriptionTapped(text: String, dosage: Int64) {
         if let originalPerscriptionName = originalPerscriptionName {
-            drugPrescriptionService.editPrescription(prescription: .init(name: prescriptionEditViewController.nameTF.text!, dailyDosage: Int64(prescriptionEditViewController.frequencyPickerOptions[prescriptionEditViewController.frequencyPicker.selectedRow(inComponent: 0)])), originalName: originalPerscriptionName)
+            drugPrescriptionService.editPrescription(prescription: .init(name: text, dailyDosage: dosage), originalName: originalPerscriptionName)
             self.originalPerscriptionName = nil
         } else {
-            drugPrescriptionService.insertPrescription(prescription: .init(name: prescriptionEditViewController.nameTF.text!, dailyDosage: Int64(prescriptionEditViewController.frequencyPickerOptions[prescriptionEditViewController.frequencyPicker.selectedRow(inComponent: 0)])))
+            drugPrescriptionService.insertPrescription(prescription: .init(name: text, dailyDosage: Int64(dosage)))
             prescriptionLastSaved = true
         }
         prescriptionEditViewController.dismiss(animated: true)
@@ -113,7 +113,6 @@ extension MainCoordinator: PrescriptionCoordinator {
 extension MainCoordinator: InventoryCoordinator {
     func addInventoryTapped() {
         let navVC = UINavigationController(rootViewController: inventoryEditViewController)
-        navVC.modalPresentationStyle = .fullScreen
         navVC.modalPresentationStyle = .overFullScreen
         navigationController.present(navVC, animated: true)
     }
