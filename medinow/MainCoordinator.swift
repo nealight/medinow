@@ -66,6 +66,7 @@ class MainCoordinator: Coordinator {
 
 extension MainCoordinator: PrescriptionCoordinator {
     func editPrescription(for name: String) {
+        prescriptionLastSaved = true
         prescriptionEditViewController = PrescriptionEditViewController(coordinator: self, drugPrescriptionService: drugPrescriptionService)
         drugPrescriptionService.fetchDrug(for: name) { object in
             self.originalPerscriptionName = object.value(forKey: "name") as? String
