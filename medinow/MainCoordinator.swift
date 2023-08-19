@@ -31,10 +31,10 @@ class MainCoordinator: Coordinator {
     let drugPrescriptionService = DrugPrescriptionService()
     let inventoryService = InventoryService()
     
-    lazy var mainTabBarController: MainTabBarController = MainTabBarController(prescriptionVC: self.prescriptionListViewController, inventoryVC: self.inventoryListViewController)
+    lazy var mainTabBarController: MainTabBarController = MainTabBarController(coordinator: self)
     lazy var prescriptionEditViewController = PrescriptionEditViewController(coordinator: self, drugPrescriptionService: drugPrescriptionService)
     lazy var inventoryEditViewController = InventoryEditViewController(coordinator: self, inventoryService: inventoryService)
-    lazy var drugImageCameraController = DrugImageCameraController(coordinator: self)
+    var drugImageCameraController: DrugImageCameraController?
     var prescriptionLastSaved = true
     var originalPerscriptionName: String? = nil
     
@@ -115,15 +115,19 @@ extension MainCoordinator: PrescriptionCoordinator {
 extension MainCoordinator: InventoryCoordinator {
     func addInventoryTapped() {
         let navVC = UINavigationController(rootViewController: inventoryEditViewController)
-        navVC.modalPresentationStyle = .overFullScreen
+        navVC.modalPresentationStyle = .fullScreen
         navigationController.present(navVC, animated: true)
     }
     
     func inverntoryCameraButtonTapped() {
+        let drugImageCameraController = DrugImageCameraController()
+        drugImageCameraController.coordinator = self
         drugImageCameraController.sourceType = .camera
         drugImageCameraController.allowsEditing = true
         drugImageCameraController.delegate = drugImageCameraController
-        inventoryEditViewController.present(drugImageCameraController, animated: true)
+        drugImageCameraController.modalPresentationStyle = .fullScreen
+        self.drugImageCameraController = drugImageCameraController
+        inventoryEditViewController.present(self.drugImageCameraController!, animated: true)
     }
     
     func setInventoryDrugImage(image: UIImage?) {
@@ -131,8 +135,10 @@ extension MainCoordinator: InventoryCoordinator {
             NSLog("No image found")
             return
         }
+        
         capturedInventoryDrugImage = image
-        drugImageCameraController.dismiss(animated: true)
+        drugImageCameraController!.dismiss(animated: true)
+        drugImageCameraController = nil
         inventoryEditViewController.capturedDrugImage(image: image)
     }
     
@@ -141,7 +147,6 @@ extension MainCoordinator: InventoryCoordinator {
     }
     
     func saveInventoryEditTapped() {
-        inventoryListViewController.reloadDrugInventoryData()
         inventoryEditViewController.navigationController?.dismiss(animated: true)
         inventoryEditViewController = InventoryEditViewController(coordinator: self, inventoryService: inventoryService)
     }

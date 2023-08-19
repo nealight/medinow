@@ -11,6 +11,7 @@ import CoreData
 class PrescriptionListViewController: UIViewController {
     unowned let coordinator: PrescriptionCoordinator
     lazy var dataSource = coordinator.getPrescriptionDataSource()
+    var lastSelectedIndexPath: IndexPath?
     
     init(coordinator: PrescriptionCoordinator) {
         self.coordinator = coordinator
@@ -37,6 +38,16 @@ class PrescriptionListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        guard let lastSelectedIndexPath = lastSelectedIndexPath else {
+            return
+        }
+        tableView.deselectRow(at: lastSelectedIndexPath, animated: false)
+        
     }
     
     @objc func addTapped() {
@@ -56,7 +67,6 @@ class PrescriptionListViewController: UIViewController {
     }
     
     func setupNavigation() {
-        self.navigationController?.navigationBar.prefersLargeTitles = true
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editTapped))
         self.navigationItem.rightBarButtonItem = addButton
@@ -117,6 +127,7 @@ extension PrescriptionListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        lastSelectedIndexPath = indexPath
         let drugPerscriptionModel = (tableView.dataSource as! PrescriptionDataSource).getDrug(at: indexPath)
         coordinator.editPrescription(for: drugPerscriptionModel.name)
     }

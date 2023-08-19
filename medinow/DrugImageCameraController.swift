@@ -9,16 +9,7 @@ import Foundation
 import UIKit
 
 class DrugImageCameraController: UIImagePickerController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-    unowned let coordinator: InventoryCoordinator
-    
-    init(coordinator: InventoryCoordinator) {
-        self.coordinator = coordinator
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    weak var coordinator: InventoryCoordinator?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +18,6 @@ class DrugImageCameraController: UIImagePickerController, UINavigationController
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        coordinator.setInventoryDrugImage(image: info[.originalImage] as? UIImage)
+        coordinator?.setInventoryDrugImage(image: info[.originalImage] as? UIImage)
     }
 }
