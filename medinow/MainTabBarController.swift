@@ -9,11 +9,11 @@ import Foundation
 import UIKit
 
 class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
-    let coordinator: MainCoordinator
     let inventoryVC: InventoryListViewController
+    let prescriptionVC: PrescriptionListViewController
     
-    init(coordinator: MainCoordinator, inventoryVC: InventoryListViewController) {
-        self.coordinator = coordinator
+    init(prescriptionVC: PrescriptionListViewController, inventoryVC: InventoryListViewController) {
+        self.prescriptionVC = prescriptionVC
         self.inventoryVC = inventoryVC
         super.init(nibName: nil, bundle: nil)
     }
@@ -30,7 +30,6 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBar.backgroundColor = .secondarySystemBackground
-        let prescriptionVC = PrescriptionListViewController(coordinator: self.coordinator);
         prescriptionVC.title = NSLocalizedString("Prescriptions", comment: "")
         let prescriptionNavVC = UINavigationController(rootViewController: prescriptionVC)
         let prescriptionTab = UITabBarItem(title: prescriptionVC.title, image: .init(systemName: "list.bullet.clipboard.fill"), tag: 0)

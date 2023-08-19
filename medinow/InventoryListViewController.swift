@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class InventoryListViewController: UICollectionViewController {
-    lazy var coordinator = appDelegate.coordinator
+    unowned let coordinator: InventoryCoordinator
     let cellReuseID = "InventoryCell"
     let inventoryService: InventoryServiceProvider
     private lazy var dataSource = makeDataSource()
@@ -19,7 +19,8 @@ class InventoryListViewController: UICollectionViewController {
         case expired
     }
     
-    init(inventoryService: InventoryServiceProvider, collectionViewLayout: UICollectionViewLayout) {
+    init(coordinator: InventoryCoordinator, inventoryService: InventoryServiceProvider, collectionViewLayout: UICollectionViewLayout) {
+        self.coordinator = coordinator
         self.inventoryService = inventoryService
         super.init(collectionViewLayout: collectionViewLayout)
     }

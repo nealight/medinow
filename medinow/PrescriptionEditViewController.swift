@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class PrescriptionEditViewController: UIViewController, UITextFieldDelegate {
-    lazy var coordinator = appDelegate.coordinator
+    unowned let coordinator: PrescriptionCoordinator
     let drugInfoTextFieldFactory = DrugInfoTextFieldFactory()
     let frequencyTextLabel = UILabel()
     let frequencyPicker = UIPickerView()
@@ -19,7 +19,8 @@ class PrescriptionEditViewController: UIViewController, UITextFieldDelegate {
     lazy var nameTF = drugInfoTextFieldFactory.create(placeholder: NSLocalizedString("Drug Name", comment: ""))
     lazy var frequencyTextField = drugInfoTextFieldFactory.create(placeholder: "1")
     
-    init(drugPrescriptionService: DrugPrescriptionServiceProvider) {
+    init(coordinator: PrescriptionCoordinator, drugPrescriptionService: DrugPrescriptionServiceProvider) {
+        self.coordinator = coordinator
         self.drugPrescriptionService = drugPrescriptionService
         super.init(nibName: nil, bundle: nil)
     }

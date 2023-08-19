@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-protocol InventoryCoordinator {
+protocol InventoryCoordinator: AnyObject {
     func addInventoryTapped()
     func inverntoryCameraButtonTapped()
     func setInventoryDrugImage(image: UIImage?)
@@ -16,7 +16,7 @@ protocol InventoryCoordinator {
     func saveInventoryEditTapped()
 }
 
-protocol PrescriptionCoordinator {
+protocol PrescriptionCoordinator: AnyObject {
     func addPrescriptionTapped()
     func savePrescriptionTapped(text: String, dosage: Int64)
     func cancelPrescriptionEditTapped()
@@ -31,10 +31,10 @@ class MainCoordinator: Coordinator {
     let drugPrescriptionService = DrugPrescriptionService()
     let inventoryService = InventoryService()
     
-    lazy var mainTabBarController: MainTabBarController = MainTabBarController(coordinator: self, inventoryVC: self.inventoryListViewController)
-    lazy var prescriptionEditViewController = PrescriptionEditViewController(drugPrescriptionService: drugPrescriptionService)
+    lazy var mainTabBarController: MainTabBarController = MainTabBarController(prescriptionVC: self.prescriptionListViewController, inventoryVC: self.inventoryListViewController)
+    lazy var prescriptionEditViewController = PrescriptionEditViewController(coordinator: self, drugPrescriptionService: drugPrescriptionService)
     lazy var inventoryEditViewController = InventoryEditViewController(coordinator: self, inventoryService: inventoryService)
-    lazy var drugImageCameraController = DrugImageCameraController()
+    lazy var drugImageCameraController = DrugImageCameraController(coordinator: self)
     var prescriptionLastSaved = true
     var originalPerscriptionName: String? = nil
     
@@ -48,9 +48,11 @@ class MainCoordinator: Coordinator {
         inventoryVCLayout.minimumLineSpacing = 10
         inventoryVCLayout.minimumInteritemSpacing = 10
         
-        let inventoryVC = InventoryListViewController(inventoryService: self.inventoryService, collectionViewLayout: inventoryVCLayout)
+        let inventoryVC = InventoryListViewController(coordinator: self, inventoryService: self.inventoryService, collectionViewLayout: inventoryVCLayout)
         return inventoryVC
     }()
+    
+    lazy var prescriptionListViewController = PrescriptionListViewController(coordinator: self)
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -64,7 +66,7 @@ class MainCoordinator: Coordinator {
 
 extension MainCoordinator: PrescriptionCoordinator {
     func editPrescription(for name: String) {
-        prescriptionEditViewController = PrescriptionEditViewController(drugPrescriptionService: drugPrescriptionService)
+        prescriptionEditViewController = PrescriptionEditViewController(coordinator: self, drugPrescriptionService: drugPrescriptionService)
         drugPrescriptionService.fetchDrug(for: name) { object in
             self.originalPerscriptionName = object.value(forKey: "name") as? String
             self.prescriptionEditViewController.nameTF.text = object.value(forKey: "name") as? String
@@ -80,7 +82,7 @@ extension MainCoordinator: PrescriptionCoordinator {
     
     func addPrescriptionTapped() {
         if prescriptionLastSaved {
-            prescriptionEditViewController = PrescriptionEditViewController(drugPrescriptionService: drugPrescriptionService)
+            prescriptionEditViewController = PrescriptionEditViewController(coordinator: self, drugPrescriptionService: drugPrescriptionService)
         }
         let navVC = UINavigationController(rootViewController: prescriptionEditViewController)
         navVC.modalPresentationStyle = .fullScreen

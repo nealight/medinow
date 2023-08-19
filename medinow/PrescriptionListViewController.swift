@@ -9,7 +9,7 @@ import UIKit
 import CoreData
 
 class PrescriptionListViewController: UIViewController {
-    let coordinator: PrescriptionCoordinator
+    unowned let coordinator: PrescriptionCoordinator
     lazy var dataSource = coordinator.getPrescriptionDataSource()
     
     init(coordinator: PrescriptionCoordinator) {

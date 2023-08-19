@@ -12,7 +12,7 @@ import UIKit
 
 class InventoryEditViewController: UIViewController {
     let drugInfoTextFieldFactory = DrugInfoTextFieldFactory()
-    let coordinator: InventoryCoordinator
+    unowned let coordinator: InventoryCoordinator
     let inventoryService: InventoryServiceProvider
     lazy var drugImageView = UIImageView()
     var drugInventoryImage: UIImage?
