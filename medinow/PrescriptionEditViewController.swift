@@ -52,6 +52,9 @@ class PrescriptionEditViewController: UIViewController, UITextFieldDelegate {
     
     func savePrescription() {
         guard let text = nameTF.text, nameTF.text != "" else {
+            let alert = UIAlertController(title: NSLocalizedString("Missing Prescription Information", comment: ""), message: NSLocalizedString("You have not filled out your prescription information.", comment: ""), preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: .cancel))
+            present(alert, animated: true)
             return
         }
         coordinator.savePrescriptionTapped(text: text, dosage: Int64(frequencyPickerOptions[frequencyPicker.selectedRow(inComponent: 0)]))

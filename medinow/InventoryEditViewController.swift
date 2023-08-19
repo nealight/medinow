@@ -55,7 +55,7 @@ class InventoryEditViewController: UIViewController {
     
     private func saveDrugInventory() {
         guard let drugInventoryImage = drugInventoryImage else {
-            let alert = UIAlertController(title: NSLocalizedString("No Image Taken", comment: ""), message: NSLocalizedString("Please add a photo to the drug that you are adding to your inventory.", comment: ""), preferredStyle: .alert)
+            let alert = UIAlertController(title: NSLocalizedString("No Photo Taken", comment: ""), message: NSLocalizedString("Please add a photo to the drug that you are adding to your inventory.", comment: ""), preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: .cancel))
             present(alert, animated: true)
             return

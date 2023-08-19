@@ -876,8 +876,8 @@
             filePath = "medinow/PrescriptionEditViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
             landmarkName = "setupFrequencyPicker()"
             landmarkType = "7">
          </BreakpointContent>
