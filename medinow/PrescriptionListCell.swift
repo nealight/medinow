@@ -40,10 +40,26 @@ class PrescriptionListCell: UITableViewCell {
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
-        if selected {
-            cellView.backgroundColor = .systemOrange.withAlphaComponent(0.5)
-        } else {
-            cellView.backgroundColor = .systemOrange.withAlphaComponent(1)
+        UIView.animate(withDuration: 0.1) {
+            if selected {
+                self.cellView.backgroundColor = .systemOrange.withAlphaComponent(0.5)
+            } else {
+                self.cellView.backgroundColor = .systemOrange.withAlphaComponent(1)
+            }
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        UIView.animate(withDuration: 0.1) {
+            self.cellView.backgroundColor = .systemOrange.withAlphaComponent(0.5)
+        }
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
+        UIView.animate(withDuration: 0.1) {
+            self.cellView.backgroundColor = .systemOrange.withAlphaComponent(1)
         }
     }
     
@@ -55,6 +71,7 @@ class PrescriptionListCell: UITableViewCell {
             })
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {super.setEditing(editing, animated: animated)})
         } else {
+            setSelected(false, animated: true)
             UIView.animate(withDuration: 0.2, animations: {
                 self.cellViewLeftMargin.constant = 10;
                 self.layoutIfNeeded();

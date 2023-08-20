@@ -25,17 +25,43 @@ protocol PrescriptionCoordinator: AnyObject {
 }
 
 class MainCoordinator: Coordinator {
+    lazy var inventoryVC = {
+        let inventoryVCLayout = UICollectionViewFlowLayout()
+        let cellPerRow: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 4 : 2
+        inventoryVCLayout.itemSize = CGSize(width: UIScreen.main.bounds.width / cellPerRow - 15, height: UIScreen.main.bounds.width / cellPerRow - 15)
+        inventoryVCLayout.sectionInset = .init(top: 10, left: 10, bottom: 10, right: 10)
+        inventoryVCLayout.minimumLineSpacing = 10
+        inventoryVCLayout.minimumInteritemSpacing = 10
+        
+        let inventoryVC = InventoryListViewController(coordinator: self, inventoryService: self.inventoryService, collectionViewLayout: inventoryVCLayout)
+        return inventoryVC
+    }()
+    
+    lazy var prescriptionVC = PrescriptionListViewController(coordinator: self)
+    
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     
     let drugPrescriptionService = DrugPrescriptionService()
     let inventoryService = InventoryService()
     
-    lazy var mainTabBarController: MainTabBarController = MainTabBarController(coordinator: self)
-    lazy var prescriptionEditViewController = PrescriptionEditViewController(coordinator: self, drugPrescriptionService: drugPrescriptionService)
+    lazy var mainTabBarController: MainTabBarController = MainTabBarController(inventoryVC: inventoryVC, prescriptionVC: prescriptionVC)
+    lazy var savedPrescriptionEditViewController: PrescriptionEditViewController? = PrescriptionEditViewController(coordinator: self, drugPrescriptionService: drugPrescriptionService)
     lazy var inventoryEditViewController = InventoryEditViewController(coordinator: self, inventoryService: inventoryService)
     var drugImageCameraController: DrugImageCameraController?
-    var prescriptionLastSaved = true
+    
+    private var _prescriptionLastSaved: Bool
+    var prescriptionLastSaved: Bool {
+        get {
+            return self._prescriptionLastSaved
+        }
+        set (newValue) {
+            _prescriptionLastSaved = newValue
+            if (newValue) {
+                self.savedPrescriptionEditViewController = nil
+            }
+        }
+    }
     var originalPerscriptionName: String? = nil
     
     var capturedInventoryDrugImage: UIImage?
@@ -57,6 +83,7 @@ class MainCoordinator: Coordinator {
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
         self.navigationController.isNavigationBarHidden = true
+        _prescriptionLastSaved = true
     }
     
     func start() {
@@ -67,14 +94,14 @@ class MainCoordinator: Coordinator {
 extension MainCoordinator: PrescriptionCoordinator {
     func editPrescription(for name: String) {
         prescriptionLastSaved = true
-        prescriptionEditViewController = PrescriptionEditViewController(coordinator: self, drugPrescriptionService: drugPrescriptionService)
-        drugPrescriptionService.fetchDrug(for: name) { object in
+        let prescriptionEditViewController = PrescriptionEditViewController(coordinator: self, drugPrescriptionService: drugPrescriptionService)
+        drugPrescriptionService.fetchDrug(for: name) { [prescriptionEditViewController] object in
             self.originalPerscriptionName = object.value(forKey: "name") as? String
-            self.prescriptionEditViewController.nameTF.text = object.value(forKey: "name") as? String
-            self.prescriptionEditViewController.frequencyTextField.text = String(object.value(forKey: "dailyDosage") as! Int64)
+            prescriptionEditViewController.nameTF.text = object.value(forKey: "name") as? String
+            prescriptionEditViewController.frequencyTextField.text = String(object.value(forKey: "dailyDosage") as! Int64)
             
             DispatchQueue.main.async {
-                let navVC = UINavigationController(rootViewController: self.prescriptionEditViewController)
+                let navVC = UINavigationController(rootViewController: prescriptionEditViewController)
                 navVC.modalPresentationStyle = .fullScreen
                 self.navigationController.present(navVC, animated: true)
             }
@@ -82,10 +109,9 @@ extension MainCoordinator: PrescriptionCoordinator {
     }
     
     func addPrescriptionTapped() {
-        if prescriptionLastSaved {
-            prescriptionEditViewController = PrescriptionEditViewController(coordinator: self, drugPrescriptionService: drugPrescriptionService)
-        }
-        let navVC = UINavigationController(rootViewController: prescriptionEditViewController)
+        self.savedPrescriptionEditViewController = prescriptionLastSaved ? PrescriptionEditViewController(coordinator: self, drugPrescriptionService: drugPrescriptionService) : self.savedPrescriptionEditViewController
+        
+        let navVC = UINavigationController(rootViewController: self.savedPrescriptionEditViewController!)
         navVC.modalPresentationStyle = .fullScreen
         navigationController.present(navVC, animated: true)
     }
@@ -98,14 +124,12 @@ extension MainCoordinator: PrescriptionCoordinator {
             drugPrescriptionService.insertPrescription(prescription: .init(name: text, dailyDosage: Int64(dosage)))
             prescriptionLastSaved = true
         }
-        prescriptionEditViewController.dismiss(animated: true)
     }
     
     func cancelPrescriptionEditTapped() {
         if originalPerscriptionName == nil {
             prescriptionLastSaved = false
         }
-        prescriptionEditViewController.dismiss(animated: true)
     }
     
     func getPrescriptionDataSource() -> PrescriptionDataSource {

@@ -58,10 +58,12 @@ class PrescriptionEditViewController: UIViewController, UITextFieldDelegate {
             return
         }
         coordinator.savePrescriptionTapped(text: text, dosage: Int64(frequencyPickerOptions[frequencyPicker.selectedRow(inComponent: 0)]))
+        self.dismiss(animated: true)
     }
     
     func cancelPrescriptionEdit() {
         appDelegate.coordinator.cancelPrescriptionEditTapped()
+        self.dismiss(animated: true)
     }
     
     func setupNavigation() {
