@@ -48,18 +48,19 @@ class PrescriptionDetailViewController: UIViewController {
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         if !editing {
-            return
+            setupNonEditingNavigation()
+        } else {
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .save, primaryAction: UIAction() { [self] _ in
+                self.savePrescription()
+            })
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .cancel, primaryAction: UIAction() {
+                [self] _ in
+                self.setEditing(false, animated: true)
+            })
         }
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .save, primaryAction: UIAction() { [self] _ in
-            self.savePrescription()
-        })
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .cancel, primaryAction: UIAction() {
-            [self] _ in
-            self.cancelPrescriptionEdit()
-        })
         
         nameTF.removeFromSuperview()
-        frequencyPicker.removeFromSuperview()
+        frequencyTextField.removeFromSuperview()
         nameTF = drugInfoTextFieldFactory.create(placeholder: NSLocalizedString("Drug Name", comment: ""), isEditing: isEditing)
         frequencyTextField = drugInfoTextFieldFactory.create(placeholder: "1", isEditing: isEditing)
         
@@ -86,6 +87,10 @@ class PrescriptionDetailViewController: UIViewController {
     
     func setupNavigation() {
         self.navigationController?.navigationBar.topItem?.title = NSLocalizedString("Prescription Detail", comment: "")
+        setupNonEditingNavigation()
+    }
+    
+    private func setupNonEditingNavigation() {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .edit, primaryAction: UIAction() {
             [self] _ in
             self.setEditing(true, animated: true)
@@ -95,7 +100,6 @@ class PrescriptionDetailViewController: UIViewController {
             self.cancelPrescriptionEdit()
         })
     }
-    
     
     func setupNameTF() {
         if let filledName = filledName {
