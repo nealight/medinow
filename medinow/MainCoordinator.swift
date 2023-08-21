@@ -8,6 +8,14 @@
 import Foundation
 import UIKit
 
+protocol PrescriptionCoordinator: AnyObject {
+    func addPrescriptionTapped()
+    func savePrescriptionTapped(text: String, dosage: Int64)
+    func cancelPrescriptionEditTapped()
+    func getPrescriptionDataSource() -> PrescriptionDataSource
+    func editPrescription(for name: String)
+}
+
 protocol InventoryCoordinator: AnyObject {
     func addInventoryTapped()
     func inverntoryCameraButtonTapped()
@@ -16,13 +24,6 @@ protocol InventoryCoordinator: AnyObject {
     func saveInventoryEditTapped()
 }
 
-protocol PrescriptionCoordinator: AnyObject {
-    func addPrescriptionTapped()
-    func savePrescriptionTapped(text: String, dosage: Int64)
-    func cancelPrescriptionEditTapped()
-    func getPrescriptionDataSource() -> PrescriptionDataSource
-    func editPrescription(for name: String)
-}
 
 class MainCoordinator: Coordinator {
     lazy var inventoryVC = {
@@ -140,6 +141,7 @@ extension MainCoordinator: PrescriptionCoordinator {
 
 extension MainCoordinator: InventoryCoordinator {
     func addInventoryTapped() {
+        inventoryEditViewController.isEditing = true
         let navVC = UINavigationController(rootViewController: inventoryEditViewController)
         navVC.modalPresentationStyle = .fullScreen
         navigationController.present(navVC, animated: true)
