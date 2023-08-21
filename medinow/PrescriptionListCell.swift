@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 
 class PrescriptionListCell: UITableViewCell {
+    static let CellTouchOnAnimationDuration = 0.2
+    
     var cellView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemOrange
@@ -41,21 +43,21 @@ class PrescriptionListCell: UITableViewCell {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        UIView.animate(withDuration: 0.1) {
+        UIView.animate(withDuration: PrescriptionListCell.CellTouchOnAnimationDuration) {
             self.cellView.backgroundColor = .systemOrange.withAlphaComponent(0.5)
         }
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
-        UIView.animate(withDuration: 0.1) {
+        UIView.animate(withDuration: PrescriptionListCell.CellTouchOnAnimationDuration) {
             self.cellView.backgroundColor = .systemOrange.withAlphaComponent(1)
         }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        UIView.animate(withDuration: 0.1, delay: 0.5) {
+        UIView.animate(withDuration: PrescriptionListCell.CellTouchOnAnimationDuration, delay: 0.5) {
             self.cellView.backgroundColor = .systemOrange.withAlphaComponent(1)
         }
     }
