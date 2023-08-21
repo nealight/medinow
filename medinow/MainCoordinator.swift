@@ -110,12 +110,13 @@ extension MainCoordinator: PrescriptionCoordinator {
     }
     
     func addPrescriptionTapped() {
-        self.savedPrescriptionEditViewController = prescriptionLastSaved ? PrescriptionDetailViewController(coordinator: self, drugPrescriptionService: drugPrescriptionService) : self.savedPrescriptionEditViewController
-        self.savedPrescriptionEditViewController!.isEditing = true
+        let savedPrescriptionEditViewController = prescriptionLastSaved ? PrescriptionDetailViewController(coordinator: self, drugPrescriptionService: drugPrescriptionService) : self.savedPrescriptionEditViewController!
+        savedPrescriptionEditViewController.isEditing = true
         
-        let navVC = UINavigationController(rootViewController: self.savedPrescriptionEditViewController!)
+        let navVC = UINavigationController(rootViewController: savedPrescriptionEditViewController)
         navVC.modalPresentationStyle = .fullScreen
         navigationController.present(navVC, animated: true)
+        self.savedPrescriptionEditViewController = savedPrescriptionEditViewController
     }
     
     func savePrescriptionTapped(text: String, dosage: Int64) {

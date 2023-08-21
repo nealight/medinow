@@ -14,7 +14,7 @@ protocol InputTextFieldFactory {
 
 
 class DrugInfoTextFieldFactory: InputTextFieldFactory {
-    func create(placeholder: String, isEditing: Bool) -> UITextField {
+    func create(placeholder: String, isEditing: Bool = true) -> UITextField {
         let producedTF = UITextField()
         if (isEditing) {
             producedTF.returnKeyType = .done

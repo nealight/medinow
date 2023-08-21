@@ -38,11 +38,14 @@ class PrescriptionDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        
-        setupNavigation()
         setupNameTF()
         setupFrequencyPicker()
         setupFrequencyLabel()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupNavigation()
     }
     
     override func setEditing(_ editing: Bool, animated: Bool) {
@@ -50,13 +53,7 @@ class PrescriptionDetailViewController: UIViewController {
         if !editing {
             setupNonEditingNavigation()
         } else {
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .save, primaryAction: UIAction() { [self] _ in
-                self.savePrescription()
-            })
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .cancel, primaryAction: UIAction() {
-                [self] _ in
-                self.setEditing(false, animated: true)
-            })
+            setupEditingNavigation()
         }
         
         nameTF.removeFromSuperview()
@@ -86,8 +83,28 @@ class PrescriptionDetailViewController: UIViewController {
     }
     
     func setupNavigation() {
-        self.navigationController?.navigationBar.topItem?.title = NSLocalizedString("Prescription Detail", comment: "")
-        setupNonEditingNavigation()
+        self.navigationController!.navigationBar.topItem?.title = NSLocalizedString("Prescription Detail", comment: "")
+        if (isEditing) {
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .save, primaryAction: UIAction() { [self] _ in
+                self.savePrescription()
+            })
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .cancel, primaryAction: UIAction() {
+                [self] _ in
+                self.cancelPrescriptionEdit()
+            })
+        } else {
+            setupNonEditingNavigation()
+        }
+    }
+    
+    private func setupEditingNavigation() {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .save, primaryAction: UIAction() { [self] _ in
+            self.savePrescription()
+        })
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .cancel, primaryAction: UIAction() {
+            [self] _ in
+            self.setEditing(false, animated: true)
+        })
     }
     
     private func setupNonEditingNavigation() {
