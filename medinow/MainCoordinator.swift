@@ -46,7 +46,7 @@ class MainCoordinator: Coordinator {
     let inventoryService = InventoryService()
     
     lazy var mainTabBarController: MainTabBarController = MainTabBarController(inventoryVC: inventoryVC, prescriptionVC: prescriptionVC)
-    lazy var savedPrescriptionEditViewController: PrescriptionEditViewController? = PrescriptionEditViewController(coordinator: self, drugPrescriptionService: drugPrescriptionService)
+    lazy var savedPrescriptionEditViewController: PrescriptionDetailViewController? = PrescriptionDetailViewController(coordinator: self, drugPrescriptionService: drugPrescriptionService)
     lazy var inventoryEditViewController = InventoryEditViewController(coordinator: self, inventoryService: inventoryService)
     var drugImageCameraController: DrugImageCameraController?
     
@@ -94,11 +94,11 @@ class MainCoordinator: Coordinator {
 extension MainCoordinator: PrescriptionCoordinator {
     func editPrescription(for name: String) {
         prescriptionLastSaved = true
-        let prescriptionEditViewController = PrescriptionEditViewController(coordinator: self, drugPrescriptionService: drugPrescriptionService)
-        drugPrescriptionService.fetchDrug(for: name) { [prescriptionEditViewController] object in
+        
+        drugPrescriptionService.fetchDrug(for: name) { object in
             self.originalPerscriptionName = object.value(forKey: "name") as? String
-            prescriptionEditViewController.nameTF.text = object.value(forKey: "name") as? String
-            prescriptionEditViewController.frequencyTextField.text = String(object.value(forKey: "dailyDosage") as! Int64)
+            
+            let prescriptionEditViewController = PrescriptionDetailViewController(coordinator: self, drugPrescriptionService: self.drugPrescriptionService, filledName: object.value(forKey: "name") as? String, filledDailyDosage:  String(object.value(forKey: "dailyDosage") as! Int64))
             
             DispatchQueue.main.async {
                 let navVC = UINavigationController(rootViewController: prescriptionEditViewController)
@@ -109,7 +109,8 @@ extension MainCoordinator: PrescriptionCoordinator {
     }
     
     func addPrescriptionTapped() {
-        self.savedPrescriptionEditViewController = prescriptionLastSaved ? PrescriptionEditViewController(coordinator: self, drugPrescriptionService: drugPrescriptionService) : self.savedPrescriptionEditViewController
+        self.savedPrescriptionEditViewController = prescriptionLastSaved ? PrescriptionDetailViewController(coordinator: self, drugPrescriptionService: drugPrescriptionService) : self.savedPrescriptionEditViewController
+        self.savedPrescriptionEditViewController!.isEditing = true
         
         let navVC = UINavigationController(rootViewController: self.savedPrescriptionEditViewController!)
         navVC.modalPresentationStyle = .fullScreen

@@ -13,7 +13,7 @@
 		1C0D17212A0ADB3E00B1A1E8 /* PrescriptionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D17202A0ADB3E00B1A1E8 /* PrescriptionDataSource.swift */; };
 		1C0FB1D72A8865CB006C8BE1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1C0FB1D92A8865CB006C8BE1 /* Localizable.strings */; };
 		1C1C802029F5895400E57D66 /* PrescriptionListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1C801F29F5895400E57D66 /* PrescriptionListCell.swift */; };
-		1C1C802229F5D0BD00E57D66 /* PrescriptionEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1C802129F5D0BD00E57D66 /* PrescriptionEditViewController.swift */; };
+		1C1C802229F5D0BD00E57D66 /* PrescriptionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1C802129F5D0BD00E57D66 /* PrescriptionDetailViewController.swift */; };
 		1C245E8A29F33A9900AEF9CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C245E8929F33A9900AEF9CE /* AppDelegate.swift */; };
 		1C245E8C29F33A9900AEF9CE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C245E8B29F33A9900AEF9CE /* SceneDelegate.swift */; };
 		1C245E8E29F33A9900AEF9CE /* PrescriptionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C245E8D29F33A9900AEF9CE /* PrescriptionListViewController.swift */; };
@@ -38,7 +38,7 @@
 		1C0D17202A0ADB3E00B1A1E8 /* PrescriptionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionDataSource.swift; sourceTree = "<group>"; };
 		1C0FB1DA2A8865D0006C8BE1 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		1C1C801F29F5895400E57D66 /* PrescriptionListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionListCell.swift; sourceTree = "<group>"; };
-		1C1C802129F5D0BD00E57D66 /* PrescriptionEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionEditViewController.swift; sourceTree = "<group>"; };
+		1C1C802129F5D0BD00E57D66 /* PrescriptionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionDetailViewController.swift; sourceTree = "<group>"; };
 		1C245E8629F33A9900AEF9CE /* Cappie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cappie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C245E8929F33A9900AEF9CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1C245E8B29F33A9900AEF9CE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -105,7 +105,7 @@
 				1C0D17202A0ADB3E00B1A1E8 /* PrescriptionDataSource.swift */,
 				1C245E8D29F33A9900AEF9CE /* PrescriptionListViewController.swift */,
 				1C1C801F29F5895400E57D66 /* PrescriptionListCell.swift */,
-				1C1C802129F5D0BD00E57D66 /* PrescriptionEditViewController.swift */,
+				1C1C802129F5D0BD00E57D66 /* PrescriptionDetailViewController.swift */,
 				1C3A4CE329F845330016AD06 /* DrugPrescriptionModel.swift */,
 			);
 			name = Perscription;
@@ -216,7 +216,7 @@
 				1C7C976C29FAAEEE007808FC /* MainTabBarController.swift in Sources */,
 				1CFC644E2A76C06000BA6A42 /* DrugPrescriptionService.swift in Sources */,
 				1C245E8A29F33A9900AEF9CE /* AppDelegate.swift in Sources */,
-				1C1C802229F5D0BD00E57D66 /* PrescriptionEditViewController.swift in Sources */,
+				1C1C802229F5D0BD00E57D66 /* PrescriptionDetailViewController.swift in Sources */,
 				1C245E8C29F33A9900AEF9CE /* SceneDelegate.swift in Sources */,
 				1C245E9429F33A9900AEF9CE /* medinow.xcdatamodeld in Sources */,
 				1CABC08D2A1C0CFF00EA11CE /* InventoryEditViewController.swift in Sources */,

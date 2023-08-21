@@ -17,8 +17,8 @@ class InventoryEditViewController: UIViewController {
     lazy var drugImageView = UIImageView()
     var drugInventoryImage: UIImage?
     let cameraButton = UIButton(type: .system)
-    lazy var drugNameTF = drugInfoTextFieldFactory.create(placeholder: NSLocalizedString("Drug Name", comment: ""))
-    lazy var capletQuantityTF = drugInfoTextFieldFactory.create(placeholder: NSLocalizedString("Quantity", comment: ""))
+    lazy var drugNameTF = drugInfoTextFieldFactory.create(placeholder: NSLocalizedString("Drug Name", comment: ""), isEditing: isEditing)
+    lazy var capletQuantityTF = drugInfoTextFieldFactory.create(placeholder: NSLocalizedString("Quantity", comment: ""), isEditing: isEditing)
     
     
     init(coordinator: InventoryCoordinator, inventoryService: InventoryServiceProvider) {

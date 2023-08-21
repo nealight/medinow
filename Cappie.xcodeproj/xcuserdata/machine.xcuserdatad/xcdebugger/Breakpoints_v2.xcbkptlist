@@ -837,22 +837,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A2567418-399D-46B3-9A79-55AA49FB0BE9"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "medinow/MainCoordinator.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
-            landmarkName = "editPrescription(for:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "89564D7E-E625-421B-831E-71A500DE4863"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -876,8 +860,8 @@
             filePath = "medinow/MainCoordinator.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "131"
-            endingLineNumber = "131"
+            startingLineNumber = "132"
+            endingLineNumber = "132"
             landmarkName = "cancelPrescriptionEditTapped()"
             landmarkType = "7">
          </BreakpointContent>
@@ -971,8 +955,8 @@
             filePath = "medinow/MainCoordinator.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
             landmarkName = "saveInventoryEditTapped()"
             landmarkType = "7">
             <Locations>
@@ -1021,6 +1005,21 @@
                   endingLineNumber = "151"
                   offsetFromSymbolStart = "32">
                </Location>
+               <Location
+                  uuid = "E64F3A75-C6CD-4884-8DE5-FBD79E727ADA - 1cce8560fdb85293"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Cappie.MainCoordinator.saveInventoryEditTapped() -&gt; ()"
+                  moduleName = "Cappie"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/machine/Desktop/medinow/medinow/MainCoordinator.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "176"
+                  endingLineNumber = "176"
+                  offsetFromSymbolStart = "32">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -1034,8 +1033,8 @@
             filePath = "medinow/MainCoordinator.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "170"
-            endingLineNumber = "170"
+            startingLineNumber = "171"
+            endingLineNumber = "171"
             landmarkName = "cancelInventoryEditTapped()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1050,8 +1049,8 @@
             filePath = "medinow/MainCoordinator.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
             landmarkName = "savePrescriptionTapped(text:dosage:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1337,8 +1336,8 @@
             filePath = "medinow/MainCoordinator.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
             landmarkName = "setInventoryDrugImage(image:)"
             landmarkType = "7">
             <Locations>
@@ -1387,6 +1386,21 @@
                   endingLineNumber = "135"
                   offsetFromSymbolStart = "80">
                </Location>
+               <Location
+                  uuid = "28A59492-976E-440D-B6DC-8E74D96CB406 - 4bfd3b6c081c49e9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Cappie.MainCoordinator.setInventoryDrugImage(image: Swift.Optional&lt;__C.UIImage&gt;) -&gt; ()"
+                  moduleName = "Cappie"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/machine/Desktop/medinow/medinow/MainCoordinator.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "160"
+                  endingLineNumber = "160"
+                  offsetFromSymbolStart = "80">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -1400,8 +1414,8 @@
             filePath = "medinow/MainCoordinator.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
             landmarkName = "inverntoryCameraButtonTapped()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1448,8 +1462,8 @@
             filePath = "medinow/MainCoordinator.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "155"
-            endingLineNumber = "155"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
             landmarkName = "inverntoryCameraButtonTapped()"
             landmarkType = "7">
             <Locations>
@@ -1513,6 +1527,21 @@
                   endingLineNumber = "131"
                   offsetFromSymbolStart = "364">
                </Location>
+               <Location
+                  uuid = "BF549615-C26B-4730-9783-A7499905239A - e341914691809426"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Cappie.MainCoordinator.inverntoryCameraButtonTapped() -&gt; ()"
+                  moduleName = "Cappie"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/machine/Desktop/medinow/medinow/MainCoordinator.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "156"
+                  endingLineNumber = "156"
+                  offsetFromSymbolStart = "364">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -1562,6 +1591,70 @@
                   offsetFromSymbolStart = "340">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "759B4161-0959-4475-BA2E-9110816D840F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "medinow/PrescriptionDetailViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "207"
+            endingLineNumber = "207"
+            landmarkName = "textFieldShouldBeginEditing(_:)"
+            landmarkType = "9">
+            <Locations>
+               <Location
+                  uuid = "759B4161-0959-4475-BA2E-9110816D840F - a6f6b2efddaac19e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Cappie.PrescriptionDetailViewController.textFieldShouldBeginEditing(__C.UITextField) -&gt; Swift.Bool"
+                  moduleName = "Cappie"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/machine/Desktop/medinow/medinow/PrescriptionDetailViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "206"
+                  endingLineNumber = "206"
+                  offsetFromSymbolStart = "48">
+               </Location>
+               <Location
+                  uuid = "759B4161-0959-4475-BA2E-9110816D840F - a6f6b2efddaac1bf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Cappie.PrescriptionDetailViewController.textFieldShouldBeginEditing(__C.UITextField) -&gt; Swift.Bool"
+                  moduleName = "Cappie"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/machine/Desktop/medinow/medinow/PrescriptionDetailViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "207"
+                  endingLineNumber = "207"
+                  offsetFromSymbolStart = "48">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F93E7FE5-4303-48E5-A265-E528DDBBECDD"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "medinow/PrescriptionDetailViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
+            landmarkName = "setupFrequencyPicker()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

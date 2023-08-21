@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class PrescriptionEditViewController: UIViewController, UITextFieldDelegate {
+class PrescriptionDetailViewController: UIViewController {
     unowned let coordinator: PrescriptionCoordinator
     let drugInfoTextFieldFactory = DrugInfoTextFieldFactory()
     let frequencyTextLabel = UILabel()
@@ -16,12 +16,18 @@ class PrescriptionEditViewController: UIViewController, UITextFieldDelegate {
     let frequencyPickerOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     let drugPrescriptionService: DrugPrescriptionServiceProvider
     
-    lazy var nameTF = drugInfoTextFieldFactory.create(placeholder: NSLocalizedString("Drug Name", comment: ""))
-    lazy var frequencyTextField = drugInfoTextFieldFactory.create(placeholder: "1")
+    lazy var nameTF = drugInfoTextFieldFactory.create(placeholder: NSLocalizedString("Drug Name", comment: ""), isEditing: isEditing)
+    lazy var frequencyTextField = drugInfoTextFieldFactory.create(placeholder: "1", isEditing: isEditing)
     
-    init(coordinator: PrescriptionCoordinator, drugPrescriptionService: DrugPrescriptionServiceProvider) {
+    var filledName : String?
+    var filledDailyDosage: String?
+    
+    init(coordinator: PrescriptionCoordinator, drugPrescriptionService: DrugPrescriptionServiceProvider, filledName: String? = nil, filledDailyDosage: String? = nil) {
         self.coordinator = coordinator
         self.drugPrescriptionService = drugPrescriptionService
+        
+        self.filledName = filledName
+        self.filledDailyDosage = filledDailyDosage
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -35,19 +41,31 @@ class PrescriptionEditViewController: UIViewController, UITextFieldDelegate {
         
         setupNavigation()
         setupNameTF()
-        setupFrequencyLabel()
         setupFrequencyPicker()
+        setupFrequencyLabel()
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
-        if (textField == nameTF) {
-            NSLog("Finished Editing drug name")
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        if !editing {
+            return
         }
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .save, primaryAction: UIAction() { [self] _ in
+            self.savePrescription()
+        })
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .cancel, primaryAction: UIAction() {
+            [self] _ in
+            self.cancelPrescriptionEdit()
+        })
+        
+        nameTF.removeFromSuperview()
+        frequencyPicker.removeFromSuperview()
+        nameTF = drugInfoTextFieldFactory.create(placeholder: NSLocalizedString("Drug Name", comment: ""), isEditing: isEditing)
+        frequencyTextField = drugInfoTextFieldFactory.create(placeholder: "1", isEditing: isEditing)
+        
+        setupNameTF()
+        setupFrequencyPicker()
+        setupFrequencyLabel()
     }
     
     func savePrescription() {
@@ -68,10 +86,11 @@ class PrescriptionEditViewController: UIViewController, UITextFieldDelegate {
     
     func setupNavigation() {
         self.navigationController?.navigationBar.topItem?.title = NSLocalizedString("Prescription Detail", comment: "")
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .save, primaryAction: UIAction() { [self] _ in
-            self.savePrescription()
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .edit, primaryAction: UIAction() {
+            [self] _ in
+            self.setEditing(true, animated: true)
         })
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .cancel, primaryAction: UIAction() {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .done, primaryAction: UIAction() {
             [self] _ in
             self.cancelPrescriptionEdit()
         })
@@ -79,6 +98,9 @@ class PrescriptionEditViewController: UIViewController, UITextFieldDelegate {
     
     
     func setupNameTF() {
+        if let filledName = filledName {
+            nameTF.text = filledName
+        }
         nameTF.delegate = self
         view.addSubview(nameTF)
         NSLayoutConstraint.activate([
@@ -95,7 +117,7 @@ class PrescriptionEditViewController: UIViewController, UITextFieldDelegate {
         frequencyTextLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(frequencyTextLabel)
         NSLayoutConstraint.activate([
-            frequencyTextLabel.topAnchor.constraint(equalTo: nameTF.bottomAnchor, constant: 20),
+            frequencyTextLabel.bottomAnchor.constraint(equalTo: frequencyTextField.bottomAnchor),
             frequencyTextLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             frequencyTextLabel.heightAnchor.constraint(equalToConstant: 40),
             frequencyTextLabel.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.5)
@@ -103,23 +125,30 @@ class PrescriptionEditViewController: UIViewController, UITextFieldDelegate {
     }
     
     func setupFrequencyPicker() {
-        frequencyTextField.inputView = frequencyPicker
+        if let filledDailyDosage = filledDailyDosage {
+            frequencyTextField.text = filledDailyDosage
+        }
+        
+        if isEditing {
+            frequencyTextField.inputView = frequencyPicker
+        }
+        frequencyTextField.delegate = self
         frequencyTextField.textAlignment = .center
         frequencyTextField.tintColor = frequencyTextField.backgroundColor
         
         frequencyPicker.translatesAutoresizingMaskIntoConstraints = false
         
-        frequencyPicker.dataSource = self
         frequencyPicker.delegate = self
+        frequencyPicker.dataSource = self
         
         frequencyPicker.selectRow(Int(frequencyTextField.placeholder!)! - 1, inComponent: 0, animated: false)
         frequencyTextField.text = frequencyTextField.placeholder
                
         view.addSubview(frequencyTextField)
         NSLayoutConstraint.activate([
-            frequencyTextField.topAnchor.constraint(equalTo: frequencyTextLabel.topAnchor),
-            frequencyTextField.bottomAnchor.constraint(equalTo: frequencyTextLabel.bottomAnchor),
-            frequencyTextField.leadingAnchor.constraint(equalTo: frequencyTextLabel.trailingAnchor, constant: 20),
+            frequencyTextField.heightAnchor.constraint(equalToConstant: 40),
+            frequencyTextField.topAnchor.constraint(equalTo: nameTF.bottomAnchor, constant: 20),
+            frequencyTextField.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.5),
             frequencyTextField.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20)
         ])
         
@@ -144,7 +173,7 @@ class PrescriptionEditViewController: UIViewController, UITextFieldDelegate {
     }
 }
 
-extension PrescriptionEditViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+extension PrescriptionDetailViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -162,3 +191,19 @@ extension PrescriptionEditViewController: UIPickerViewDelegate, UIPickerViewData
     }
 }
 
+extension PrescriptionDetailViewController: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        if (textField == nameTF) {
+            NSLog("Finished Editing drug name")
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        return isEditing
+    }
+}
