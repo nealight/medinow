@@ -85,10 +85,10 @@ class PrescriptionDetailViewController: UIViewController {
     func setupNavigation() {
         self.navigationController!.navigationBar.topItem?.title = NSLocalizedString("Prescription Detail", comment: "")
         if (isEditing) {
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .save, primaryAction: UIAction() { [self] _ in
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .save, primaryAction: UIAction() { [self] _ in
                 self.savePrescription()
             })
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .cancel, primaryAction: UIAction() {
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .cancel, primaryAction: UIAction() {
                 [self] _ in
                 self.cancelPrescriptionEdit()
             })
@@ -108,11 +108,11 @@ class PrescriptionDetailViewController: UIViewController {
     }
     
     private func setupNonEditingNavigation() {
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .edit, primaryAction: UIAction() {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .edit, primaryAction: UIAction() {
             [self] _ in
             self.setEditing(true, animated: true)
         })
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .done, primaryAction: UIAction() {
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .done, primaryAction: UIAction() {
             [self] _ in
             self.cancelPrescriptionEdit()
         })

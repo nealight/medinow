@@ -1893,22 +1893,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "77FB91A0-A6B2-4F40-AF6F-74E4EDC6178A"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "medinow/InputTextFieldFactory.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
-            landmarkName = "create(placeholder:isEditing:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "39E3CA48-F246-4BE0-A7B2-81DD4205336B"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -1919,22 +1903,6 @@
             startingLineNumber = "158"
             endingLineNumber = "158"
             landmarkName = "setupFrequencyPicker()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "93241B55-0279-4F8B-9216-1D1489B46013"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "medinow/InputTextFieldFactory.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
-            landmarkName = "create(placeholder:isEditing:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

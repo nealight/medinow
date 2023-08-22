@@ -16,17 +16,16 @@ protocol InputTextFieldFactory {
 class DrugInfoTextFieldFactory: InputTextFieldFactory {
     func create(placeholder: String, isEditing: Bool = true) -> UITextField {
         let producedTF = UITextField()
-        if (isEditing) {
-            producedTF.returnKeyType = .done
-            producedTF.font = .systemFont(ofSize: 18, weight: .regular)
-        } else {
-            producedTF.minimumFontSize = 18
-            producedTF.font = .systemFont(ofSize: 18, weight: .medium)
+        producedTF.borderStyle = .roundedRect
+        producedTF.font = isEditing ? .systemFont(ofSize: 18) : .boldSystemFont(ofSize: 18)
+        if (!isEditing) {
+            producedTF.textColor = .white
+            producedTF.layer.cornerRadius = 100
+            producedTF.layer.borderColor = UIColor.white.cgColor
         }
         producedTF.placeholder = placeholder
-        producedTF.borderStyle = .roundedRect
-        producedTF.backgroundColor = isEditing ? .systemGray6 : .clear
-
+        producedTF.backgroundColor = isEditing ? .systemGray6 : .systemOrange
+        
         producedTF.translatesAutoresizingMaskIntoConstraints = false
         return producedTF
     }
