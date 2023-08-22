@@ -81,12 +81,17 @@ class PrescriptionListCell: UITableViewCell {
     func setupView() {
         self.selectionStyle = .none
         
+        cellView.layer.shadowColor = UIColor.systemOrange.cgColor
+        cellView.layer.shadowOpacity = 1
+        cellView.layer.shadowOffset = .zero
+        cellView.layer.shadowRadius = 7.5
+        
         addSubview(cellView)
         cellView.addSubview(medicationLabel)
         cellView.addSubview(dosageLabel)
         
         NSLayoutConstraint.activate([
-            cellView.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
+            cellView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
             cellView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
             cellViewLeftMargin,
             cellView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5)
@@ -101,7 +106,7 @@ class PrescriptionListCell: UITableViewCell {
         NSLayoutConstraint.activate([
             dosageLabel.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: 20),
             dosageLabel.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: 20),
-            dosageLabel.topAnchor.constraint(equalTo: medicationLabel.bottomAnchor, constant: 5)
+            dosageLabel.topAnchor.constraint(equalTo: medicationLabel.bottomAnchor, constant: 7.5)
         ])
         
     }

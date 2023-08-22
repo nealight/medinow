@@ -85,10 +85,10 @@ class PrescriptionDetailViewController: UIViewController {
     func setupNavigation() {
         self.navigationController!.navigationBar.topItem?.title = NSLocalizedString("Prescription Detail", comment: "")
         if (isEditing) {
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .save, primaryAction: UIAction() { [self] _ in
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .save, primaryAction: UIAction() { [self] _ in
                 self.savePrescription()
             })
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .cancel, primaryAction: UIAction() {
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .cancel, primaryAction: UIAction() {
                 [self] _ in
                 self.cancelPrescriptionEdit()
             })
@@ -183,8 +183,9 @@ class PrescriptionDetailViewController: UIViewController {
         keyboardToolBar.sizeToFit()
         keyboardToolBar.barStyle = .default
         frequencyTextField.inputAccessoryView = keyboardToolBar
-        nextButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.frequencyPickerViewSelected))
-
+        nextButton = UIBarButtonItem(systemItem: .done, primaryAction: UIAction(handler: { _ in
+            self.frequencyPickerViewSelected()
+        }))
         keyboardToolBar.items = [UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), nextButton]
         
     }

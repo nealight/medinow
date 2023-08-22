@@ -42,6 +42,11 @@ class InventoryCell: UICollectionViewCell {
     }
     
     func setupView() {
+        self.layer.shadowColor = UIColor.systemGray.cgColor
+        self.layer.shadowOpacity = 0.5
+        self.layer.shadowOffset = .zero
+        self.layer.shadowRadius = 2
+        
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 15

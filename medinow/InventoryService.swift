@@ -12,6 +12,7 @@ import UIKit
 protocol InventoryServiceProvider {
     func fetchInventoryDetailsBackground(fetch_offset: Int?, action: @escaping ([NSManagedObject]) -> ())
     func saveDrugInventory(drugInventory: DrugInventoryModel)
+    func removeDrugInventory(drugName: String, completionHandler: @escaping (Bool) -> Void)
 }
 
 extension InventoryServiceProvider {
@@ -21,6 +22,11 @@ extension InventoryServiceProvider {
 }
 
 class InventoryService: InventoryServiceProvider {
+    func removeDrugInventory(drugName: String, completionHandler: @escaping (Bool) -> Void) {
+        // TO BE DONE
+        return
+    }
+    
     lazy var drugInventoryContext: NSManagedObjectContext = appDelegate.persistentContainer.viewContext
     
     func fetchInventoryDetailsBackground(fetch_offset: Int?, action: @escaping ([NSManagedObject]) -> ()) {

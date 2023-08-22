@@ -22,6 +22,11 @@ class DrugInfoTextFieldFactory: InputTextFieldFactory {
             producedTF.textColor = .white
             producedTF.layer.cornerRadius = 100
             producedTF.layer.borderColor = UIColor.white.cgColor
+            
+            producedTF.layer.shadowColor = UIColor.systemOrange.cgColor
+            producedTF.layer.shadowOpacity = 1
+            producedTF.layer.shadowOffset = .zero
+            producedTF.layer.shadowRadius = 7.5
         }
         producedTF.placeholder = placeholder
         producedTF.backgroundColor = isEditing ? .systemGray6 : .systemOrange
