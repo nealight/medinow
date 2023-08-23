@@ -92,8 +92,8 @@
 		1C245E7D29F33A9900AEF9CE = {
 			isa = PBXGroup;
 			children = (
-				1C245E8829F33A9900AEF9CE /* medinow */,
 				1CD1D3602A958F6B000E8F4F /* CappieTests */,
+				1C245E8829F33A9900AEF9CE /* medinow */,
 				1C245E8729F33A9900AEF9CE /* Products */,
 			);
 			sourceTree = "<group>";
