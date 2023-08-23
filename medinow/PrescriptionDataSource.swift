@@ -13,7 +13,7 @@ class PrescriptionDataSource: NSObject, UITableViewDataSource {
     let Rows_Each_Load = 20
     let drugPrescriptionService: DrugPrescriptionServiceProvider
     
-    init(fetch_offset: Int = 0, drugPrescriptionService: DrugPrescriptionService) {
+    init(fetch_offset: Int = 0, drugPrescriptionService: DrugPrescriptionServiceProvider) {
         self.drugPrescriptionService = drugPrescriptionService
     }
     

@@ -24,12 +24,23 @@
 		1C40CA4B2A7E96F8007D7BD8 /* InventoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C40CA4A2A7E96F8007D7BD8 /* InventoryService.swift */; };
 		1C7C976C29FAAEEE007808FC /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7C976B29FAAEEE007808FC /* MainTabBarController.swift */; };
 		1CABC08D2A1C0CFF00EA11CE /* InventoryEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CABC08C2A1C0CFF00EA11CE /* InventoryEditViewController.swift */; };
+		1CD1D3622A958F6B000E8F4F /* TestPrescriptionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD1D3612A958F6B000E8F4F /* TestPrescriptionDataSource.swift */; };
 		1CEE55602A08243A00B96C38 /* InventoryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEE555F2A08243A00B96C38 /* InventoryListViewController.swift */; };
 		1CFC64452A6C793200BA6A42 /* DrugImageCameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC64442A6C793200BA6A42 /* DrugImageCameraController.swift */; };
 		1CFC644A2A74C80E00BA6A42 /* InputTextFieldFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC64492A74C80E00BA6A42 /* InputTextFieldFactory.swift */; };
 		1CFC644E2A76C06000BA6A42 /* DrugPrescriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC644D2A76C06000BA6A42 /* DrugPrescriptionService.swift */; };
 		1CFC64502A76C27000BA6A42 /* DrugInventoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC644F2A76C27000BA6A42 /* DrugInventoryModel.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1CD1D3632A958F6B000E8F4F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C245E7E29F33A9900AEF9CE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1C245E8529F33A9900AEF9CE;
+			remoteInfo = Cappie;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1C0D17182A0A82EB00B1A1E8 /* InventoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryCell.swift; sourceTree = "<group>"; };
@@ -51,6 +62,8 @@
 		1C40CA4A2A7E96F8007D7BD8 /* InventoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryService.swift; sourceTree = "<group>"; };
 		1C7C976B29FAAEEE007808FC /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		1CABC08C2A1C0CFF00EA11CE /* InventoryEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryEditViewController.swift; sourceTree = "<group>"; };
+		1CD1D35F2A958F6B000E8F4F /* CappieTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CappieTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1CD1D3612A958F6B000E8F4F /* TestPrescriptionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPrescriptionDataSource.swift; sourceTree = "<group>"; };
 		1CEE555F2A08243A00B96C38 /* InventoryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryListViewController.swift; sourceTree = "<group>"; };
 		1CFC64442A6C793200BA6A42 /* DrugImageCameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrugImageCameraController.swift; sourceTree = "<group>"; };
 		1CFC64492A74C80E00BA6A42 /* InputTextFieldFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextFieldFactory.swift; sourceTree = "<group>"; };
@@ -66,6 +79,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1CD1D35C2A958F6B000E8F4F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -73,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				1C245E8829F33A9900AEF9CE /* medinow */,
+				1CD1D3602A958F6B000E8F4F /* CappieTests */,
 				1C245E8729F33A9900AEF9CE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -81,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				1C245E8629F33A9900AEF9CE /* Cappie.app */,
+				1CD1D35F2A958F6B000E8F4F /* CappieTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -96,6 +118,14 @@
 				1C245E9229F33A9900AEF9CE /* medinow.xcdatamodeld */,
 			);
 			path = medinow;
+			sourceTree = "<group>";
+		};
+		1CD1D3602A958F6B000E8F4F /* CappieTests */ = {
+			isa = PBXGroup;
+			children = (
+				1CD1D3612A958F6B000E8F4F /* TestPrescriptionDataSource.swift */,
+			);
+			path = CappieTests;
 			sourceTree = "<group>";
 		};
 		1CFC64462A6D780400BA6A42 /* Perscription */ = {
@@ -159,6 +189,24 @@
 			productReference = 1C245E8629F33A9900AEF9CE /* Cappie.app */;
 			productType = "com.apple.product-type.application";
 		};
+		1CD1D35E2A958F6B000E8F4F /* CappieTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1CD1D3672A958F6B000E8F4F /* Build configuration list for PBXNativeTarget "CappieTests" */;
+			buildPhases = (
+				1CD1D35B2A958F6B000E8F4F /* Sources */,
+				1CD1D35C2A958F6B000E8F4F /* Frameworks */,
+				1CD1D35D2A958F6B000E8F4F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1CD1D3642A958F6B000E8F4F /* PBXTargetDependency */,
+			);
+			name = CappieTests;
+			productName = CappieTests;
+			productReference = 1CD1D35F2A958F6B000E8F4F /* CappieTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -166,11 +214,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1400;
+				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					1C245E8529F33A9900AEF9CE = {
 						CreatedOnToolsVersion = 14.0;
+					};
+					1CD1D35E2A958F6B000E8F4F = {
+						CreatedOnToolsVersion = 14.3;
+						TestTargetID = 1C245E8529F33A9900AEF9CE;
 					};
 				};
 			};
@@ -189,6 +241,7 @@
 			projectRoot = "";
 			targets = (
 				1C245E8529F33A9900AEF9CE /* Cappie */,
+				1CD1D35E2A958F6B000E8F4F /* CappieTests */,
 			);
 		};
 /* End PBXProject section */
@@ -200,6 +253,13 @@
 			files = (
 				1C245E9629F33A9A00AEF9CE /* Assets.xcassets in Resources */,
 				1C0FB1D72A8865CB006C8BE1 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1CD1D35D2A958F6B000E8F4F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,7 +293,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1CD1D35B2A958F6B000E8F4F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1CD1D3622A958F6B000E8F4F /* TestPrescriptionDataSource.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1CD1D3642A958F6B000E8F4F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1C245E8529F33A9900AEF9CE /* Cappie */;
+			targetProxy = 1CD1D3632A958F6B000E8F4F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		1C0FB1D92A8865CB006C8BE1 /* Localizable.strings */ = {
@@ -431,6 +507,44 @@
 			};
 			name = Release;
 		};
+		1CD1D3652A958F6B000E8F4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DDF2RRVJ39;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dashu.CappieTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cappie.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Cappie";
+			};
+			name = Debug;
+		};
+		1CD1D3662A958F6B000E8F4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DDF2RRVJ39;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dashu.CappieTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cappie.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Cappie";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -448,6 +562,15 @@
 			buildConfigurations = (
 				1C245E9E29F33A9A00AEF9CE /* Debug */,
 				1C245E9F29F33A9A00AEF9CE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1CD1D3672A958F6B000E8F4F /* Build configuration list for PBXNativeTarget "CappieTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1CD1D3652A958F6B000E8F4F /* Debug */,
+				1CD1D3662A958F6B000E8F4F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
