@@ -74,16 +74,20 @@ class PrescriptionDetailViewController: UIViewController {
             return
         }
         coordinator.savePrescriptionTapped(text: text, dosage: Int64(frequencyPickerOptions[frequencyPicker.selectedRow(inComponent: 0)]))
-        self.dismiss(animated: true)
+        self.navigationController!.isNavigationBarHidden = true
     }
     
     func cancelPrescriptionEdit() {
         appDelegate.coordinator.cancelPrescriptionEditTapped()
-        self.dismiss(animated: true)
+        self.navigationController!.isNavigationBarHidden = true
     }
     
     func setupNavigation() {
-        self.navigationController!.navigationBar.topItem?.title = NSLocalizedString("Prescription Detail", comment: "")
+        if let filledName = filledName {
+            self.navigationItem.title = filledName
+        } else {
+            self.navigationItem.title = NSLocalizedString("Prescription Detail", comment: "")
+        }
         if (isEditing) {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .save, primaryAction: UIAction() { [self] _ in
                 self.savePrescription()
@@ -187,7 +191,6 @@ class PrescriptionDetailViewController: UIViewController {
             self.frequencyPickerViewSelected()
         }))
         keyboardToolBar.items = [UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), nextButton]
-        
     }
     
     @objc func frequencyPickerViewSelected() {
@@ -216,6 +219,7 @@ extension PrescriptionDetailViewController: UIPickerViewDelegate, UIPickerViewDa
 extension PrescriptionDetailViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
         if (textField == nameTF) {
+            self.navigationItem.title = textField.text
             NSLog("Finished Editing drug name")
         }
     }

@@ -102,9 +102,8 @@ extension MainCoordinator: PrescriptionCoordinator {
             let prescriptionEditViewController = PrescriptionDetailViewController(coordinator: self, drugPrescriptionService: self.drugPrescriptionService, filledName: object.value(forKey: "name") as? String, filledDailyDosage:  String(object.value(forKey: "dailyDosage") as! Int64))
             
             DispatchQueue.main.async {
-                let navVC = UINavigationController(rootViewController: prescriptionEditViewController)
-                navVC.modalPresentationStyle = .fullScreen
-                self.navigationController.present(navVC, animated: true)
+                self.navigationController.isNavigationBarHidden = false
+                self.navigationController.pushViewController(prescriptionEditViewController, animated: true)
             }
         }
     }
@@ -112,10 +111,8 @@ extension MainCoordinator: PrescriptionCoordinator {
     func addPrescriptionTapped() {
         let savedPrescriptionEditViewController = prescriptionLastSaved ? PrescriptionDetailViewController(coordinator: self, drugPrescriptionService: drugPrescriptionService) : self.savedPrescriptionEditViewController!
         savedPrescriptionEditViewController.isEditing = true
-        
-        let navVC = UINavigationController(rootViewController: savedPrescriptionEditViewController)
-        navVC.modalPresentationStyle = .fullScreen
-        navigationController.present(navVC, animated: true)
+        navigationController.isNavigationBarHidden = false
+        navigationController.pushViewController(savedPrescriptionEditViewController, animated: true)
         self.savedPrescriptionEditViewController = savedPrescriptionEditViewController
     }
     
@@ -127,12 +124,14 @@ extension MainCoordinator: PrescriptionCoordinator {
             drugPrescriptionService.insertPrescription(prescription: .init(name: text, dailyDosage: Int64(dosage)))
             prescriptionLastSaved = true
         }
+        navigationController.popViewController(animated: true)
     }
     
     func cancelPrescriptionEditTapped() {
         if originalPerscriptionName == nil {
             prescriptionLastSaved = false
         }
+        navigationController.popViewController(animated: true)
     }
     
     func getPrescriptionDataSource() -> PrescriptionDataSource {
