@@ -44,6 +44,7 @@ class InventoryListViewController: UICollectionViewController {
     
     func setupView() {
         self.view.backgroundColor = .systemBackground
+        self.collectionView.alwaysBounceVertical = true
         self.collectionView.register(InventoryCell.self, forCellWithReuseIdentifier: cellReuseID)
     }
     

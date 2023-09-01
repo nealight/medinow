@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 
 class PrescriptionListCell: UITableViewCell {
+    static let CellTouchOnAnimationDuration = 0.2
+    
     var cellView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemOrange
@@ -39,11 +41,24 @@ class PrescriptionListCell: UITableViewCell {
         setupView()
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        if selected {
-            cellView.backgroundColor = .systemOrange.withAlphaComponent(0.5)
-        } else {
-            cellView.backgroundColor = .systemOrange.withAlphaComponent(1)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        UIView.animate(withDuration: PrescriptionListCell.CellTouchOnAnimationDuration) {
+            self.cellView.backgroundColor = .systemOrange.withAlphaComponent(0.5)
+        }
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
+        UIView.animate(withDuration: PrescriptionListCell.CellTouchOnAnimationDuration) {
+            self.cellView.backgroundColor = .systemOrange.withAlphaComponent(1)
+        }
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        UIView.animate(withDuration: PrescriptionListCell.CellTouchOnAnimationDuration, delay: 0.5) {
+            self.cellView.backgroundColor = .systemOrange.withAlphaComponent(1)
         }
     }
     
@@ -66,12 +81,17 @@ class PrescriptionListCell: UITableViewCell {
     func setupView() {
         self.selectionStyle = .none
         
+        cellView.layer.shadowColor = UIColor.systemOrange.cgColor
+        cellView.layer.shadowOpacity = 1
+        cellView.layer.shadowOffset = .zero
+        cellView.layer.shadowRadius = 7.5
+        
         addSubview(cellView)
         cellView.addSubview(medicationLabel)
         cellView.addSubview(dosageLabel)
         
         NSLayoutConstraint.activate([
-            cellView.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
+            cellView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
             cellView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
             cellViewLeftMargin,
             cellView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5)
@@ -86,7 +106,7 @@ class PrescriptionListCell: UITableViewCell {
         NSLayoutConstraint.activate([
             dosageLabel.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: 20),
             dosageLabel.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: 20),
-            dosageLabel.topAnchor.constraint(equalTo: medicationLabel.bottomAnchor, constant: 5)
+            dosageLabel.topAnchor.constraint(equalTo: medicationLabel.bottomAnchor, constant: 7.5)
         ])
         
     }

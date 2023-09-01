@@ -9,23 +9,12 @@ import Foundation
 import UIKit
 
 class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
-    unowned let coordinator: MainCoordinator
-    lazy var inventoryVC = {
-        let inventoryVCLayout = UICollectionViewFlowLayout()
-        let cellPerRow: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 4 : 2
-        inventoryVCLayout.itemSize = CGSize(width: UIScreen.main.bounds.width / cellPerRow - 15, height: UIScreen.main.bounds.width / cellPerRow - 15)
-        inventoryVCLayout.sectionInset = .init(top: 10, left: 10, bottom: 10, right: 10)
-        inventoryVCLayout.minimumLineSpacing = 10
-        inventoryVCLayout.minimumInteritemSpacing = 10
-        
-        let inventoryVC = InventoryListViewController(coordinator: coordinator, inventoryService: coordinator.inventoryService, collectionViewLayout: inventoryVCLayout)
-        return inventoryVC
-    }()
+    let inventoryVC: InventoryListViewController
+    let prescriptionVC: PrescriptionListViewController
     
-    lazy var prescriptionVC = PrescriptionListViewController(coordinator: coordinator)
-    
-    init(coordinator: MainCoordinator) {
-        self.coordinator = coordinator
+    init(inventoryVC: InventoryListViewController, prescriptionVC: PrescriptionListViewController) {
+        self.inventoryVC = inventoryVC
+        self.prescriptionVC = prescriptionVC
         super.init(nibName: nil, bundle: nil)
     }
     

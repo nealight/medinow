@@ -9,7 +9,7 @@ import UIKit
 import CoreData
 
 class InventoryDetailViewController: UIViewController {
-    let coordinator: InventoryCoordinator
+    unowned let coordinator: InventoryCoordinator
     let inventoryService: InventoryServiceProvider
     
     init(coordinator: InventoryCoordinator, inventoryService: InventoryServiceProvider) {
