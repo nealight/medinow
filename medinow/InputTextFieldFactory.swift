@@ -23,14 +23,16 @@ class DrugInfoTextFieldFactory: InputTextFieldFactory {
         let producedTF = UITextField()
         producedTF.borderStyle = .roundedRect
         
-        producedTF.attributedPlaceholder = .init(string: placeholder)
+        producedTF.attributedPlaceholder = .init(string: placeholder, attributes: [
+            NSAttributedString.Key.foregroundColor: UIColor.systemOrange.withAlphaComponent(0.5)
+        ])
         producedTF.layer.cornerRadius = 10
         producedTF.clipsToBounds = true
         
         if (isEditing) {
             producedTF.layer.borderColor = UIColor.systemOrange.cgColor
             producedTF.layer.borderWidth = 1
-            producedTF.font = .systemFont(ofSize: 18, weight: .regular)
+            producedTF.font = .systemFont(ofSize: 18, weight: .semibold)
         } else {
             producedTF.textColor = .white
             producedTF.layer.borderColor = UIColor.white.cgColor

@@ -166,8 +166,8 @@
 				1C0D171C2A0AB6AF00B1A1E8 /* Coordinator.swift */,
 				1C0D171E2A0AB8E900B1A1E8 /* MainCoordinator.swift */,
 				1CFC64492A74C80E00BA6A42 /* InputTextFieldFactory.swift */,
-				1C0FB1D92A8865CB006C8BE1 /* Localizable.strings */,
 				1CBC16912AA68E1000F4ECEC /* DrugInfoComponent.swift */,
+				1C0FB1D92A8865CB006C8BE1 /* Localizable.strings */,
 			);
 			name = Global;
 			sourceTree = "<group>";
