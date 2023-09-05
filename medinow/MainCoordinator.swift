@@ -39,6 +39,7 @@ class MainCoordinator: Coordinator {
     }()
     
     lazy var prescriptionVC = PrescriptionListViewController(coordinator: self)
+    let drugInfoTextFieldFactory = DrugInfoTextFieldFactory()
     
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
@@ -47,8 +48,8 @@ class MainCoordinator: Coordinator {
     let inventoryService = InventoryService()
     
     lazy var mainTabBarController: MainTabBarController = MainTabBarController(inventoryVC: inventoryVC, prescriptionVC: prescriptionVC)
-    lazy var savedPrescriptionEditViewController: PrescriptionDetailViewController? = PrescriptionDetailViewController(coordinator: self, drugPrescriptionService: drugPrescriptionService)
-    lazy var inventoryEditViewController = InventoryEditViewController(coordinator: self, inventoryService: inventoryService)
+    lazy var savedPrescriptionEditViewController: PrescriptionDetailViewController? = PrescriptionDetailViewController(coordinator: self, drugPrescriptionService: drugPrescriptionService, textFieldFactory: drugInfoTextFieldFactory)
+    lazy var inventoryEditViewController = InventoryEditViewController(coordinator: self, inventoryService: inventoryService, textFieldFactory: drugInfoTextFieldFactory)
     var drugImageCameraController: DrugImageCameraController?
     
     private var _prescriptionLastSaved: Bool
@@ -99,19 +100,17 @@ extension MainCoordinator: PrescriptionCoordinator {
         drugPrescriptionService.fetchDrug(for: name) { object in
             self.originalPerscriptionName = object.value(forKey: "name") as? String
             
-            let prescriptionEditViewController = PrescriptionDetailViewController(coordinator: self, drugPrescriptionService: self.drugPrescriptionService, filledName: object.value(forKey: "name") as? String, filledDailyDosage:  String(object.value(forKey: "dailyDosage") as! Int64))
+            let prescriptionEditViewController = PrescriptionDetailViewController(coordinator: self, drugPrescriptionService: self.drugPrescriptionService, filledName: object.value(forKey: "name") as? String, filledDailyDosage:  String(object.value(forKey: "dailyDosage") as! Int64), textFieldFactory: self.drugInfoTextFieldFactory)
             
             DispatchQueue.main.async {
-                self.navigationController.isNavigationBarHidden = false
                 self.navigationController.pushViewController(prescriptionEditViewController, animated: true)
             }
         }
     }
     
     func addPrescriptionTapped() {
-        let savedPrescriptionEditViewController = prescriptionLastSaved ? PrescriptionDetailViewController(coordinator: self, drugPrescriptionService: drugPrescriptionService) : self.savedPrescriptionEditViewController!
+        let savedPrescriptionEditViewController = prescriptionLastSaved ? PrescriptionDetailViewController(coordinator: self, drugPrescriptionService: drugPrescriptionService, textFieldFactory: drugInfoTextFieldFactory) : self.savedPrescriptionEditViewController!
         savedPrescriptionEditViewController.isEditing = true
-        navigationController.isNavigationBarHidden = false
         navigationController.pushViewController(savedPrescriptionEditViewController, animated: true)
         self.savedPrescriptionEditViewController = savedPrescriptionEditViewController
     }
@@ -176,7 +175,7 @@ extension MainCoordinator: InventoryCoordinator {
     
     func saveInventoryEditTapped() {
         inventoryEditViewController.navigationController?.dismiss(animated: true)
-        inventoryEditViewController = InventoryEditViewController(coordinator: self, inventoryService: inventoryService)
+        inventoryEditViewController = InventoryEditViewController(coordinator: self, inventoryService: inventoryService, textFieldFactory: drugInfoTextFieldFactory)
     }
 }
 
