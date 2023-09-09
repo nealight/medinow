@@ -185,7 +185,6 @@ class PrescriptionDetailViewController: UIViewController {
         frequencyPicker.dataSource = self
         
         frequencyPicker.selectRow(Int(frequencyTextField.placeholder!)! - 1, inComponent: 0, animated: false)
-        frequencyTextField.text = frequencyTextField.placeholder
         
         addKeyboardToolBar()
     }

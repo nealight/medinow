@@ -13,6 +13,7 @@ class InventoryListViewController: UICollectionViewController {
     let cellReuseID = "InventoryCell"
     let inventoryService: InventoryServiceProvider
     private lazy var dataSource = makeDataSource()
+    var fetched_drugs: [DrugInventoryModel] = []
     
     enum Section: Int, CaseIterable {
         case unexpired
@@ -55,14 +56,14 @@ class InventoryListViewController: UICollectionViewController {
     func reloadDrugInventoryData() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, DrugInventoryModel>()
         snapshot.appendSections(Section.allCases)
-        inventoryService.fetchInventoryDetailBackground() { (result) in
-            var fetched_drugs: [DrugInventoryModel] = []
+        inventoryService.fetchInventoryDetailBackground() { [weak self] (result) in
+            self?.fetched_drugs = []
             for data in result {
-                fetched_drugs.append(DrugInventoryModel(uuid: data.value(forKey: "uuid") as! UUID, snapshot: data.value(forKey: "snapshot") as? Data, name: data.value(forKey: "name") as! String, expirationDate: Date(), originalQuantity: data.value(forKey: "originalQuantity") as! Int64, remainingQuantity: data.value(forKey: "remainingQuantity") as! Int64))
+                self?.fetched_drugs.append(DrugInventoryModel(uuid: data.value(forKey: "uuid") as! UUID, snapshot: data.value(forKey: "snapshot") as? Data, name: data.value(forKey: "name") as! String, expirationDate: Date(), originalQuantity: data.value(forKey: "originalQuantity") as! Int64, remainingQuantity: data.value(forKey: "remainingQuantity") as! Int64))
             }
-            snapshot.appendItems(fetched_drugs)
+            snapshot.appendItems(self?.fetched_drugs ?? [])
             DispatchQueue.main.async {
-                self.dataSource.apply(snapshot)
+                self?.dataSource.apply(snapshot)
             }
         }
     }
@@ -89,5 +90,11 @@ class InventoryListViewController: UICollectionViewController {
             self.coordinator.addInventoryTapped()
         }
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .add, primaryAction: addButtonAction)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let drug = self.fetched_drugs[indexPath.item]
+        self.navigationController?.pushViewController(InventoryDetailViewController(coordinator: coordinator, inventoryService: inventoryService, name: drug.name, quantity: String(drug.remainingQuantity)), animated: true)
+        
     }
 }

@@ -38,6 +38,7 @@ class DrugInfoTextFieldFactory: InputTextFieldFactory {
             producedTF.layer.borderColor = UIColor.white.cgColor
             producedTF.backgroundColor = .systemOrange
             producedTF.font = .boldSystemFont(ofSize: 18)
+            producedTF.text = producedTF.placeholder
         }
         
         producedTF.translatesAutoresizingMaskIntoConstraints = false
