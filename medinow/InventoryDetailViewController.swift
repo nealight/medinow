@@ -47,8 +47,8 @@ class InventoryDetailViewController: UIViewController {
         leftView.translatesAutoresizingMaskIntoConstraints = false
         
         let rightView = inputTextFieldFactory.create(placeholder: String(drug.remainingQuantity), isEditing: false)
-        rightView.textAlignment = .center
-        rightView.delegate = self
+        rightView.textFieldView.textAlignment = .center
+        rightView.textFieldView.delegate = self
         rightView.translatesAutoresizingMaskIntoConstraints = false
         
         let remainingQuantityComponent = componentFactory.create(leftView: leftView, rightView: rightView, isEditing: false)
