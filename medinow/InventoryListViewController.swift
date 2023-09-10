@@ -94,7 +94,9 @@ class InventoryListViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let drug = self.fetched_drugs[indexPath.item]
-        self.navigationController?.pushViewController(InventoryDetailViewController(coordinator: coordinator, inventoryService: inventoryService, name: drug.name, quantity: String(drug.remainingQuantity)), animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.navigationController?.pushViewController(InventoryDetailViewController(coordinator: self.coordinator, inventoryService: self.inventoryService, drug: drug), animated: true)
+        }
         
     }
 }

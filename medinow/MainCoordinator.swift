@@ -22,6 +22,7 @@ protocol InventoryCoordinator: AnyObject {
     func setInventoryDrugImage(image: UIImage?)
     func cancelInventoryEditTapped()
     func saveInventoryEditTapped()
+    func deleteInventoryTapped()
 }
 
 
@@ -139,6 +140,9 @@ extension MainCoordinator: PrescriptionCoordinator {
 }
 
 extension MainCoordinator: InventoryCoordinator {
+    func deleteInventoryTapped() {
+    }
+    
     func addInventoryTapped() {
         inventoryEditViewController.isEditing = true
         let navVC = UINavigationController(rootViewController: inventoryEditViewController)

@@ -14,14 +14,12 @@ class InventoryDetailViewController: UIViewController {
     let componentFactory: InfoComponentFactory = DrugInfoComponentFactory()
     let inputTextFieldFactory: InputTextFieldFactory = DrugInfoTextFieldFactory()
     
-    let name: String
-    let quantity: String
+    let drug: DrugInventoryModel
     
-    init(coordinator: InventoryCoordinator, inventoryService: InventoryServiceProvider, name: String, quantity: String) {
+    init(coordinator: InventoryCoordinator, inventoryService: InventoryServiceProvider, drug: DrugInventoryModel) {
         self.coordinator = coordinator
         self.inventoryService = inventoryService
-        self.name = name
-        self.quantity = quantity
+        self.drug = drug
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -32,17 +30,23 @@ class InventoryDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        setupNavigation()
         setupDrugComponents()
+        setupDeleteButton()
+    }
+    
+    private func setupNavigation() {
+        navigationItem.title = drug.name
     }
     
     private func setupDrugComponents() {
         let leftView = UILabel()
-        leftView.text = name
+        leftView.text = "Quantity"
         leftView.textColor = .systemOrange
         leftView.font = .boldSystemFont(ofSize: 20)
         leftView.translatesAutoresizingMaskIntoConstraints = false
         
-        let rightView = inputTextFieldFactory.create(placeholder: quantity, isEditing: false)
+        let rightView = inputTextFieldFactory.create(placeholder: String(drug.remainingQuantity), isEditing: false)
         rightView.textAlignment = .center
         rightView.delegate = self
         rightView.translatesAutoresizingMaskIntoConstraints = false
@@ -50,12 +54,33 @@ class InventoryDetailViewController: UIViewController {
         let remainingQuantityComponent = componentFactory.create(leftView: leftView, rightView: rightView, isEditing: false)
         view.addSubview(remainingQuantityComponent)
         NSLayoutConstraint.activate([
-            remainingQuantityComponent.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            remainingQuantityComponent.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 0),
-            remainingQuantityComponent.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: 0),
+            remainingQuantityComponent.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            remainingQuantityComponent.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 10),
+            remainingQuantityComponent.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -10),
             remainingQuantityComponent.heightAnchor.constraint(equalToConstant: 40)
         ])
         remainingQuantityComponent.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setupDeleteButton() {
+        let deleteButton = UIButton(type: .system, primaryAction: UIAction() { _ in
+            self.coordinator.deleteInventoryTapped()
+            self.inventoryService.removeDrugInventory(uuid: self.drug.uuid) { _ in 
+                self.navigationController?.popViewController(animated: true)
+            }
+        })
+        deleteButton.layer.cornerRadius = 20
+        deleteButton.backgroundColor = .tintColor.withAlphaComponent(0.15)
+        deleteButton.setTitle("Delete", for: .normal)
+        deleteButton.titleLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
+        deleteButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(deleteButton)
+        NSLayoutConstraint.activate([
+            deleteButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40),
+            deleteButton.heightAnchor.constraint(equalToConstant: 60),
+            deleteButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
+            deleteButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20)
+        ])
     }
     
     

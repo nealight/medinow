@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 class InventoryCell: UICollectionViewCell {
+    static let CellTouchOnAnimationDuration = 0.2
     let imageView = UIImageView()
     
     private var _drugImage: UIImage?
@@ -41,6 +42,27 @@ class InventoryCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        UIView.animate(withDuration: InventoryCell.CellTouchOnAnimationDuration) {
+            self.imageView.alpha = 0.5
+        }
+        super.touchesBegan(touches, with: event)
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        UIView.animate(withDuration: InventoryCell.CellTouchOnAnimationDuration) {
+            self.imageView.alpha = 1
+        }
+        super.touchesEnded(touches, with: event)
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        UIView.animate(withDuration: InventoryCell.CellTouchOnAnimationDuration) {
+            self.imageView.alpha = 1
+        }
+        super.touchesCancelled(touches, with: event)
+    }
+    
     func setupView() {
         self.layer.shadowColor = UIColor.systemGray.cgColor
         self.layer.shadowOpacity = 0.5
@@ -54,6 +76,7 @@ class InventoryCell: UICollectionViewCell {
         addSubview(imageView)
         addSubview(medicationLabel)
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
             imageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20),
