@@ -18,3 +18,5 @@
 "Pills per day" = "每天用量";
 "Missing Prescription Information" = "请提供处方信息";
 "You have not filled out your prescription information." = "有一些处方信息你可能忘记填写了。";
+"Quantity" = "数量";
+"Delete" = "删除";

@@ -27,7 +27,8 @@ class DrugInfoTextFieldFactory: InputTextFieldFactory {
             NSAttributedString.Key.foregroundColor: UIColor.systemOrange.withAlphaComponent(0.5)
         ])
         producedTF.layer.cornerRadius = 10
-        producedTF.clipsToBounds = true
+        producedTF.layer.masksToBounds = true
+//        producedTF.clipsToBounds = true
         
         if (isEditing) {
             producedTF.layer.borderColor = UIColor.systemOrange.cgColor
@@ -40,6 +41,11 @@ class DrugInfoTextFieldFactory: InputTextFieldFactory {
             producedTF.backgroundColor = .systemOrange
             producedTF.font = .boldSystemFont(ofSize: 18)
             producedTF.text = producedTF.placeholder
+            
+            producedTF.layer.shadowColor = UIColor.systemOrange.cgColor
+            producedTF.layer.shadowOpacity = 1
+            producedTF.layer.shadowOffset = .zero
+            producedTF.layer.shadowRadius = 10
         }
         
         producedTF.translatesAutoresizingMaskIntoConstraints = false
