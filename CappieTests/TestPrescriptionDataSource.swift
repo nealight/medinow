@@ -12,7 +12,6 @@ import CoreData
 class MockDrugPrescriptionService: DrugPrescriptionServiceProvider {
     public var fetchDrugsBackgroundCalled = false
     
-    
     func fetchDrugsBackground(fetch_offset: Int, action: @escaping ([NSManagedObject]) -> ()) {
         fetchDrugsBackgroundCalled = true
         let context = appDelegate.persistentContainer.viewContext
@@ -26,9 +25,11 @@ class MockDrugPrescriptionService: DrugPrescriptionServiceProvider {
     func removeDrugBackground(drugName: String, completionHandler: @escaping (Bool) -> Void) {
         
     }
+    
     func insertPrescription(prescription: DrugPrescriptionModel) {
         
     }
+    
     func fetchDrug(for name: String, action: @escaping (NSManagedObject) -> ()) {
         
     }

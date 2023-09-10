@@ -12,24 +12,34 @@ protocol InputTextFieldFactory {
     func create(placeholder: String, isEditing: Bool) -> UITextField
 }
 
+extension InputTextFieldFactory {
+    func create(placeholder: String, isEditing: Bool = true) -> UITextField {
+        return create(placeholder: placeholder, isEditing: isEditing)
+    }
+}
 
 class DrugInfoTextFieldFactory: InputTextFieldFactory {
     func create(placeholder: String, isEditing: Bool = true) -> UITextField {
         let producedTF = UITextField()
         producedTF.borderStyle = .roundedRect
-        producedTF.font = isEditing ? .systemFont(ofSize: 18) : .boldSystemFont(ofSize: 18)
-        if (!isEditing) {
+        
+        producedTF.attributedPlaceholder = .init(string: placeholder, attributes: [
+            NSAttributedString.Key.foregroundColor: UIColor.systemOrange.withAlphaComponent(0.5)
+        ])
+        producedTF.layer.cornerRadius = 10
+        producedTF.clipsToBounds = true
+        
+        if (isEditing) {
+            producedTF.layer.borderColor = UIColor.systemOrange.cgColor
+            producedTF.layer.borderWidth = 1
+            producedTF.font = .systemFont(ofSize: 18, weight: .semibold)
+        } else {
             producedTF.textColor = .white
-            producedTF.layer.cornerRadius = 100
             producedTF.layer.borderColor = UIColor.white.cgColor
-            
-            producedTF.layer.shadowColor = UIColor.systemOrange.cgColor
-            producedTF.layer.shadowOpacity = 1
-            producedTF.layer.shadowOffset = .zero
-            producedTF.layer.shadowRadius = 7.5
+            producedTF.backgroundColor = .systemOrange
+            producedTF.font = .boldSystemFont(ofSize: 18)
+            producedTF.text = producedTF.placeholder
         }
-        producedTF.placeholder = placeholder
-        producedTF.backgroundColor = isEditing ? .systemGray6 : .systemOrange
         
         producedTF.translatesAutoresizingMaskIntoConstraints = false
         return producedTF

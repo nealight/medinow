@@ -11,19 +11,20 @@ import Vision
 import UIKit
 
 class InventoryEditViewController: UIViewController {
-    let drugInfoTextFieldFactory = DrugInfoTextFieldFactory()
+    let textFieldFactory: InputTextFieldFactory
     unowned let coordinator: InventoryCoordinator
     let inventoryService: InventoryServiceProvider
     lazy var drugImageView = UIImageView()
     var drugInventoryImage: UIImage?
     let cameraButton = UIButton(type: .system)
-    lazy var drugNameTF = drugInfoTextFieldFactory.create(placeholder: NSLocalizedString("Drug Name", comment: ""))
-    lazy var capletQuantityTF = drugInfoTextFieldFactory.create(placeholder: NSLocalizedString("Quantity", comment: ""))
+    lazy var drugNameTF = textFieldFactory.create(placeholder: NSLocalizedString("Drug Name", comment: ""))
+    lazy var capletQuantityTF = textFieldFactory.create(placeholder: NSLocalizedString("Quantity", comment: ""))
     
     
-    init(coordinator: InventoryCoordinator, inventoryService: InventoryServiceProvider) {
+    init(coordinator: InventoryCoordinator, inventoryService: InventoryServiceProvider, textFieldFactory: InputTextFieldFactory) {
         self.coordinator = coordinator
         self.inventoryService = inventoryService
+        self.textFieldFactory = textFieldFactory
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -103,8 +104,8 @@ class InventoryEditViewController: UIViewController {
     
     func setupCameraButton() {
         cameraButton.layer.cornerRadius = 20
-        cameraButton.backgroundColor = .systemBlue.withAlphaComponent(0.15)
-        cameraButton.tintColor = .systemBlue
+        cameraButton.backgroundColor = .tintColor.withAlphaComponent(0.15)
+        cameraButton.tintColor = .systemOrange
         cameraButton.setImage(.init(systemName: "camera.fill"), for: .normal)
         cameraButton.titleLabel?.font = .systemFont(ofSize: 16)
         cameraButton.translatesAutoresizingMaskIntoConstraints = false

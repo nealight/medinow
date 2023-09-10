@@ -24,6 +24,7 @@
 		1C40CA4B2A7E96F8007D7BD8 /* InventoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C40CA4A2A7E96F8007D7BD8 /* InventoryService.swift */; };
 		1C7C976C29FAAEEE007808FC /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7C976B29FAAEEE007808FC /* MainTabBarController.swift */; };
 		1CABC08D2A1C0CFF00EA11CE /* InventoryEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CABC08C2A1C0CFF00EA11CE /* InventoryEditViewController.swift */; };
+		1CBC16922AA68E1000F4ECEC /* InfoComponentFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CBC16912AA68E1000F4ECEC /* InfoComponentFactory.swift */; };
 		1CD1D3622A958F6B000E8F4F /* TestPrescriptionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD1D3612A958F6B000E8F4F /* TestPrescriptionDataSource.swift */; };
 		1CEE55602A08243A00B96C38 /* InventoryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEE555F2A08243A00B96C38 /* InventoryListViewController.swift */; };
 		1CFC64452A6C793200BA6A42 /* DrugImageCameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC64442A6C793200BA6A42 /* DrugImageCameraController.swift */; };
@@ -62,6 +63,7 @@
 		1C40CA4A2A7E96F8007D7BD8 /* InventoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryService.swift; sourceTree = "<group>"; };
 		1C7C976B29FAAEEE007808FC /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		1CABC08C2A1C0CFF00EA11CE /* InventoryEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryEditViewController.swift; sourceTree = "<group>"; };
+		1CBC16912AA68E1000F4ECEC /* InfoComponentFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoComponentFactory.swift; sourceTree = "<group>"; };
 		1CD1D35F2A958F6B000E8F4F /* CappieTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CappieTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CD1D3612A958F6B000E8F4F /* TestPrescriptionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPrescriptionDataSource.swift; sourceTree = "<group>"; };
 		1CEE555F2A08243A00B96C38 /* InventoryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryListViewController.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 				1C0D171C2A0AB6AF00B1A1E8 /* Coordinator.swift */,
 				1C0D171E2A0AB8E900B1A1E8 /* MainCoordinator.swift */,
 				1CFC64492A74C80E00BA6A42 /* InputTextFieldFactory.swift */,
+				1CBC16912AA68E1000F4ECEC /* InfoComponentFactory.swift */,
 				1C0FB1D92A8865CB006C8BE1 /* Localizable.strings */,
 			);
 			name = Global;
@@ -290,6 +293,7 @@
 				1C0D171F2A0AB8E900B1A1E8 /* MainCoordinator.swift in Sources */,
 				1C0D17192A0A82EB00B1A1E8 /* InventoryCell.swift in Sources */,
 				1C1C802029F5895400E57D66 /* PrescriptionListCell.swift in Sources */,
+				1CBC16922AA68E1000F4ECEC /* InfoComponentFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

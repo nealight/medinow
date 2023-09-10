@@ -10,21 +10,23 @@ import UIKit
 
 class PrescriptionDetailViewController: UIViewController {
     unowned let coordinator: PrescriptionCoordinator
-    let drugInfoTextFieldFactory = DrugInfoTextFieldFactory()
+    let textFieldFactory: InputTextFieldFactory
     let frequencyTextLabel = UILabel()
     let frequencyPicker = UIPickerView()
     let frequencyPickerOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     let drugPrescriptionService: DrugPrescriptionServiceProvider
+    var frequencyComponent: InfoComponentFactory.Component?
     
-    lazy var nameTF = drugInfoTextFieldFactory.create(placeholder: NSLocalizedString("Drug Name", comment: ""), isEditing: isEditing)
-    lazy var frequencyTextField = drugInfoTextFieldFactory.create(placeholder: "1", isEditing: isEditing)
+    lazy var nameTF = textFieldFactory.create(placeholder: NSLocalizedString("Drug Name", comment: ""), isEditing: isEditing)
+    lazy var frequencyTextField = textFieldFactory.create(placeholder: "1", isEditing: isEditing)
     
     var filledName : String?
     var filledDailyDosage: String?
     
-    init(coordinator: PrescriptionCoordinator, drugPrescriptionService: DrugPrescriptionServiceProvider, filledName: String? = nil, filledDailyDosage: String? = nil) {
+    init(coordinator: PrescriptionCoordinator, drugPrescriptionService: DrugPrescriptionServiceProvider, filledName: String? = nil, filledDailyDosage: String? = nil, textFieldFactory: InputTextFieldFactory) {
         self.coordinator = coordinator
         self.drugPrescriptionService = drugPrescriptionService
+        self.textFieldFactory = textFieldFactory
         
         self.filledName = filledName
         self.filledDailyDosage = filledDailyDosage
@@ -41,6 +43,7 @@ class PrescriptionDetailViewController: UIViewController {
         setupNameTF()
         setupFrequencyPicker()
         setupFrequencyLabel()
+        setupfrequencyComponent()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,12 +61,32 @@ class PrescriptionDetailViewController: UIViewController {
         
         nameTF.removeFromSuperview()
         frequencyTextField.removeFromSuperview()
-        nameTF = drugInfoTextFieldFactory.create(placeholder: NSLocalizedString("Drug Name", comment: ""), isEditing: isEditing)
-        frequencyTextField = drugInfoTextFieldFactory.create(placeholder: "1", isEditing: isEditing)
+        nameTF = textFieldFactory.create(placeholder: NSLocalizedString("Drug Name", comment: ""), isEditing: isEditing)
+        frequencyTextField = textFieldFactory.create(placeholder: "1", isEditing: isEditing)
+        frequencyComponent?.removeFromSuperview()
         
         setupNameTF()
         setupFrequencyPicker()
         setupFrequencyLabel()
+        setupfrequencyComponent()
+    }
+    
+    func setupfrequencyComponent() {
+        let drugInfoComponentFactory = DrugInfoComponentFactory()
+        frequencyComponent = drugInfoComponentFactory.create(leftView: frequencyTextLabel, rightView: frequencyTextField, isEditing: isEditing)
+        
+        guard let frequencyComponent = frequencyComponent else {
+            fatalError()
+        }
+        
+        view.addSubview(frequencyComponent)
+        NSLayoutConstraint.activate([
+            frequencyComponent.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            frequencyComponent.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            frequencyComponent.topAnchor.constraint(equalTo: nameTF.bottomAnchor, constant: 20),
+            frequencyComponent.heightAnchor.constraint(equalToConstant: 40)
+        ])
+
     }
     
     func savePrescription() {
@@ -83,6 +106,7 @@ class PrescriptionDetailViewController: UIViewController {
     }
     
     func setupNavigation() {
+        navigationController?.isNavigationBarHidden = false
         if let filledName = filledName {
             self.navigationItem.title = filledName
         } else {
@@ -138,15 +162,9 @@ class PrescriptionDetailViewController: UIViewController {
     
     func setupFrequencyLabel() {
         frequencyTextLabel.text = NSLocalizedString("Pills per day", comment: "")
-        frequencyTextLabel.font.withSize(20)
+        frequencyTextLabel.textColor = .systemOrange
+        frequencyTextLabel.font = .boldSystemFont(ofSize: 20)
         frequencyTextLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(frequencyTextLabel)
-        NSLayoutConstraint.activate([
-            frequencyTextLabel.bottomAnchor.constraint(equalTo: frequencyTextField.bottomAnchor),
-            frequencyTextLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-            frequencyTextLabel.heightAnchor.constraint(equalToConstant: 40),
-            frequencyTextLabel.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.5)
-        ])
     }
     
     func setupFrequencyPicker() {
@@ -159,7 +177,7 @@ class PrescriptionDetailViewController: UIViewController {
         }
         frequencyTextField.delegate = self
         frequencyTextField.textAlignment = .center
-        frequencyTextField.tintColor = frequencyTextField.backgroundColor
+        frequencyTextField.tintColor = .clear
         
         frequencyPicker.translatesAutoresizingMaskIntoConstraints = false
         
@@ -167,15 +185,6 @@ class PrescriptionDetailViewController: UIViewController {
         frequencyPicker.dataSource = self
         
         frequencyPicker.selectRow(Int(frequencyTextField.placeholder!)! - 1, inComponent: 0, animated: false)
-        frequencyTextField.text = frequencyTextField.placeholder
-               
-        view.addSubview(frequencyTextField)
-        NSLayoutConstraint.activate([
-            frequencyTextField.heightAnchor.constraint(equalToConstant: 40),
-            frequencyTextField.topAnchor.constraint(equalTo: nameTF.bottomAnchor, constant: 20),
-            frequencyTextField.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.5),
-            frequencyTextField.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20)
-        ])
         
         addKeyboardToolBar()
     }
@@ -190,6 +199,7 @@ class PrescriptionDetailViewController: UIViewController {
         nextButton = UIBarButtonItem(systemItem: .done, primaryAction: UIAction(handler: { _ in
             self.frequencyPickerViewSelected()
         }))
+        nextButton.tintColor = .systemRed
         keyboardToolBar.items = [UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), nextButton]
     }
     

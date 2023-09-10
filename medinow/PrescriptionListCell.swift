@@ -84,7 +84,7 @@ class PrescriptionListCell: UITableViewCell {
         cellView.layer.shadowColor = UIColor.systemOrange.cgColor
         cellView.layer.shadowOpacity = 1
         cellView.layer.shadowOffset = .zero
-        cellView.layer.shadowRadius = 7.5
+        cellView.layer.shadowRadius = 5
         
         addSubview(cellView)
         cellView.addSubview(medicationLabel)

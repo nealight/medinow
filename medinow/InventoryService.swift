@@ -12,7 +12,7 @@ import UIKit
 protocol InventoryServiceProvider {
     func fetchInventoryDetailsBackground(fetch_offset: Int?, action: @escaping ([NSManagedObject]) -> ())
     func saveDrugInventory(drugInventory: DrugInventoryModel)
-    func removeDrugInventory(drugName: String, completionHandler: @escaping (Bool) -> Void)
+    func removeDrugInventory(uuid: UUID, completionHandler: @escaping (Bool) -> Void)
 }
 
 extension InventoryServiceProvider {
@@ -22,8 +22,20 @@ extension InventoryServiceProvider {
 }
 
 class InventoryService: InventoryServiceProvider {
-    func removeDrugInventory(drugName: String, completionHandler: @escaping (Bool) -> Void) {
-        // TO BE DONE
+    func removeDrugInventory(uuid: UUID, completionHandler: @escaping (Bool) -> Void) {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "DrugInventory")
+        request.predicate = NSPredicate(format: "uuid=%@", uuid.uuidString)
+        drugInventoryContext.perform {
+            let result = try! self.drugInventoryContext.fetch(request)
+            let data = result.first
+            let object = data as! NSManagedObject
+            self.drugInventoryContext.delete(object)
+            try! self.drugInventoryContext.save()
+            
+            DispatchQueue.main.async {
+                completionHandler(true)
+            }
+        }
         return
     }
     
