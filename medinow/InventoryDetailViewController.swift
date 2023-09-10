@@ -76,10 +76,10 @@ class InventoryDetailViewController: UIViewController {
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(deleteButton)
         NSLayoutConstraint.activate([
-            deleteButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40),
+            deleteButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
             deleteButton.heightAnchor.constraint(equalToConstant: 60),
-            deleteButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-            deleteButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20)
+            deleteButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            deleteButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10)
         ])
     }
     

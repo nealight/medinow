@@ -9,17 +9,17 @@ import Foundation
 import UIKit
 
 protocol InputTextFieldFactory {
-    func create(placeholder: String, isEditing: Bool) -> UITextField
+    func create(placeholder: String, text: String, isEditing: Bool) -> UITextField
 }
 
 extension InputTextFieldFactory {
-    func create(placeholder: String, isEditing: Bool = true) -> UITextField {
-        return create(placeholder: placeholder, isEditing: isEditing)
+    func create(placeholder: String, text: String = "", isEditing: Bool = true) -> UITextField {
+        return create(placeholder: placeholder, text: text, isEditing: isEditing)
     }
 }
 
 class DrugInfoTextFieldFactory: InputTextFieldFactory {
-    func create(placeholder: String, isEditing: Bool = true) -> UITextField {
+    func create(placeholder: String, text: String, isEditing: Bool = true) -> UITextField {
         let producedTF = UITextField()
         producedTF.borderStyle = .roundedRect
         
@@ -33,6 +33,7 @@ class DrugInfoTextFieldFactory: InputTextFieldFactory {
             producedTF.layer.borderColor = UIColor.systemOrange.cgColor
             producedTF.layer.borderWidth = 1
             producedTF.font = .systemFont(ofSize: 18, weight: .semibold)
+            producedTF.text = text
         } else {
             producedTF.textColor = .white
             producedTF.layer.borderColor = UIColor.white.cgColor

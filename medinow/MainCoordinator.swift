@@ -96,8 +96,6 @@ class MainCoordinator: Coordinator {
 
 extension MainCoordinator: PrescriptionCoordinator {
     func editPrescription(for name: String) {
-        prescriptionLastSaved = true
-        
         drugPrescriptionService.fetchDrug(for: name) { object in
             self.originalPerscriptionName = object.value(forKey: "name") as? String
             
@@ -111,7 +109,9 @@ extension MainCoordinator: PrescriptionCoordinator {
     
     func addPrescriptionTapped() {
         let savedPrescriptionEditViewController = prescriptionLastSaved ? PrescriptionDetailViewController(coordinator: self, drugPrescriptionService: drugPrescriptionService, textFieldFactory: drugInfoTextFieldFactory) : self.savedPrescriptionEditViewController!
-        savedPrescriptionEditViewController.isEditing = true
+        if prescriptionLastSaved {
+            savedPrescriptionEditViewController.isEditing = true
+        }
         navigationController.pushViewController(savedPrescriptionEditViewController, animated: true)
         self.savedPrescriptionEditViewController = savedPrescriptionEditViewController
     }
@@ -131,6 +131,7 @@ extension MainCoordinator: PrescriptionCoordinator {
         if originalPerscriptionName == nil {
             prescriptionLastSaved = false
         }
+        originalPerscriptionName = nil
         navigationController.popViewController(animated: true)
     }
     
@@ -141,6 +142,7 @@ extension MainCoordinator: PrescriptionCoordinator {
 
 extension MainCoordinator: InventoryCoordinator {
     func deleteInventoryTapped() {
+        // NO OP
     }
     
     func addInventoryTapped() {
