@@ -41,7 +41,7 @@ class InventoryDetailViewController: UIViewController {
     
     private func setupDrugComponents() {
         let leftView = UILabel()
-        leftView.text = "Quantity"
+        leftView.text = NSLocalizedString("Quantity", comment: "")
         leftView.textColor = .systemOrange
         leftView.font = .boldSystemFont(ofSize: 20)
         leftView.translatesAutoresizingMaskIntoConstraints = false
@@ -71,15 +71,15 @@ class InventoryDetailViewController: UIViewController {
         })
         deleteButton.layer.cornerRadius = 20
         deleteButton.backgroundColor = .tintColor.withAlphaComponent(0.15)
-        deleteButton.setTitle("Delete", for: .normal)
+        deleteButton.setTitle(NSLocalizedString("Delete", comment: ""), for: .normal)
         deleteButton.titleLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(deleteButton)
         NSLayoutConstraint.activate([
-            deleteButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40),
+            deleteButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
             deleteButton.heightAnchor.constraint(equalToConstant: 60),
-            deleteButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-            deleteButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20)
+            deleteButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            deleteButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10)
         ])
     }
     

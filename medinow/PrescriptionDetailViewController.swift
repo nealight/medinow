@@ -61,8 +61,8 @@ class PrescriptionDetailViewController: UIViewController {
         
         nameTF.removeFromSuperview()
         frequencyTextField.removeFromSuperview()
-        nameTF = textFieldFactory.create(placeholder: NSLocalizedString("Drug Name", comment: ""), isEditing: isEditing)
-        frequencyTextField = textFieldFactory.create(placeholder: "1", isEditing: isEditing)
+        nameTF = textFieldFactory.create(placeholder: NSLocalizedString("Drug Name", comment: ""), text: filledName ?? "", isEditing: isEditing)
+        frequencyTextField = textFieldFactory.create(placeholder: "1", text: filledDailyDosage ?? "", isEditing: isEditing)
         frequencyComponent?.removeFromSuperview()
         
         setupNameTF()

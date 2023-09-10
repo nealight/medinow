@@ -113,7 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				1CFC64482A6D784800BA6A42 /* Global */,
-				1CFC64462A6D780400BA6A42 /* Perscription */,
+				1CFC64462A6D780400BA6A42 /* Prescription */,
 				1CFC64472A6D782200BA6A42 /* Inventory */,
 				1C245E9529F33A9A00AEF9CE /* Assets.xcassets */,
 				1C245E9A29F33A9A00AEF9CE /* Info.plist */,
@@ -130,7 +130,7 @@
 			path = CappieTests;
 			sourceTree = "<group>";
 		};
-		1CFC64462A6D780400BA6A42 /* Perscription */ = {
+		1CFC64462A6D780400BA6A42 /* Prescription */ = {
 			isa = PBXGroup;
 			children = (
 				1CFC644D2A76C06000BA6A42 /* DrugPrescriptionService.swift */,
@@ -140,7 +140,7 @@
 				1C1C802129F5D0BD00E57D66 /* PrescriptionDetailViewController.swift */,
 				1C3A4CE329F845330016AD06 /* DrugPrescriptionModel.swift */,
 			);
-			name = Perscription;
+			name = Prescription;
 			sourceTree = "<group>";
 		};
 		1CFC64472A6D782200BA6A42 /* Inventory */ = {

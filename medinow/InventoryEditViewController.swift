@@ -36,10 +36,11 @@ class InventoryEditViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         setupNavigation()
-        setupCameraButton()
+
         setupDrugNameTF()
         setupCapletQuantityTF()
         setupDrugImage()
+        setupCameraButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,13 +52,13 @@ class InventoryEditViewController: UIViewController {
             self.drugImageView.isHidden = false
         }
         self.view.layoutIfNeeded()
-        self.cameraButton.isHidden = !self.drugImageView.isHidden
     }
     
     private func saveDrugInventory() {
         guard let drugInventoryImage = drugInventoryImage else {
             let alert = UIAlertController(title: NSLocalizedString("No Photo Taken", comment: ""), message: NSLocalizedString("Please add a photo to the drug that you are adding to your inventory.", comment: ""), preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: .cancel))
+            self.view.endEditing(false)
             present(alert, animated: true)
             return
         }
@@ -86,7 +87,7 @@ class InventoryEditViewController: UIViewController {
             drugNameTF.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             drugNameTF.heightAnchor.constraint(equalToConstant: 40),
             drugNameTF.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-            drugNameTF.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20)
+            drugNameTF.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -100)
         ])
     }
     
@@ -100,10 +101,19 @@ class InventoryEditViewController: UIViewController {
             capletQuantityTF.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             capletQuantityTF.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20)
         ])
+        let keyboardToolbar = UIToolbar()
+        keyboardToolbar.sizeToFit()
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
+                                            target: nil, action: nil)
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done,
+                                         target: capletQuantityTF, action: #selector(resignFirstResponder))
+        keyboardToolbar.items = [flexibleSpace, doneButton]
+        capletQuantityTF.inputAccessoryView = keyboardToolbar
     }
     
     func setupCameraButton() {
-        cameraButton.layer.cornerRadius = 20
+        cameraButton.layer.cornerRadius = 10
+        cameraButton.clipsToBounds = true
         cameraButton.backgroundColor = .tintColor.withAlphaComponent(0.15)
         cameraButton.tintColor = .systemOrange
         cameraButton.setImage(.init(systemName: "camera.fill"), for: .normal)
@@ -111,9 +121,9 @@ class InventoryEditViewController: UIViewController {
         cameraButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(cameraButton)
         NSLayoutConstraint.activate([
-            cameraButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40),
-            cameraButton.heightAnchor.constraint(equalToConstant: 80),
-            cameraButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
+            cameraButton.topAnchor.constraint(equalTo: drugNameTF.topAnchor),
+            cameraButton.heightAnchor.constraint(equalTo: drugNameTF.heightAnchor),
+            cameraButton.leadingAnchor.constraint(equalTo: drugNameTF.trailingAnchor, constant: 10),
             cameraButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20)
         ])
         let cameraAction = UIAction() { _ in
@@ -181,7 +191,6 @@ class InventoryEditViewController: UIViewController {
                 self.drugNameTF.text = candidate
             }))
         }
-        
         self.present(alert, animated: true, completion: nil)
     }
     
