@@ -63,7 +63,7 @@ class InventoryEditViewController: UIViewController {
             return
         }
         
-        inventoryService.saveDrugInventory(drugInventory: DrugInventoryModel(uuid: UUID(), snapshot: drugInventoryImage.jpegData(compressionQuality: 1), name: drugNameTF.text ?? "N/A", expirationDate: .now + 365, originalQuantity: Int64(capletQuantityTF.text!) ?? 0, remainingQuantity: Int64(capletQuantityTF.text!) ?? 0))
+        inventoryService.saveDrugInventory(drugInventory: DrugInventoryModel(uuid: UUID(), snapshot: drugInventoryImage.jpegData(compressionQuality: 1), name: drugNameTF.textFieldView.text ?? "N/A", expirationDate: .now + 365, originalQuantity: Int64(capletQuantityTF.textFieldView.text!) ?? 0, remainingQuantity: Int64(capletQuantityTF.textFieldView.text!) ?? 0))
         coordinator.saveInventoryEditTapped()
     }
     
@@ -81,7 +81,7 @@ class InventoryEditViewController: UIViewController {
     }
     
     func setupDrugNameTF() {
-        drugNameTF.delegate = self
+        drugNameTF.textFieldView.delegate = self
         view.addSubview(drugNameTF)
         NSLayoutConstraint.activate([
             drugNameTF.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
@@ -92,8 +92,8 @@ class InventoryEditViewController: UIViewController {
     }
     
     func setupCapletQuantityTF() {
-        capletQuantityTF.delegate = self
-        capletQuantityTF.keyboardType = .numberPad
+        capletQuantityTF.textFieldView.delegate = self
+        capletQuantityTF.textFieldView.keyboardType = .numberPad
         view.addSubview(capletQuantityTF)
         NSLayoutConstraint.activate([
             capletQuantityTF.topAnchor.constraint(equalTo: drugNameTF.bottomAnchor, constant: 20),
@@ -106,9 +106,9 @@ class InventoryEditViewController: UIViewController {
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
                                             target: nil, action: nil)
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done,
-                                         target: capletQuantityTF, action: #selector(resignFirstResponder))
+                                         target: capletQuantityTF.textFieldView, action: #selector(resignFirstResponder))
         keyboardToolbar.items = [flexibleSpace, doneButton]
-        capletQuantityTF.inputAccessoryView = keyboardToolbar
+        capletQuantityTF.textFieldView.inputAccessoryView = keyboardToolbar
     }
     
     func setupCameraButton() {
@@ -184,11 +184,11 @@ class InventoryEditViewController: UIViewController {
     }
     
     private func promptForChoosingDrugName(candidates: [String]) {
-        let alert = UIAlertController(title: "Select the Drug Name", message: "We captured multiple drug names and would like to know which is the right one.", preferredStyle: .alert)
+        let alert = UIAlertController(title: NSLocalizedString("Select the Drug Name", comment: ""), message: NSLocalizedString("We captured multiple drug names and would like to know which is the right one.", comment: ""), preferredStyle: .alert)
         for candidate in candidates {
             alert.addAction(UIAlertAction(title: NSLocalizedString(candidate, comment: "Default action"), style: .default, handler: { _ in
                 NSLog("\"\(candidate)\" has been selected.")
-                self.drugNameTF.text = candidate
+                self.drugNameTF.textFieldView.text = candidate
             }))
         }
         self.present(alert, animated: true, completion: nil)

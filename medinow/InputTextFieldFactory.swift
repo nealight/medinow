@@ -8,27 +8,41 @@
 import Foundation
 import UIKit
 
+protocol InputTextField: UIView {
+    var textFieldView: UITextField! { get }
+}
+
+class DrugInfoTextField: UIView, InputTextField {
+    var textFieldView: UITextField!
+}
+
 protocol InputTextFieldFactory {
-    func create(placeholder: String, text: String, isEditing: Bool) -> UITextField
+    func create(placeholder: String, text: String, isEditing: Bool) -> InputTextField
 }
 
 extension InputTextFieldFactory {
-    func create(placeholder: String, text: String = "", isEditing: Bool = true) -> UITextField {
+    func create(placeholder: String, text: String = "", isEditing: Bool = true) -> InputTextField {
         return create(placeholder: placeholder, text: text, isEditing: isEditing)
     }
 }
 
 class DrugInfoTextFieldFactory: InputTextFieldFactory {
-    func create(placeholder: String, text: String, isEditing: Bool = true) -> UITextField {
-        let producedTF = UITextField()
+    func create(placeholder: String, text: String, isEditing: Bool = true) -> InputTextField {
+        let overlayingView = DrugInfoTextField()
+        overlayingView.layer.masksToBounds = false
+        
+        
+        let producedTF = UITextField(frame: overlayingView.bounds)
         producedTF.borderStyle = .roundedRect
         
         producedTF.attributedPlaceholder = .init(string: placeholder, attributes: [
             NSAttributedString.Key.foregroundColor: UIColor.systemOrange.withAlphaComponent(0.5)
         ])
-        producedTF.layer.cornerRadius = 10
+        producedTF.layer.cornerRadius = 5
         producedTF.layer.masksToBounds = true
-//        producedTF.clipsToBounds = true
+        
+        overlayingView.addSubview(producedTF)
+        overlayingView.textFieldView = producedTF
         
         if (isEditing) {
             producedTF.layer.borderColor = UIColor.systemOrange.cgColor
@@ -42,13 +56,13 @@ class DrugInfoTextFieldFactory: InputTextFieldFactory {
             producedTF.font = .boldSystemFont(ofSize: 18)
             producedTF.text = producedTF.placeholder
             
-            producedTF.layer.shadowColor = UIColor.systemOrange.cgColor
-            producedTF.layer.shadowOpacity = 1
-            producedTF.layer.shadowOffset = .zero
-            producedTF.layer.shadowRadius = 10
+            overlayingView.layer.shadowColor = UIColor.systemOrange.cgColor
+            overlayingView.layer.shadowOpacity = 1
+            overlayingView.layer.shadowOffset = .zero
+            overlayingView.layer.shadowRadius = 10
         }
-        
-        producedTF.translatesAutoresizingMaskIntoConstraints = false
-        return producedTF
+        overlayingView.translatesAutoresizingMaskIntoConstraints = false
+        producedTF.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        return overlayingView
     }
 }

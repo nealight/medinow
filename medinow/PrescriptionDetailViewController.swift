@@ -90,7 +90,7 @@ class PrescriptionDetailViewController: UIViewController {
     }
     
     func savePrescription() {
-        guard let text = nameTF.text, nameTF.text != "" else {
+        guard let text = nameTF.textFieldView.text, nameTF.textFieldView.text != "" else {
             let alert = UIAlertController(title: NSLocalizedString("Missing Prescription Information", comment: ""), message: NSLocalizedString("You have not filled out your prescription information.", comment: ""), preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: .cancel))
             present(alert, animated: true)
@@ -148,9 +148,9 @@ class PrescriptionDetailViewController: UIViewController {
     
     func setupNameTF() {
         if let filledName = filledName {
-            nameTF.text = filledName
+            nameTF.textFieldView.text = filledName
         }
-        nameTF.delegate = self
+        nameTF.textFieldView.delegate = self
         view.addSubview(nameTF)
         NSLayoutConstraint.activate([
             nameTF.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
@@ -169,14 +169,14 @@ class PrescriptionDetailViewController: UIViewController {
     
     func setupFrequencyPicker() {
         if let filledDailyDosage = filledDailyDosage {
-            frequencyTextField.text = filledDailyDosage
+            frequencyTextField.textFieldView.text = filledDailyDosage
         }
         
         if isEditing {
-            frequencyTextField.inputView = frequencyPicker
+            frequencyTextField.textFieldView.inputView = frequencyPicker
         }
-        frequencyTextField.delegate = self
-        frequencyTextField.textAlignment = .center
+        frequencyTextField.textFieldView.delegate = self
+        frequencyTextField.textFieldView.textAlignment = .center
         frequencyTextField.tintColor = .clear
         
         frequencyPicker.translatesAutoresizingMaskIntoConstraints = false
@@ -184,7 +184,7 @@ class PrescriptionDetailViewController: UIViewController {
         frequencyPicker.delegate = self
         frequencyPicker.dataSource = self
         
-        frequencyPicker.selectRow(Int(frequencyTextField.placeholder!)! - 1, inComponent: 0, animated: false)
+        frequencyPicker.selectRow(Int(frequencyTextField.textFieldView.placeholder!)! - 1, inComponent: 0, animated: false)
         
         addKeyboardToolBar()
     }
@@ -195,7 +195,7 @@ class PrescriptionDetailViewController: UIViewController {
                                                         CGFloat(0), width: CGFloat(frequencyPicker.frame.size.width), height: CGFloat(25)))
         keyboardToolBar.sizeToFit()
         keyboardToolBar.barStyle = .default
-        frequencyTextField.inputAccessoryView = keyboardToolBar
+        frequencyTextField.textFieldView.inputAccessoryView = keyboardToolBar
         nextButton = UIBarButtonItem(systemItem: .done, primaryAction: UIAction(handler: { _ in
             self.frequencyPickerViewSelected()
         }))
@@ -222,7 +222,7 @@ extension PrescriptionDetailViewController: UIPickerViewDelegate, UIPickerViewDa
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        frequencyTextField.text = "\(frequencyPickerOptions[row])"
+        frequencyTextField.textFieldView.text = "\(frequencyPickerOptions[row])"
     }
 }
 
